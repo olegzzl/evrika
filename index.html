@@ -1,0 +1,329 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Детский клуб «Эврика» — Харьков</title>
+    
+    <!-- Скрипт Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Шрифты Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat+Alternates:wght@700;800&family=Nunito:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    
+    <!-- Конфигурация Tailwind и кастомные стили -->
+    <script src="css/tailwind-config.js"></script>
+    <link rel="stylesheet" href="css/styles.css">
+</head>
+<body class="min-h-screen flex flex-col justify-between selection:bg-brand-yellow selection:text-navy page-home-active">
+
+    <!-- Верхняя панель переключения вида: Адаптивный (ПК) / Мобильный фрейм (как на референсе) -->
+    <div class="bg-navy text-white text-xs py-2 px-4 hidden md:flex items-center justify-between z-50">
+        <div class="flex items-center gap-2 opacity-90">
+            <span class="inline-block w-2 h-2 rounded-full bg-brand-green animate-pulse"></span>
+            <span>Дизайн-система «Эврика» • Mobile-First Адаптив</span>
+        </div>
+        <div class="flex items-center gap-3">
+            <span class="text-slate-300">Режим отображения:</span>
+            <button onclick="setViewportMode('responsive')" id="btn-mode-responsive" class="px-2.5 py-1 rounded-md bg-brand-blue text-white font-semibold transition">
+                Адаптивный (ПК + Моб)
+            </button>
+            <button onclick="setViewportMode('mobile')" id="btn-mode-mobile" class="px-2.5 py-1 rounded-md bg-white/10 hover:bg-white/20 text-white transition">
+                Мобильный экран (Как на референсе)
+            </button>
+        </div>
+    </div>
+
+    <!-- Главный контейнер приложения -->
+    <div id="app-wrapper" class="w-full max-w-6xl mx-auto min-h-screen flex flex-col justify-between relative bg-milk transition-all duration-300 overflow-hidden">
+        
+        <!-- Декоративные фоновые пятна в углах (как на референсе) -->
+        <div class="pointer-events-none absolute -bottom-16 -left-16 w-64 h-64 rounded-full bg-[#E3F1FE] opacity-75 blur-xl z-0"></div>
+        <div class="pointer-events-none absolute -bottom-16 -right-12 w-56 h-56 rounded-full bg-[#FEF0C7] opacity-80 blur-xl z-0"></div>
+        <div class="pointer-events-none absolute top-32 -right-20 w-48 h-48 rounded-full bg-[#DCFCE7] opacity-50 blur-2xl z-0"></div>
+
+        <!-- ШАПКА САЙТА -->
+        <header class="sticky top-0 z-30 bg-milk/90 backdrop-blur-md px-5 py-3.5 md:px-8 md:py-4 border-b border-slate-200/50">
+            <div class="flex items-center justify-between">
+                <!-- Логотип -->
+                <a href="#home" onclick="navigateTo('home'); return false;" class="group flex flex-col items-start focus:outline-none">
+                    <div class="font-logo text-2xl md:text-3xl font-extrabold tracking-tight leading-none logo-text">
+                        <span>Э</span><span>в</span><span>р</span><span>и</span><span>к</span><span>а</span>
+                    </div>
+                    <span class="text-[11px] md:text-xs font-semibold text-navy/70 tracking-wide -mt-0.5 pl-0.5 group-hover:text-navy transition">
+                        детский клуб
+                    </span>
+                </a>
+
+                <!-- Десктопная навигация (скрыта на мобильных и в режиме мобильного фрейма) -->
+                <nav id="desktop-nav" class="hidden lg:flex items-center gap-1 xl:gap-2">
+                    <button onclick="navigateTo('home')" data-nav="home" class="nav-pill px-3 py-1.5 rounded-full text-sm font-bold transition">Главная</button>
+                    <button onclick="navigateTo('about')" data-nav="about" class="nav-pill px-3 py-1.5 rounded-full text-sm font-bold transition">О клубе</button>
+                    <button onclick="navigateTo('program')" data-nav="program" class="nav-pill px-3 py-1.5 rounded-full text-sm font-bold transition">Программа</button>
+                    <button onclick="navigateTo('clubs')" data-nav="clubs" class="nav-pill px-3 py-1.5 rounded-full text-sm font-bold transition">Кружки</button>
+                    <button onclick="navigateTo('calendar')" data-nav="calendar" class="nav-pill px-3 py-1.5 rounded-full text-sm font-bold transition">Календарь</button>
+                    <button onclick="navigateTo('gallery')" data-nav="gallery" class="nav-pill px-3 py-1.5 rounded-full text-sm font-bold transition">Галерея</button>
+                    <button onclick="navigateTo('teachers')" data-nav="teachers" class="nav-pill px-3 py-1.5 rounded-full text-sm font-bold transition">Воспитатели</button>
+                    <button onclick="navigateTo('contacts')" data-nav="contacts" class="nav-pill px-3 py-1.5 rounded-full text-sm font-bold transition">Контакты</button>
+                </nav>
+
+                <!-- Правый блок: Кнопка записи на ПК + Кнопка мобильного меню -->
+                <div class="flex items-center gap-2.5">
+                    <button onclick="openBookingModal('Запись в детский клуб')" id="desktop-cta" class="hidden sm:inline-flex items-center gap-1.5 bg-brand-yellow hover:bg-brand-yellowHover text-navy font-bold text-xs md:text-sm px-4 py-2 rounded-full shadow-sm transition transform active:scale-95">
+                        <span>Записаться</span>
+                    </button>
+
+                    <!-- Кнопка открытия экрана меню (как на 2-м экране референса) -->
+                    <button onclick="toggleMenuDrawer()" id="menu-toggle-btn" aria-label="Открыть меню" class="w-10 h-10 rounded-xl flex items-center justify-center text-navy hover:bg-navy/5 active:bg-navy/10 transition">
+                        <!-- Иконка гамбургера -->
+                        <svg id="icon-hamburger" class="w-6 h-6" fill="none" stroke="currentColor" stroke-width="2.2" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M4 6h16M4 12h16M4 18h16"/>
+                        </svg>
+                        <!-- Иконка крестика -->
+                        <svg id="icon-close" class="w-6 h-6 hidden" fill="none" stroke="currentColor" stroke-width="2.2" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12"/>
+                        </svg>
+                    </button>
+                </div>
+            </div>
+        </header>
+
+        <!-- ЭКРАН 2 С РЕФЕРЕНСА: ПОЛНОЭКРАННОЕ МОБИЛЬНОЕ МЕНЮ -->
+        <div id="mobile-menu-drawer" class="hidden fixed inset-0 z-40 bg-milk/98 backdrop-blur-md flex-col justify-between overflow-y-auto">
+            <div class="max-w-lg mx-auto w-full min-h-full flex flex-col justify-between px-5 py-4 relative overflow-hidden">
+                <!-- Декор внизу меню точно как на макете 2 -->
+                <div class="pointer-events-none absolute -bottom-12 -left-10 w-52 h-44 rounded-full bg-[#DCEFFE] opacity-80 z-0"></div>
+                <div class="pointer-events-none absolute -bottom-10 -right-8 w-44 h-56 rounded-full bg-[#FDE68A] opacity-70 z-0"></div>
+
+                <!-- Шапка внутри меню -->
+                <div>
+                    <div class="flex items-center justify-between pb-6">
+                        <a href="#home" onclick="navigateTo('home'); return false;" class="flex flex-col items-start">
+                            <div class="font-logo text-2xl font-extrabold tracking-tight leading-none logo-text">
+                                <span>Э</span><span>в</span><span>р</span><span>и</span><span>к</span><span>а</span>
+                            </div>
+                            <span class="text-[11px] font-semibold text-navy/70 tracking-wide -mt-0.5 pl-0.5">
+                                детский клуб
+                            </span>
+                        </a>
+                        <button onclick="toggleMenuDrawer(false)" aria-label="Закрыть меню" class="w-10 h-10 rounded-xl flex items-center justify-center text-navy hover:bg-navy/5">
+                            <svg class="w-6 h-6" fill="none" stroke="currentColor" stroke-width="2.2" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12"/>
+                            </svg>
+                        </button>
+                    </div>
+
+                    <!-- Список пунктов меню (Точно как на 2-м телефоне референса) -->
+                    <nav class="space-y-1 relative z-10" id="mobile-menu-list">
+                        <!-- Заполняется динамически скриптом -->
+                    </nav>
+                </div>
+
+                <!-- Нижняя часть меню: Соцсети и быстрый контакт -->
+                <div class="pt-8 pb-6 relative z-10">
+                    <div class="flex items-center gap-4 mb-4">
+                        <!-- Иконка Telegram -->
+                        <a href="#contacts" onclick="navigateTo('contacts')" aria-label="Telegram" class="w-9 h-9 rounded-full bg-white shadow-card flex items-center justify-center text-[#2563EB] hover:scale-105 transition">
+                            <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24">
+                                <path d="M11.944 0A12 12 0 0 0 0 12a12 12 0 0 0 12 12 12 12 0 0 0 12-12A12 12 0 0 0 12 0a12 12 0 0 0-.056 0zm4.962 7.224c.1-.002.321.023.465.14a.506.506 0 0 1 .171.325c.016.093.036.306.02.472-.18 1.898-.962 6.502-1.36 8.627-.168.9-.499 1.201-.82 1.23-.696.065-1.225-.46-1.9-.902-1.056-.693-1.653-1.124-2.678-1.8-1.185-.78-.417-1.21.258-1.91.177-.184 3.247-2.977 3.307-3.23.007-.032.014-.15-.056-.212s-.174-.041-.249-.024c-.106.024-1.793 1.14-5.061 3.345-.48.33-.913.49-1.302.48-.428-.008-1.252-.241-1.865-.44-.752-.245-1.349-.374-1.297-.789.027-.216.325-.437.893-.663 3.498-1.524 5.83-2.529 6.998-3.014 3.332-1.386 4.025-1.627 4.476-1.635z"/>
+                            </svg>
+                        </a>
+                        <!-- Иконка Instagram -->
+                        <a href="#contacts" onclick="navigateTo('contacts')" aria-label="Instagram" class="w-9 h-9 rounded-full bg-white shadow-card flex items-center justify-center text-[#1E3A5F] hover:scale-105 transition">
+                            <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                                <rect width="20" height="20" x="2" y="2" rx="5" ry="5"/>
+                                <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/>
+                                <line x1="17.5" x2="17.51" y1="6.5" y2="6.5"/>
+                            </svg>
+                        </a>
+                        <!-- Иконка Facebook -->
+                        <a href="#contacts" onclick="navigateTo('contacts')" aria-label="Сообщество" class="w-9 h-9 rounded-full bg-white shadow-card flex items-center justify-center text-[#2563EB] hover:scale-105 transition">
+                            <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24">
+                                <path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/>
+                            </svg>
+                        </a>
+                    </div>
+                    <p class="text-xs text-navy/60 font-medium">г. Харьков, ул. Любови Малой, 22 • +38090000000</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- ОСНОВНОЙ КОНТЕНТ СТРАНИЦ -->
+        <main id="main-content" class="flex-1 relative z-10 px-5 py-4 md:px-8 md:py-6 pb-12">
+            <!-- Сюда рендерится текущая активная страница через js/pages/*.js -->
+        </main>
+
+        <!-- НИЖНЯЯ ПАНЕЛЬ ПЕРЕКЛЮЧЕНИЯ ЭКРАНОВ (для быстрого перехода по разделам на ПК) -->
+        <footer id="site-footer" class="relative z-20 mt-auto border-t border-slate-200/60 bg-white/70 backdrop-blur-md px-4 py-2.5 md:px-8 hidden">
+            <div class="flex flex-col md:flex-row items-center justify-between gap-3">
+                <div class="w-full md:w-auto overflow-x-auto pb-1 md:pb-0">
+                    <div class="flex items-center gap-1.5 min-w-max mx-auto justify-center" id="screen-switcher-bar">
+                        <!-- Генерируется скриптом -->
+                    </div>
+                </div>
+                <div class="text-[11px] text-navy/60 font-medium text-center md:text-right">
+                    © Детский клуб «Эврика», г. Харьков, ул. Любови Малой, 22
+                </div>
+            </div>
+        </footer>
+
+        <!-- ПРИКЛЕЕННОЕ НИЖНЕЕ МЕНЮ (Точное соответствие референсу «Нижнее меню.jpg») -->
+        <nav id="bottom-nav-bar" class="sticky bottom-0 z-40 bg-white/98 backdrop-blur-md rounded-t-[28px] shadow-[0_-5px_25px_rgba(30,58,95,0.08)] border-t border-slate-200/60 px-4 py-2">
+            <div class="max-w-md mx-auto grid grid-cols-4 items-center text-center">
+                <!-- 1. Главная (Жёлтый домик) -->
+                <button onclick="navigateTo('home')" id="bnav-home" class="flex flex-col items-center justify-center py-1 group transition cursor-pointer">
+                    <div class="w-7 h-7 flex items-center justify-center group-hover:scale-110 transition">
+                        <svg class="w-6 h-6 text-[#FBBF24]" viewBox="0 0 24 24" fill="currentColor">
+                            <path d="M12 3L2 12h3v8h6v-6h2v6h6v-8h3L12 3z"/>
+                        </svg>
+                    </div>
+                    <span class="bnav-label text-[11px] font-bold text-navy mt-1">Главная</span>
+                </button>
+
+                <!-- 2. Кружки (Синий контурный пазл) -->
+                <button onclick="navigateTo('clubs')" id="bnav-clubs" class="flex flex-col items-center justify-center py-1 group transition cursor-pointer opacity-70">
+                    <div class="w-7 h-7 flex items-center justify-center group-hover:scale-110 transition">
+                        <svg class="w-6 h-6 text-[#2563EB]" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M19.5 12h-1.5V7a1 1 0 0 0-1-1h-5V4.5a2 2 0 1 0-4 0V6H3a1 1 0 0 0-1 1v5h1.5a2 2 0 1 1 0 4H2v5a1 1 0 0 0 1 1h5v-1.5a2 2 0 1 1 4 0V22h5a1 1 0 0 0 1-1v-5h1.5a2 2 0 1 0 0-4z"/>
+                        </svg>
+                    </div>
+                    <span class="bnav-label text-[11px] font-bold text-navy/70 mt-1">Кружки</span>
+                </button>
+
+                <!-- 3. Календарь (Зелёный контурный календарь) -->
+                <button onclick="navigateTo('calendar')" id="bnav-calendar" class="flex flex-col items-center justify-center py-1 group transition cursor-pointer opacity-70">
+                    <div class="w-7 h-7 flex items-center justify-center group-hover:scale-110 transition">
+                        <svg class="w-6 h-6 text-[#10B981]" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round">
+                            <rect x="3" y="4" width="18" height="18" rx="2" ry="2"/>
+                            <line x1="16" y1="2" x2="16" y2="6"/>
+                            <line x1="8" y1="2" x2="8" y2="6"/>
+                            <line x1="3" y1="10" x2="21" y2="10"/>
+                        </svg>
+                    </div>
+                    <span class="bnav-label text-[11px] font-bold text-navy/70 mt-1">Календарь</span>
+                </button>
+
+                <!-- 4. Профиль (Розовый контурный пользователь) -->
+                <button onclick="openProfileModal()" id="bnav-profile" class="flex flex-col items-center justify-center py-1 group transition cursor-pointer opacity-70">
+                    <div class="w-7 h-7 flex items-center justify-center group-hover:scale-110 transition">
+                        <svg class="w-6 h-6 text-[#F472B6]" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/>
+                            <circle cx="12" cy="7" r="4"/>
+                        </svg>
+                    </div>
+                    <span class="bnav-label text-[11px] font-bold text-navy/70 mt-1">Профиль</span>
+                </button>
+            </div>
+        </nav>
+
+
+    </div>
+
+    <!-- МОДАЛЬНОЕ ОКНО ЗАПИСИ / ОБРАТНОЙ СВЯЗИ -->
+    <div id="booking-modal" class="hidden fixed inset-0 z-50 bg-navy/40 backdrop-blur-sm flex items-center justify-center p-4">
+        <div class="bg-milk w-full max-w-md rounded-3xl shadow-floating border border-white p-6 relative animate-[fadeIn_0.2s_ease-out]">
+            <button onclick="closeBookingModal()" aria-label="Закрыть" class="absolute top-4 right-4 w-9 h-9 rounded-full bg-white shadow-sm flex items-center justify-center text-navy/70 hover:text-navy">
+                <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2.2" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12"/>
+                </svg>
+            </button>
+
+            <div class="flex items-center gap-3 mb-4">
+                <div class="w-11 h-11 rounded-2xl bg-pastel-yellow flex items-center justify-center text-amber-500">
+                    <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24">
+                        <path d="M12 2l2.4 7.4h7.6l-6 4.6 2.3 7-6.3-4.6-6.3 4.6 2.3-7-6-4.6h7.6z"/>
+                    </svg>
+                </div>
+                <div>
+                    <h3 id="modal-title" class="text-lg font-extrabold text-navy">Записаться на занятие</h3>
+                    <p id="modal-subtitle" class="text-xs text-navy/70">Оставьте контакты, и мы перезвоним вам в течение 15 минут</p>
+                </div>
+            </div>
+
+            <form id="booking-form" onsubmit="submitBookingForm(event)" class="space-y-3.5">
+                <input type="hidden" id="booking-subject" value="Общая запись">
+                
+                <div>
+                    <label class="block text-xs font-bold text-navy/80 mb-1">Ваше имя (Родитель) *</label>
+                    <input type="text" id="parent-name" required placeholder="Например, Елена" class="w-full px-4 py-2.5 rounded-2xl bg-white border border-slate-200 text-sm text-navy focus:outline-none focus:border-brand-blue">
+                </div>
+
+                <div class="grid grid-cols-2 gap-3">
+                    <div>
+                        <label class="block text-xs font-bold text-navy/80 mb-1">Имя ребёнка</label>
+                        <input type="text" id="child-name" placeholder="Миша" class="w-full px-4 py-2.5 rounded-2xl bg-white border border-slate-200 text-sm text-navy focus:outline-none focus:border-brand-blue">
+                    </div>
+                    <div>
+                        <label class="block text-xs font-bold text-navy/80 mb-1">Возраст ребёнка</label>
+                        <select id="child-age" class="w-full px-3 py-2.5 rounded-2xl bg-white border border-slate-200 text-sm text-navy focus:outline-none focus:border-brand-blue">
+                            <option value="3 года">3 года</option>
+                            <option value="4 года">4 года</option>
+                            <option value="5 лет" selected>5 лет</option>
+                            <option value="6 лет">6 лет</option>
+                            <option value="7-8 лет">7–8 лет</option>
+                            <option value="9-10 лет">9–10 лет</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div>
+                    <label class="block text-xs font-bold text-navy/80 mb-1">Телефон для связи *</label>
+                    <input type="tel" id="parent-phone" required placeholder="+380 (__) ___-__-__" class="w-full px-4 py-2.5 rounded-2xl bg-white border border-slate-200 text-sm text-navy focus:outline-none focus:border-brand-blue">
+                </div>
+
+                <div>
+                    <label class="block text-xs font-bold text-navy/80 mb-1">Направление или вопрос</label>
+                    <input type="text" id="booking-direction" placeholder="Пробное занятие / Консультация" class="w-full px-4 py-2.5 rounded-2xl bg-white border border-slate-200 text-sm text-navy focus:outline-none focus:border-brand-blue">
+                </div>
+
+                <button type="submit" class="w-full py-3 rounded-full bg-brand-yellow hover:bg-brand-yellowHover text-navy font-extrabold text-sm shadow-sm transition transform active:scale-98">
+                    Отправить заявку
+                </button>
+            </form>
+        </div>
+    </div>
+
+    <!-- МОДАЛЬНОЕ ОКНО ДЕТАЛЬНОЙ ИНФОРМАЦИИ (О кружке / воспитателе / фото) -->
+    <div id="detail-modal" class="hidden fixed inset-0 z-50 bg-navy/40 backdrop-blur-sm flex items-center justify-center p-4">
+        <div id="detail-modal-body" class="bg-milk w-full max-w-lg rounded-3xl shadow-floating border border-white overflow-hidden relative animate-[fadeIn_0.2s_ease-out]">
+            <!-- Заполняется динамически через js/modals.js -->
+        </div>
+    </div>
+
+    <!-- ВСПЛЫВАЮЩЕЕ УВЕДОМЛЕНИЕ (ТОСТ) -->
+    <div id="toast-notification" class="fixed bottom-16 right-4 left-4 md:left-auto md:w-96 z-50 pointer-events-none opacity-0 translate-y-4 transition-all duration-300">
+        <div class="bg-navy text-white rounded-2xl p-4 shadow-floating flex items-center gap-3">
+            <div class="w-8 h-8 rounded-full bg-brand-green/20 text-brand-green flex items-center justify-center shrink-0">
+                <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/>
+                </svg>
+            </div>
+            <div class="text-xs font-semibold leading-snug" id="toast-message">
+                Заявка успешно отправлена!
+            </div>
+        </div>
+    </div>
+
+    <!-- ПОДКЛЮЧЕНИЕ МОДУЛЕЙ СКРИПТОВ -->
+    <!-- 1. Данные и состояние -->
+    <script src="js/data.js"></script>
+    <script src="js/state.js"></script>
+    <script src="js/icons.js"></script>
+    <script src="js/modals.js"></script>
+
+    <!-- 2. Отдельные модули страниц (экранов) -->
+    <script src="js/pages/home.js"></script>
+    <script src="js/pages/about.js"></script>
+    <script src="js/pages/program.js"></script>
+    <script src="js/pages/clubs.js"></script>
+    <script src="js/pages/teachers.js"></script>
+    <script src="js/pages/gallery.js"></script>
+    <script src="js/pages/calendar.js"></script>
+    <script src="js/pages/contacts.js"></script>
+
+    <!-- 3. Главный модуль навигации и запуска приложения -->
+    <script src="js/app.js"></script>
+</body>
+</html>

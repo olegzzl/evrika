@@ -1,0 +1,140 @@
+/* ==========================================================================
+   Стили проекта «Детский клуб Эврика»
+   ========================================================================== */
+
+body {
+    background-color: #FAF9F5;
+    color: #1E3A5F;
+    overflow-x: hidden;
+    -webkit-tap-highlight-color: transparent;
+}
+
+/* Разноцветный логотип (как на референсе) */
+.logo-text span:nth-child(1) { color: #3B82F6; } /* Э */
+.logo-text span:nth-child(2) { color: #EF4444; } /* в */
+.logo-text span:nth-child(3) { color: #F59E0B; } /* р */
+.logo-text span:nth-child(4) { color: #10B981; } /* и */
+.logo-text span:nth-child(5) { color: #8B5CF6; } /* к */
+.logo-text span:nth-child(6) { color: #EC4899; } /* а */
+
+/* Плавная анимация переключения страниц */
+.page-transition {
+    animation: fadeIn 0.28s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+@keyframes fadeIn {
+    from { 
+        opacity: 0; 
+        transform: translateY(8px); 
+    }
+    to { 
+        opacity: 1; 
+        transform: translateY(0); 
+    }
+}
+
+/* Декоративные фоновые волны и градиенты */
+.blob-bg-blue {
+    background: radial-gradient(circle at center, #E0F2FE 0%, rgba(224, 242, 254, 0) 70%);
+}
+.blob-bg-yellow {
+    background: radial-gradient(circle at center, #FEF3C7 0%, rgba(254, 243, 199, 0) 70%);
+}
+
+/* Кастомный скроллбар */
+::-webkit-scrollbar {
+    width: 6px;
+    height: 6px;
+}
+::-webkit-scrollbar-track {
+    background: #FAF9F5;
+}
+::-webkit-scrollbar-thumb {
+    background: #CBD5E1;
+    border-radius: 9999px;
+}
+
+/* Режим эмуляции мобильного экрана на ПК (для точного сравнения с макетом) */
+.mobile-frame-mode #app-wrapper {
+    max-width: 412px;
+    margin: 1.5rem auto;
+    height: 860px;
+    max-height: 92vh;
+    border-radius: 44px;
+    box-shadow: 0 25px 60px -15px rgba(19, 38, 64, 0.22), 0 0 0 10px #1E293B;
+    overflow-y: auto;
+    overflow-x: hidden;
+    position: relative;
+    background: #FAF9F5;
+}
+
+/* Нижнее меню: легкий отступ снизу для комфортного тапа */
+#bottom-nav-bar {
+    padding-bottom: max(0.6rem, env(safe-area-inset-bottom));
+}
+
+/* Фоновое изображение для первой страницы (Fon.jpg) */
+.home-page-bg {
+    background-image: url('../images/fon.jpg'), url('../Ref photo/Fon.jpg');
+    background-size: cover;
+    background-position: center top;
+    background-repeat: no-repeat;
+}
+
+/* Полностью скрываем старый подвал в мобильной версии и в режиме мобильного фрейма */
+.mobile-frame-mode footer,
+.mobile-frame-mode #site-footer,
+.mobile-frame-mode #screen-switcher-bar {
+    display: none !important;
+}
+
+@media (max-width: 768px) {
+    footer,
+    #site-footer,
+    #screen-switcher-bar {
+        display: none !important;
+    }
+}
+
+/* На главной странице старый подвал скрыт всегда */
+.page-home-active #site-footer,
+.page-home-active footer {
+    display: none !important;
+}
+
+/* ==========================================================================
+   Фиксация главной страницы: отключаем скролл, чтобы ничего не ездило
+   ========================================================================== */
+body.page-home-active {
+    overflow: hidden !important;
+}
+
+.page-home-active #app-wrapper {
+    height: 100vh;
+    max-height: 100vh;
+    overflow: hidden !important;
+}
+
+.page-home-active #main-content {
+    padding: 0 !important;
+    overflow: hidden !important;
+    flex: 1 1 0% !important;
+    min-height: 0 !important;
+    display: flex !important;
+    flex-direction: column !important;
+}
+
+.mobile-frame-mode.page-home-active #app-wrapper {
+    height: 860px;
+    max-height: 92vh;
+    overflow: hidden !important;
+}
+
+.mobile-frame-mode.page-home-active #main-content {
+    flex: 1 1 0% !important;
+    min-height: 0 !important;
+    overflow: hidden !important;
+}
+
+
+

@@ -1,0 +1,127 @@
+/**
+ * ==========================================================================
+ * 7. СТРАНИЦА «КАЛЕНДАРЬ СОБЫТИЙ»
+ * Точное соответствие Экрану 8 референса с интерактивом выбора дней
+ * ==========================================================================
+ */
+
+function renderCalendarPage() {
+    const monthObj = CALENDAR_MONTHS[currentState.calendarMonthIndex];
+    const eventDaysMap = {};
+    SITE_DATA.calendarEvents.forEach(ev => {
+        eventDaysMap[ev.day] = ev;
+    });
+
+    // Пустые ячейки перед 1 числом месяца
+    let calendarCellsHtml = '';
+    for (let i = 0; i < monthObj.startOffset; i++) {
+        calendarCellsHtml += `<div class="h-8"></div>`;
+    }
+
+    for (let d = 1; d <= monthObj.daysInMonth; d++) {
+        const ev = eventDaysMap[d];
+        const isSelected = currentState.selectedCalendarDay === d;
+        if (ev) {
+            const bgColor = d === 25 ? 'bg-[#F87171] text-white' : 'bg-[#2563EB] text-white';
+            calendarCellsHtml += `
+                <button onclick="selectCalendarDay(${d})" class="w-8 h-8 mx-auto rounded-full ${bgColor} font-extrabold text-xs flex items-center justify-center shadow-sm transform hover:scale-110 transition ${isSelected ? 'ring-4 ring-brand-yellow' : ''}">
+                    ${d}
+                </button>
+            `;
+        } else {
+            calendarCellsHtml += `
+                <button onclick="selectCalendarDay(${d})" class="w-8 h-8 mx-auto rounded-full text-navy/80 hover:bg-slate-100 font-semibold text-xs flex items-center justify-center transition ${isSelected ? 'bg-pastel-yellow font-extrabold' : ''}">
+                    ${d}
+                </button>
+            `;
+        }
+    }
+
+    // Список карточек событий под календарём
+    const eventsListHtml = SITE_DATA.calendarEvents.map(ev => {
+        const isHighlighted = currentState.selectedCalendarDay === ev.day;
+        return `
+        <div onclick="openBookingModal('Запись на событие: ${ev.title} (${ev.day} ${monthObj.short})')" 
+             class="flex items-center justify-between gap-3.5 p-2.5 rounded-2xl transition cursor-pointer ${isHighlighted ? 'bg-white shadow-soft ring-2 ring-brand-blue' : 'hover:bg-white/80'}">
+            <div class="flex items-center gap-3.5">
+                <div class="w-11 h-11 rounded-full ${ev.badgeBg} ${ev.badgeText} flex flex-col items-center justify-center shrink-0 leading-none shadow-sm">
+                    <span class="text-xs font-extrabold">${ev.day}</span>
+                    <span class="text-[10px] font-bold">${monthObj.short}</span>
+                </div>
+                <div>
+                    <h3 class="text-xs sm:text-sm font-extrabold text-navy leading-snug">${ev.title}</h3>
+                    <p class="text-[11px] text-navy/65 mt-0.5">${ev.time} • ${ev.age}</p>
+                </div>
+            </div>
+            <span class="text-[11px] font-bold text-brand-blue shrink-0 px-2.5 py-1 rounded-full bg-pastel-blue/60">
+                Запись
+            </span>
+        </div>
+        `;
+    }).join('');
+
+    return `
+    <section class="page-transition max-w-3xl mx-auto">
+        <h1 class="text-2xl sm:text-3xl font-extrabold text-navy mb-4">Календарь событий</h1>
+
+        <!-- Карточка сетки календаря как на Экране 8 -->
+        <div class="bg-white rounded-3xl p-4 sm:p-5 shadow-card border border-slate-100 mb-5">
+            <!-- Переключатель месяца -->
+            <div class="flex items-center justify-between mb-4 px-2">
+                <button onclick="changeCalendarMonth(-1)" aria-label="Предыдущий месяц" class="w-8 h-8 rounded-full hover:bg-slate-100 flex items-center justify-center text-navy">
+                    <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2.3" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M15 19l-7-7 7-7"/>
+                    </svg>
+                </button>
+                <div class="text-sm sm:text-base font-extrabold text-navy">${monthObj.name}</div>
+                <button onclick="changeCalendarMonth(1)" aria-label="Следующий месяц" class="w-8 h-8 rounded-full hover:bg-slate-100 flex items-center justify-center text-navy">
+                    <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2.3" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7"/>
+                    </svg>
+                </button>
+            </div>
+
+            <!-- Дни недели -->
+            <div class="grid grid-cols-7 text-center text-[11px] font-bold text-navy/50 mb-2">
+                <div>Пн</div><div>Вт</div><div>Ср</div><div>Чт</div><div>Пт</div><div>Сб</div><div>Вс</div>
+            </div>
+
+            <!-- Числа месяца -->
+            <div class="grid grid-cols-7 gap-y-1.5 text-center items-center">
+                ${calendarCellsHtml}
+            </div>
+        </div>
+
+        <!-- Список мероприятий с цветными кружками дат (Экран 8) -->
+        <div class="space-y-2.5">
+            ${eventsListHtml}
+        </div>
+    </section>
+    `;
+}
+
+/**
+ * Переключение месяца в календаре
+ */
+function changeCalendarMonth(delta) {
+    const next = currentState.calendarMonthIndex + delta;
+    if (next >= 0 && next < CALENDAR_MONTHS.length) {
+        currentState.calendarMonthIndex = next;
+        currentState.selectedCalendarDay = null;
+        const container = document.getElementById('main-content');
+        if (container) {
+            container.innerHTML = renderCalendarPage();
+        }
+    }
+}
+
+/**
+ * Выбор дня в календаре
+ */
+function selectCalendarDay(day) {
+    currentState.selectedCalendarDay = day;
+    const container = document.getElementById('main-content');
+    if (container) {
+        container.innerHTML = renderCalendarPage();
+    }
+}
