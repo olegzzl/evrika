@@ -5,15 +5,15 @@
  * Элементы:
  * - Приветственный блок (Заголовок, подзаголовок, кнопки действия)
  * - Карточка «Верхнее меню» (8 цветных иконок 4x2 по референсу Верхнее меню.jpg)
- * - Фотография Violet (прозрачный PNG), привязанная к нижнему краю фона
+ * - Автоматически прокручиваемая лента фотозаглушек
  * ==========================================================================
  */
 
 function renderHomePage() {
     // 8 пунктов Верхнего меню точно как на референсе Верхнее меню.jpg
     const topMenuButtonsHtml = (SITE_DATA.topMenuItems || []).map(item => {
-        const clickHandler = item.id === 'reviews' 
-            ? `openReviewsModal()` 
+        const clickHandler = item.id === 'reviews'
+            ? `openReviewsModal()`
             : `navigateTo('${item.id}')`;
 
         return `
@@ -28,11 +28,30 @@ function renderHomePage() {
         `;
     }).join('');
 
+    const carouselPhotos = (SITE_DATA.gallery || []).map(item => `
+        <div class="home-placeholder-card">
+            <img src="${item.image}" alt="${item.title || 'Фотозаглушка'}" loading="lazy"
+                 onerror="this.style.display='none'; this.parentElement.classList.add('home-placeholder-fallback');">
+            <span>${item.title || 'Фото скоро появится'}</span>
+        </div>
+    `).join('');
+
     return `
     <section class="page-transition home-page-bg relative h-full w-full flex flex-col justify-between overflow-hidden"
              style="background-image: url('images/fon.jpg'), url('Ref photo/Fon.jpg'); background-size: cover; background-position: center top; background-repeat: no-repeat;">
+        <style>
+            .home-photo-carousel { width: 100%; overflow: hidden; margin-top: auto; padding: 12px 0 0; }
+            .home-photo-track { display: flex; width: max-content; gap: 12px; animation: home-photo-scroll 38s linear infinite; }
+            .home-photo-carousel.is-paused .home-photo-track { animation-play-state: paused; }
+            .home-placeholder-card { position: relative; flex: 0 0 auto; width: 34vw; max-width: 190px; min-width: 118px; aspect-ratio: 4 / 5; overflow: hidden; border: 3px solid rgba(255,255,255,.9); border-radius: 20px; background: linear-gradient(135deg,#fde68a,#fbcfe8 52%,#bfdbfe); box-shadow: 0 5px 16px rgba(30,41,59,.12); }
+            .home-placeholder-card img { width: 100%; height: 100%; display: block; object-fit: cover; }
+            .home-placeholder-card span { position: absolute; left: 0; right: 0; bottom: 0; padding: 22px 8px 9px; color: white; font-size: 11px; line-height: 1.25; font-weight: 700; background: linear-gradient(transparent,rgba(15,23,42,.68)); }
+            .home-placeholder-fallback span { top: 50%; bottom: auto; transform: translateY(-50%); padding: 12px; color: #334155; background: transparent; text-align: center; }
+            @keyframes home-photo-scroll { from { transform: translateX(0); } to { transform: translateX(calc(-50% - 6px)); } }
+            @media (prefers-reduced-motion: reduce) { .home-photo-track { animation: none; } }
+        </style>
         <div class="max-w-3xl mx-auto w-full flex-1 flex flex-col justify-between px-5 pt-3 sm:pt-5 pb-0 md:px-8 relative">
-            
+
             <!-- Верхняя приветственная часть (Hero): чистый заголовок и кнопки без солнышка -->
             <div class="relative z-20 shrink-0">
                 <h1 class="text-[22px] sm:text-3xl md:text-4xl font-extrabold text-navy leading-[1.18] tracking-tight mb-2">
@@ -61,13 +80,12 @@ function renderHomePage() {
                 </div>
             </div>
 
-            <!-- ФОТОГРАФИЯ VIOLET, привязанная к нижнему краю фона -->
-            <div class="w-full flex justify-center items-end mt-auto z-10 shrink-0 leading-none">
-                <img id="violet-hero-img"
-                     src="images/violet.png" 
-                     onerror="this.onerror=null; this.src='Ref photo/Violet.png'; this.src='Ref photo/Violet.jpg';" 
-                     alt="Ребенок в детском клубе Эврика" 
-                     class="block mx-auto max-h-[28vh] sm:max-h-[32vh] md:max-h-[38vh] max-w-[340px] sm:max-w-[400px] md:max-w-[460px] object-contain object-bottom drop-shadow-md cursor-pointer select-none -mb-px">
+            <!-- ЛЕНТА ФОТОЗАГЛУШЕК ВМЕСТО ОДИНОЧНОЙ ФОТОГРАФИИ VIOLET -->
+            <div class="home-photo-carousel relative z-10 shrink-0" aria-label="Фотографии детского клуба">
+                <div class="home-photo-track">
+                    ${carouselPhotos}
+                    ${carouselPhotos}
+                </div>
             </div>
 
         </div>
