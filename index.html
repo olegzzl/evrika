@@ -28,8 +28,8 @@
         <div class="pointer-events-none absolute -bottom-16 -right-12 w-56 h-56 rounded-full bg-[#FEF0C7] opacity-80 blur-xl z-0"></div>
         <div class="pointer-events-none absolute top-32 -right-20 w-48 h-48 rounded-full bg-[#DCFCE7] opacity-50 blur-2xl z-0"></div>
 
-        <!-- ШАПКА САЙТА -->
-        <header class="sticky top-0 z-30 bg-white/70 backdrop-blur-md px-5 py-3.5 md:px-8 md:py-4 border-b border-slate-200/50">
+        <!-- ШАПКА САЙТА (с аккуратно закруглёнными нижними краями) -->
+        <header class="sticky top-0 z-30 bg-white/80 backdrop-blur-md px-5 py-3.5 md:px-8 md:py-4 border-b border-x border-slate-200/50 rounded-b-[24px] sm:rounded-b-[28px] shadow-xs">
             <div class="flex items-center justify-between">
                 <!-- Логотип (увеличен на 30%) -->
                 <a href="#home" onclick="navigateTo('home'); return false;" class="group flex flex-col items-start focus:outline-none">
@@ -129,8 +129,8 @@
             </div>
         </footer>
 
-        <!-- ПРИКЛЕЕННОЕ НИЖНЕЕ МЕНЮ (Точное соответствие референсу «Нижнее меню.jpg») -->
-        <nav id="bottom-nav-bar" class="sticky bottom-0 z-40 bg-white rounded-t-[32px] sm:rounded-t-[36px] shadow-[0_-8px_25px_rgba(30,58,95,0.08)] border-t border-slate-200/60 px-4 py-2">
+        <!-- ПРИКЛЕЕННОЕ НИЖНЕЕ МЕНЮ (Плавающий айфоновский таббар с полным скруглением) -->
+        <nav id="bottom-nav-bar" class="fixed z-40 bg-white rounded-[30px] sm:rounded-[36px] shadow-[0_10px_30px_rgba(30,58,95,0.16)] border border-slate-200/80 px-4 py-2">
             <div class="max-w-md mx-auto grid grid-cols-4 items-center text-center">
                 <!-- 1. Главная (Домик точно как в верхней плашке «О клубе») -->
                 <button onclick="navigateTo('home')" id="bnav-home" class="flex flex-col items-center justify-center py-1 group transition cursor-pointer">

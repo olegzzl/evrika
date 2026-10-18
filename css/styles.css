@@ -61,18 +61,28 @@ body {
 }
 
 
-/* Нижнее меню (таббар): намертво прикреплен к низу экрана на всех страницах */
+/* Шапка сайта: слегка закруглены нижние края */
+header {
+    border-bottom-left-radius: 24px;
+    border-bottom-right-radius: 24px;
+}
+
+/* Нижнее меню (таббар): плавающий остров в стиле iOS / iPhone (полностью закруглён со всех сторон) */
 #bottom-nav-bar {
     position: fixed !important;
-    bottom: 0 !important;
+    bottom: max(0.85rem, env(safe-area-inset-bottom)) !important;
     left: 50% !important;
     transform: translateX(-50%) !important;
-    width: 100% !important;
-    max-width: 72rem !important; /* max-w-6xl */
+    width: calc(100% - 1.5rem) !important;
+    max-width: 28rem !important; /* компактный аккуратный остров */
+    border-radius: 30px !important;
     z-index: 50 !important;
     background-color: #ffffff !important;
     opacity: 1 !important;
-    padding-bottom: max(0.6rem, env(safe-area-inset-bottom));
+    box-shadow: 0 10px 30px rgba(30, 58, 95, 0.16), 0 2px 8px rgba(0, 0, 0, 0.04) !important;
+    border: 1px solid rgba(226, 232, 240, 0.8) !important;
+    padding-top: 0.45rem !important;
+    padding-bottom: 0.45rem !important;
 }
 
 /* Векторный фон в чистом коде (точная копия Fon.jpg), примененный ко всему сайту */
