@@ -31,12 +31,12 @@
         <!-- ШАПКА САЙТА -->
         <header class="sticky top-0 z-30 bg-white/70 backdrop-blur-md px-5 py-3.5 md:px-8 md:py-4 border-b border-slate-200/50">
             <div class="flex items-center justify-between">
-                <!-- Логотип -->
+                <!-- Логотип (увеличен на 30%) -->
                 <a href="#home" onclick="navigateTo('home'); return false;" class="group flex flex-col items-start focus:outline-none">
-                    <div class="font-logo text-2xl md:text-3xl font-extrabold tracking-tight leading-none logo-text">
+                    <div class="font-logo text-[31px] md:text-[39px] font-extrabold tracking-tight leading-none logo-text">
                         <span>Э</span><span>в</span><span>р</span><span>и</span><span>к</span><span>а</span>
                     </div>
-                    <span class="text-[11px] md:text-xs font-semibold text-navy/70 tracking-wide -mt-0.5 pl-0.5 group-hover:text-navy transition">
+                    <span class="text-[14px] md:text-[16px] font-bold text-navy/70 tracking-wide mt-0.5 pl-0.5 group-hover:text-navy transition">
                         детский клуб
                     </span>
                 </a>
@@ -53,14 +53,31 @@
                     <button onclick="navigateTo('contacts')" data-nav="contacts" class="nav-pill px-3 py-1.5 rounded-full text-sm font-bold transition">Контакты</button>
                 </nav>
 
-                <!-- Правый блок: Кнопка записи на ПК + Кнопка мобильного меню -->
-                <div class="flex items-center gap-2.5">
+                <!-- Правый блок: Инстаграм + Прямой звонок + Записаться + Кнопка мобильного меню -->
+                <div class="flex items-center gap-1.5 sm:gap-2.5">
+                    <!-- Иконка Instagram -->
+                    <a href="https://instagram.com" target="_blank" rel="noopener noreferrer" aria-label="Instagram клуба" class="w-9 h-9 rounded-full bg-slate-100 hover:bg-pink-50 hover:text-[#E1306C] text-[#E1306C] flex items-center justify-center transition active:scale-90 shadow-sm shrink-0">
+                        <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                            <rect width="20" height="20" x="2" y="2" rx="5" ry="5"/>
+                            <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/>
+                            <line x1="17.5" x2="17.51" y1="6.5" y2="6.5"/>
+                        </svg>
+                    </a>
+
+                    <!-- Прямой звонок по телефону (сразу звонит, не переходит на контакты) -->
+                    <a href="tel:+38090000000" aria-label="Позвонить в детский клуб" class="w-9 h-9 rounded-full bg-emerald-50 hover:bg-emerald-100 text-emerald-600 flex items-center justify-center transition active:scale-90 shadow-sm shrink-0">
+                        <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24">
+                            <path fill-rule="evenodd" clip-rule="evenodd" d="M1.5 4.5a3 3 0 0 1 3-3h1.372c.86 0 1.61.586 1.819 1.42l1.105 4.423a1.875 1.875 0 0 1-.694 1.955l-1.293.97c-.135.101-.164.249-.126.352a11.285 11.285 0 0 0 6.697 6.697c.103.038.25.009.352-.126l.97-1.293a1.875 1.875 0 0 1 1.955-.694l4.423 1.105c.834.209 1.42.959 1.42 1.82V19.5a3 3 0 0 1-3 3h-2.25C8.552 22.5 1.5 15.448 1.5 6.75V4.5Z"/>
+                        </svg>
+                    </a>
+
+                    <!-- Кнопка записи на ПК -->
                     <button onclick="openBookingModal('Запись в детский клуб')" id="desktop-cta" class="hidden sm:inline-flex items-center gap-1.5 bg-brand-yellow hover:bg-brand-yellowHover text-navy font-bold text-xs md:text-sm px-4 py-2 rounded-full shadow-sm transition transform active:scale-95">
                         <span>Записаться</span>
                     </button>
 
-                    <!-- Кнопка открытия экрана меню (как на 2-м экране референса) -->
-                    <button onclick="toggleMenuDrawer()" id="menu-toggle-btn" aria-label="Открыть меню" class="w-10 h-10 rounded-xl flex items-center justify-center text-navy hover:bg-navy/5 active:bg-navy/10 transition">
+                    <!-- Кнопка открытия мобильного меню (гамбургер) -->
+                    <button onclick="toggleMenuDrawer()" id="menu-toggle-btn" aria-label="Открыть меню" class="w-9 h-9 sm:w-10 sm:h-10 rounded-xl flex items-center justify-center text-navy hover:bg-navy/5 active:bg-navy/10 transition shrink-0">
                         <!-- Иконка гамбургера -->
                         <svg id="icon-hamburger" class="w-6 h-6" fill="none" stroke="currentColor" stroke-width="2.2" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" d="M4 6h16M4 12h16M4 18h16"/>
