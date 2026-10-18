@@ -12,9 +12,7 @@
 function renderHomePage() {
     // 8 пунктов Верхнего меню точно как на референсе Верхнее меню.jpg
     const topMenuButtonsHtml = (SITE_DATA.topMenuItems || []).map(item => {
-        const clickHandler = item.id === 'reviews'
-            ? `openReviewsModal()`
-            : `navigateTo('${item.id}')`;
+        const clickHandler = `navigateTo('${item.id}')`;
 
         return `
             <button onclick="${clickHandler}" class="flex flex-col items-center justify-start group cursor-pointer transition transform active:scale-95 py-1 px-1 rounded-2xl hover:bg-slate-50">

@@ -57,8 +57,13 @@ function renderGalleryPage() {
  */
 function setGalleryFilter(category) {
     currentState.galleryFilter = category;
-    const container = document.getElementById('main-content');
-    if (container) {
-        container.innerHTML = renderGalleryPage();
+    const section = document.getElementById('section-gallery');
+    if (section) {
+        section.innerHTML = renderGalleryPage();
+    } else {
+        const container = document.getElementById('main-content');
+        if (container) {
+            container.innerHTML = renderGalleryPage();
+        }
     }
 }

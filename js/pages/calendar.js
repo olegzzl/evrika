@@ -108,9 +108,14 @@ function changeCalendarMonth(delta) {
     if (next >= 0 && next < CALENDAR_MONTHS.length) {
         currentState.calendarMonthIndex = next;
         currentState.selectedCalendarDay = null;
-        const container = document.getElementById('main-content');
-        if (container) {
-            container.innerHTML = renderCalendarPage();
+        const section = document.getElementById('section-calendar');
+        if (section) {
+            section.innerHTML = renderCalendarPage();
+        } else {
+            const container = document.getElementById('main-content');
+            if (container) {
+                container.innerHTML = renderCalendarPage();
+            }
         }
     }
 }
@@ -120,8 +125,13 @@ function changeCalendarMonth(delta) {
  */
 function selectCalendarDay(day) {
     currentState.selectedCalendarDay = day;
-    const container = document.getElementById('main-content');
-    if (container) {
-        container.innerHTML = renderCalendarPage();
+    const section = document.getElementById('section-calendar');
+    if (section) {
+        section.innerHTML = renderCalendarPage();
+    } else {
+        const container = document.getElementById('main-content');
+        if (container) {
+            container.innerHTML = renderCalendarPage();
+        }
     }
 }

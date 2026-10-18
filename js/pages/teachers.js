@@ -52,8 +52,13 @@ function renderTeachersPage() {
  */
 function toggleAllTeachers() {
     currentState.showAllTeachers = !currentState.showAllTeachers;
-    const container = document.getElementById('main-content');
-    if (container) {
-        container.innerHTML = renderTeachersPage();
+    const section = document.getElementById('section-teachers');
+    if (section) {
+        section.innerHTML = renderTeachersPage();
+    } else {
+        const container = document.getElementById('main-content');
+        if (container) {
+            container.innerHTML = renderTeachersPage();
+        }
     }
 }

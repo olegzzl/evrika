@@ -177,44 +177,31 @@ body,
 }
 
 /* На главной странице старый подвал скрыт всегда */
-.page-home-active #site-footer,
-.page-home-active footer {
-    display: none !important;
+/* Настройки для одностраничного сайта */
+html {
+    scroll-behavior: smooth;
 }
 
-/* Главная страница: идеальное центрирование горизонта движения карусели между карточкой меню и таб-баром */
-body.page-home-active {
-    overflow-x: hidden;
+/* Секции одностраничного сайта: корректный скролл с отступом под фиксированную шапку */
+.page-section {
+    scroll-margin-top: 4.8rem;
+    position: relative;
+    width: 100%;
 }
 
-.page-home-active #app-wrapper {
-    min-height: 100vh;
-    min-height: 100dvh;
-}
-
-.page-home-active #main-content {
-    display: flex !important;
-    flex-direction: column !important;
-    padding-top: 0.25rem !important;
+#main-content {
+    display: block !important;
+    padding-top: 0.5rem !important;
     padding-left: 0 !important;
     padding-right: 0 !important;
-    /* Точно до верхнего края плавающего таб-бара (bottom 14px + высота таббара 62px) */
-    padding-bottom: calc(max(0.85rem, env(safe-area-inset-bottom)) + 62px) !important;
-    flex: 1 1 auto !important;
-    min-height: 0 !important;
+    /* Пространство над нижним плавающим таб-баром */
+    padding-bottom: calc(max(0.85rem, env(safe-area-inset-bottom)) + 86px) !important;
     overflow-x: hidden !important;
-    overflow-y: auto !important;
-}
-
-.page-home-active .home-page-bg {
-    min-height: 100%;
-    flex: 1 1 auto;
-    display: flex;
-    flex-direction: column;
 }
 
 .carousel-horizon-wrapper {
     min-height: 200px;
+    padding: 1rem 0;
 }
 /* Скрытие нативного скроллбара у горизонтальной карусели */
 .no-scrollbar::-webkit-scrollbar {
