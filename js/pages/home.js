@@ -83,8 +83,8 @@ function renderHomePage() {
     return `
     <section class="page-transition home-page-bg relative min-h-full w-full flex flex-col justify-between">
         
-        <!-- Верхняя часть: Приветствие + Карточка меню + Карусель фото -->
-        <div class="max-w-3xl mx-auto w-full flex-1 flex flex-col justify-between px-5 pt-3 sm:pt-4 pb-2 md:px-8 relative z-20">
+        <!-- Верхняя часть: Приветствие + Карточка меню (аккуратно центрирована) -->
+        <div class="max-w-3xl mx-auto w-full flex-1 flex flex-col justify-start px-5 pt-3 sm:pt-4 pb-2 md:px-8 relative z-20">
             
             <!-- Приветственный блок (Hero) -->
             <div class="shrink-0 pt-1">
@@ -108,30 +108,30 @@ function renderHomePage() {
             </div>
 
             <!-- Карточка с 8 иконками: слегка опущена на мобильной версии (mt-4 sm:mt-5) -->
-            <div class="bg-white/95 backdrop-blur-md rounded-3xl px-3 py-2 sm:px-5 sm:py-3 shadow-soft border border-white z-20 mt-4 sm:mt-5 mb-auto shrink-0">
+            <div class="bg-white/95 backdrop-blur-md rounded-3xl px-3 py-2 sm:px-5 sm:py-3 shadow-soft border border-white z-20 mt-4 sm:mt-5 mb-2 shrink-0">
                 <div class="grid grid-cols-4 gap-y-1.5 sm:gap-y-2 gap-x-1 sm:gap-x-3">
                     ${topMenuButtonsHtml}
                 </div>
             </div>
 
-            <!-- Интерактивная карусель фотографий в фигурных контейнерах из Foto.txt -->
-            <div class="relative w-full mt-auto mb-1 z-20 py-1">
-                <!-- Стрелка влево -->
-                <button onclick="scrollHeroCarousel(-1)" aria-label="Предыдущее фото" class="absolute -left-2 sm:-left-3 top-1/2 -translate-y-1/2 z-30 w-8 h-8 rounded-full bg-white/95 shadow-card border border-slate-200/60 flex items-center justify-center text-navy hover:bg-white active:scale-90 transition">
-                    <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M15 19l-7-7 7-7"/></svg>
-                </button>
+        </div>
 
-                <!-- Контейнер скролла с плавным движением и фигурной волной -->
-                <div id="hero-photos-carousel" class="flex items-center overflow-x-auto no-scrollbar pt-8 sm:pt-10 pb-5 px-1 cursor-grab active:cursor-grabbing select-none">
-                    ${photosSlidesHtml}
-                </div>
+        <!-- Интерактивная карусель фотографий: НА ВСЮ ШИРИНУ ОТ САМОГО КРАЯ САЙТА БЕЗ БОРДЮРОВ -->
+        <div class="relative w-full mt-auto mb-1 z-20 py-1 overflow-hidden">
+            <!-- Стрелка влево -->
+            <button onclick="scrollHeroCarousel(-1)" aria-label="Предыдущее фото" class="absolute left-2 sm:left-4 top-1/2 -translate-y-1/2 z-30 w-8 h-8 rounded-full bg-white/95 shadow-card border border-slate-200/60 flex items-center justify-center text-navy hover:bg-white active:scale-90 transition">
+                <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M15 19l-7-7 7-7"/></svg>
+            </button>
 
-                <!-- Стрелка вправо -->
-                <button onclick="scrollHeroCarousel(1)" aria-label="Следующее фото" class="absolute -right-2 sm:-right-3 top-1/2 -translate-y-1/2 z-30 w-8 h-8 rounded-full bg-white/95 shadow-card border border-slate-200/60 flex items-center justify-center text-navy hover:bg-white active:scale-90 transition">
-                    <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7"/></svg>
-                </button>
+            <!-- Контейнер скролла от края до края без боковых отступов -->
+            <div id="hero-photos-carousel" class="w-full flex items-center overflow-x-auto no-scrollbar pt-8 sm:pt-10 pb-5 px-0 cursor-grab active:cursor-grabbing select-none">
+                ${photosSlidesHtml}
             </div>
 
+            <!-- Стрелка вправо -->
+            <button onclick="scrollHeroCarousel(1)" aria-label="Следующее фото" class="absolute right-2 sm:right-4 top-1/2 -translate-y-1/2 z-30 w-8 h-8 rounded-full bg-white/95 shadow-card border border-slate-200/60 flex items-center justify-center text-navy hover:bg-white active:scale-90 transition">
+                <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7"/></svg>
+            </button>
         </div>
 
     </section>
