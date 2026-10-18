@@ -60,6 +60,21 @@ body {
     border-radius: 9999px;
 }
 
+/* Солнышко в верхнем правом углу под хедером на главной */
+.hero-sun-box img {
+    animation: sunSlowSpin 40s linear infinite;
+    will-change: transform;
+}
+
+@keyframes sunSlowSpin {
+    from {
+        transform: rotate(0deg);
+    }
+    to {
+        transform: rotate(360deg);
+    }
+}
+
 
 /* Шапка сайта: слегка закруглены нижние края */
 header {

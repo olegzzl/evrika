@@ -88,9 +88,15 @@ function renderHomePage() {
             
             <!-- Приветственный блок (Hero) -->
             <div class="shrink-0 pt-1">
-                <h1 class="text-[28px] sm:text-3xl md:text-4xl font-black text-navy leading-[1.15] tracking-tight mb-2">
-                    Место, где<br>детство становится<br>ярче!
-                </h1>
+                <div class="flex items-center justify-between gap-2 mb-2">
+                    <h1 class="text-[28px] sm:text-3xl md:text-4xl font-black text-navy leading-[1.15] tracking-tight">
+                        Место, где<br>детство становится<br>ярче!
+                    </h1>
+                    <!-- Солнышко в верхнем правом углу: центр по высоте совпадает со строчкой «детство становится», а по горизонтали расположен точно под иконкой телефона в шапке -->
+                    <div class="hero-sun-box shrink-0 select-none pointer-events-none">
+                        <img src="Club photoes/Sun.png" alt="Солнышко" class="w-[76px] h-[76px] sm:w-[88px] sm:h-[88px] md:w-[96px] md:h-[96px] object-contain drop-shadow-sm">
+                    </div>
+                </div>
 
                 <p class="text-sm sm:text-base text-navy/90 font-bold leading-relaxed mb-3 max-w-lg">
                     ${SITE_DATA.clubInfo.subTagline}
