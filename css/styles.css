@@ -56,16 +56,18 @@ body {
 
 /* Режим эмуляции мобильного экрана на ПК (для точного сравнения с макетом) */
 .mobile-frame-mode #app-wrapper {
-    max-width: 412px;
-    margin: 1.5rem auto;
-    height: 860px;
-    max-height: 92vh;
-    border-radius: 44px;
-    box-shadow: 0 25px 60px -15px rgba(19, 38, 64, 0.22), 0 0 0 10px #1E293B;
-    overflow-y: auto;
-    overflow-x: hidden;
-    position: relative;
-    background: #FAF9F5;
+    width: 360px !important;
+    max-width: 360px !important;
+    height: 640px !important;
+    max-height: 74vh !important;
+    min-height: 0 !important;
+    margin: 0.5rem auto 1.5rem auto !important;
+    border-radius: 38px !important;
+    box-shadow: 0 20px 50px -15px rgba(19, 38, 64, 0.22), 0 0 0 9px #1E293B !important;
+    overflow-y: auto !important;
+    overflow-x: hidden !important;
+    position: relative !important;
+    background: #FAF9F5 !important;
 }
 
 /* Нижнее меню: легкий отступ снизу для комфортного тапа */
@@ -125,8 +127,11 @@ body.page-home-active {
 }
 
 .mobile-frame-mode.page-home-active #app-wrapper {
-    height: 860px;
-    max-height: 92vh;
+    width: 360px !important;
+    max-width: 360px !important;
+    height: 640px !important;
+    max-height: 74vh !important;
+    min-height: 0 !important;
     overflow: hidden !important;
 }
 
@@ -136,5 +141,11 @@ body.page-home-active {
     overflow: hidden !important;
 }
 
-
-
+/* Скрытие нативного скроллбара у горизонтальной карусели */
+.no-scrollbar::-webkit-scrollbar {
+    display: none;
+}
+.no-scrollbar {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+}
