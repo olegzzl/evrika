@@ -101,7 +101,7 @@ function renderHomePage() {
                     <button onclick="navigateTo('about')" class="w-full py-3.5 sm:py-4 px-3 sm:px-4 rounded-2xl sm:rounded-full bg-[#FDE047] hover:bg-[#FACC15] text-navy font-black text-sm sm:text-base shadow-sm transition transform active:scale-95 flex items-center justify-center text-center">
                         Узнать больше
                     </button>
-                    <button onclick="openBookingModal('Пробное занятие со скидкой')" class="w-full py-3.5 sm:py-4 px-3 sm:px-4 rounded-2xl sm:rounded-full bg-[#A855F7] hover:bg-[#9333EA] text-white font-black text-sm sm:text-base shadow-sm transition transform active:scale-95 flex items-center justify-center text-center">
+                    <button onclick="openBookingModal('Пробное занятие со скидкой')" class="w-full py-3.5 sm:py-4 px-3 sm:px-4 rounded-2xl sm:rounded-full bg-[#10B981] hover:bg-[#059669] text-white font-black text-sm sm:text-base shadow-sm transition transform active:scale-95 flex items-center justify-center text-center">
                         Записаться
                     </button>
                 </div>
