@@ -130,26 +130,39 @@ body,
     display: none !important;
 }
 
-/* Главная страница: полноэкранное размещение */
+/* Главная страница: идеальное центрирование горизонта движения карусели между карточкой меню и таб-баром */
 body.page-home-active {
-    overflow: hidden !important;
+    overflow-x: hidden;
 }
 
 .page-home-active #app-wrapper {
-    height: 100vh;
-    max-height: 100vh;
-    overflow: hidden !important;
+    min-height: 100vh;
+    min-height: 100dvh;
 }
 
 .page-home-active #main-content {
-    padding: 0 !important;
-    padding-bottom: 0 !important;
-    overflow-y: auto !important;
-    overflow-x: hidden !important;
-    flex: 1 1 0% !important;
-    min-height: 0 !important;
     display: flex !important;
     flex-direction: column !important;
+    padding-top: 0.25rem !important;
+    padding-left: 0 !important;
+    padding-right: 0 !important;
+    /* Точно до верхнего края плавающего таб-бара (bottom 14px + высота таббара 62px) */
+    padding-bottom: calc(max(0.85rem, env(safe-area-inset-bottom)) + 62px) !important;
+    flex: 1 1 auto !important;
+    min-height: 0 !important;
+    overflow-x: hidden !important;
+    overflow-y: auto !important;
+}
+
+.page-home-active .home-page-bg {
+    min-height: 100%;
+    flex: 1 1 auto;
+    display: flex;
+    flex-direction: column;
+}
+
+.carousel-horizon-wrapper {
+    min-height: 200px;
 }
 /* Скрытие нативного скроллбара у горизонтальной карусели */
 .no-scrollbar::-webkit-scrollbar {

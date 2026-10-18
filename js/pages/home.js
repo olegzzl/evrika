@@ -81,10 +81,10 @@ function renderHomePage() {
     setTimeout(initHeroCarousel, 50);
 
     return `
-    <section class="page-transition home-page-bg relative min-h-full w-full flex flex-col justify-between">
+    <section class="page-transition home-page-bg relative min-h-full flex-1 w-full flex flex-col">
         
-        <!-- Верхняя часть: Приветствие + Карточка меню (аккуратно центрирована) -->
-        <div class="max-w-3xl mx-auto w-full flex-1 flex flex-col justify-start px-5 pt-3 sm:pt-4 pb-2 md:px-8 relative z-20">
+        <!-- Верхняя часть: Приветствие + Карточка меню (компактно, без flex-1) -->
+        <div class="max-w-3xl mx-auto w-full px-5 pt-1 sm:pt-2 pb-0 md:px-8 shrink-0 z-20">
             
             <!-- Приветственный блок (Hero) -->
             <div class="shrink-0 pt-1">
@@ -113,8 +113,8 @@ function renderHomePage() {
                 </div>
             </div>
 
-            <!-- Карточка с 8 иконками: слегка опущена на мобильной версии (mt-4 sm:mt-5) -->
-            <div class="bg-white/95 backdrop-blur-md rounded-3xl px-3 py-2 sm:px-5 sm:py-3 shadow-soft border border-white z-20 mt-4 sm:mt-5 mb-2 shrink-0">
+            <!-- Карточка с 8 иконками: верхняя граница для центрирования горизонта карусели -->
+            <div id="home-top-menu-card" class="bg-white/95 backdrop-blur-md rounded-3xl px-3 py-2 sm:px-5 sm:py-3 shadow-soft border border-white z-20 mt-3.5 sm:mt-4 mb-0 shrink-0">
                 <div class="grid grid-cols-4 gap-y-1.5 sm:gap-y-2 gap-x-1 sm:gap-x-3">
                     ${topMenuButtonsHtml}
                 </div>
@@ -122,19 +122,19 @@ function renderHomePage() {
 
         </div>
 
-        <!-- Интерактивная карусель фотографий: НА ВСЮ ШИРИНУ ОТ САМОГО КРАЯ САЙТА (без скрывающих слоёв и обрезки) -->
-        <div class="relative w-full mt-auto mb-2 sm:mb-3 -translate-y-[20px] z-20 py-1">
-            <!-- Стрелка влево -->
+        <!-- Интерактивная карусель фотографий: СТРОГО ПО ЦЕНТРУ МЕЖДУ КАРТОЧКОЙ С ИКОНКАМИ И НИЖНИМ ТАБ-БАРОМ -->
+        <div class="carousel-horizon-wrapper relative w-full flex-1 flex flex-col justify-center items-center z-20 my-auto py-2 sm:py-4">
+            <!-- Стрелка влево (находится строго на горизонте движения) -->
             <button onclick="scrollHeroCarousel(-1)" aria-label="Предыдущее фото" class="absolute left-2 sm:left-4 top-1/2 -translate-y-1/2 z-30 w-8 h-8 rounded-full bg-white/95 shadow-card border border-slate-200/60 flex items-center justify-center text-navy hover:bg-white active:scale-90 transition">
                 <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M15 19l-7-7 7-7"/></svg>
             </button>
 
-            <!-- Контейнер скролла с достаточным запасом снизу, чтобы пузыри не обрезались -->
-            <div id="hero-photos-carousel" class="w-full flex items-center overflow-x-auto no-scrollbar pt-8 sm:pt-10 pb-12 sm:pb-16 px-0 cursor-grab active:cursor-grabbing select-none">
+            <!-- Контейнер скролла с симметричными вертикальными отступами для идеальной центровки оси -->
+            <div id="hero-photos-carousel" class="w-full flex items-center overflow-x-auto no-scrollbar py-6 sm:py-8 px-0 cursor-grab active:cursor-grabbing select-none">
                 ${photosSlidesHtml}
             </div>
 
-            <!-- Стрелка вправо -->
+            <!-- Стрелка вправо (находится строго на горизонте движения) -->
             <button onclick="scrollHeroCarousel(1)" aria-label="Следующее фото" class="absolute right-2 sm:right-4 top-1/2 -translate-y-1/2 z-30 w-8 h-8 rounded-full bg-white/95 shadow-card border border-slate-200/60 flex items-center justify-center text-navy hover:bg-white active:scale-90 transition">
                 <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7"/></svg>
             </button>
