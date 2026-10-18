@@ -96,12 +96,12 @@ function renderHomePage() {
                     ${SITE_DATA.clubInfo.subTagline}
                 </p>
 
-                <!-- Крупные кнопки действия: слева «Узнать больше», справа «Записаться» (в 2 раза больше) -->
+                <!-- Крупные кнопки действия: одинаковая геометрия, без лишних обводок и эффектов -->
                 <div class="grid grid-cols-2 gap-3 sm:gap-4 w-full mt-3.5 mb-1.5">
                     <button onclick="navigateTo('about')" class="w-full py-3.5 sm:py-4 px-3 sm:px-4 rounded-2xl sm:rounded-full bg-[#FDE047] hover:bg-[#FACC15] text-navy font-black text-sm sm:text-base shadow-sm transition transform active:scale-95 flex items-center justify-center text-center">
                         Узнать больше
                     </button>
-                    <button onclick="openBookingModal('Пробное занятие со скидкой')" class="w-full py-3.5 sm:py-4 px-3 sm:px-4 rounded-2xl sm:rounded-full bg-white hover:bg-slate-50 text-navy border-2 border-slate-200/90 font-black text-sm sm:text-base shadow-card transition transform active:scale-95 flex items-center justify-center text-center">
+                    <button onclick="openBookingModal('Пробное занятие со скидкой')" class="w-full py-3.5 sm:py-4 px-3 sm:px-4 rounded-2xl sm:rounded-full bg-[#A855F7] hover:bg-[#9333EA] text-white font-black text-sm sm:text-base shadow-sm transition transform active:scale-95 flex items-center justify-center text-center">
                         Записаться
                     </button>
                 </div>
