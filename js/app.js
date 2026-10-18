@@ -20,16 +20,18 @@ function renderNavigationElements() {
                 : `navigateTo('${item.id}')`;
 
             return `
-            <button onclick="${clickHandler}" class="w-full flex items-center justify-between py-1.5 px-3 rounded-2xl transition group ${isActive ? 'bg-slate-100 shadow-sm' : 'hover:bg-slate-50 active:scale-98'}">
-                <div class="flex items-center gap-3">
-                    <div class="w-8 h-8 flex items-center justify-center shrink-0">
+            <button onclick="${clickHandler}" class="w-full flex items-center justify-between py-2 sm:py-2.5 px-3.5 sm:px-4 rounded-2xl transition group ${isActive ? 'bg-amber-50/90 border border-amber-200/60 shadow-xs' : 'hover:bg-slate-50 active:scale-98'}">
+                <div class="flex items-center gap-3 sm:gap-3.5">
+                    <div class="w-9 h-9 sm:w-10 sm:h-10 flex items-center justify-center shrink-0 group-hover:scale-110 transition duration-200">
                         ${getTopMenuIcon(item.icon)}
                     </div>
-                    <span class="text-xs sm:text-sm font-bold text-navy group-hover:text-brand-blue transition">${item.title}</span>
+                    <span class="text-sm sm:text-base font-bold text-navy group-hover:text-brand-blue transition">${item.title}</span>
                 </div>
-                <svg class="w-3.5 h-3.5 text-navy/40 group-hover:text-navy/70 group-hover:translate-x-0.5 transition" fill="none" stroke="currentColor" stroke-width="2.2" viewBox="0 0 24 24">
-                    <path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7"/>
-                </svg>
+                <div class="w-7 h-7 rounded-full flex items-center justify-center text-navy/40 group-hover:text-navy group-hover:bg-navy/5 group-hover:translate-x-0.5 transition">
+                    <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2.3" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7"/>
+                    </svg>
+                </div>
             </button>
             `;
         }).join('');
