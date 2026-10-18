@@ -42,7 +42,7 @@ function renderCalendarPage() {
         const isHighlighted = currentState.selectedCalendarDay === ev.day;
         return `
         <div onclick="openBookingModal('Запись на событие: ${ev.title} (${ev.day} ${monthObj.short})')" 
-             class="flex items-center justify-between gap-3.5 p-2.5 rounded-2xl transition cursor-pointer ${isHighlighted ? 'bg-white shadow-soft ring-2 ring-brand-blue' : 'hover:bg-white/80'}">
+             class="flex items-center justify-between gap-3.5 p-3 rounded-2xl transition duration-200 cursor-pointer ${isHighlighted ? 'bg-white shadow-soft ring-2 ring-brand-blue border border-brand-blue/30' : 'bg-white shadow-sm border border-slate-100 hover:shadow-card hover:border-slate-200 active:scale-[0.99]'}">
             <div class="flex items-center gap-3.5">
                 <div class="w-11 h-11 rounded-full ${ev.badgeBg} ${ev.badgeText} flex flex-col items-center justify-center shrink-0 leading-none shadow-sm">
                     <span class="text-xs font-extrabold">${ev.day}</span>
@@ -53,7 +53,7 @@ function renderCalendarPage() {
                     <p class="text-[11px] text-navy/65 mt-0.5">${ev.time} • ${ev.age}</p>
                 </div>
             </div>
-            <span class="text-[11px] font-bold text-brand-blue shrink-0 px-2.5 py-1 rounded-full bg-pastel-blue/60">
+            <span class="text-[11px] font-bold text-brand-blue shrink-0 px-2.5 py-1 rounded-full bg-pastel-blue/60 hover:bg-brand-blue hover:text-white transition">
                 Запись
             </span>
         </div>

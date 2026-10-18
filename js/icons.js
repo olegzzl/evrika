@@ -109,33 +109,39 @@ function getTopMenuIcon(name) {
  */
 function getBottomMenuIcon(name) {
     const icons = {
-        // Главная: сплошной жёлтый домик
+        // Главная: домик точно как в верхней плашке «О клубе»
         home: `
-            <svg class="w-6 h-6 transition-transform duration-200 group-hover:scale-110" viewBox="0 0 24 24" fill="none">
-                <rect x="16.5" y="4" width="2.5" height="5" rx="0.6" fill="#FBBF24"/>
-                <path fill-rule="evenodd" clip-rule="evenodd" d="M12 2.8c-.4 0-.8.2-1.1.5L2.4 10.8c-.5.5-.4 1.3.1 1.8.5.4 1.3.4 1.8-.1L5 11.8V19c0 1.4 1.1 2.5 2.5 2.5h9c1.4 0 2.5-1.1 2.5-2.5v-7.2l.7.7c.5.5 1.3.5 1.8.1.5-.5.6-1.3.1-1.8L13.1 3.3c-.3-.3-.7-.5-1.1-.5zM9.5 21.5h5v-4.5c0-1.4-1.1-2.5-2.5-2.5s-2.5 1.1-2.5 2.5v4.5z" fill="#FBBF24"/>
+            <svg class="w-6 h-6 drop-shadow-sm transition-transform duration-200 group-hover:scale-110" viewBox="0 0 24 24" fill="none">
+                <rect x="16.5" y="4" width="2.5" height="5" rx="0.6" fill="#0284C7"/>
+                <path fill-rule="evenodd" clip-rule="evenodd" d="M12 2.8c-.4 0-.8.2-1.1.5L2.4 10.8c-.5.5-.4 1.3.1 1.8.5.4 1.3.4 1.8-.1L5 11.8V19c0 1.4 1.1 2.5 2.5 2.5h9c1.4 0 2.5-1.1 2.5-2.5v-7.2l.7.7c.5.5 1.3.5 1.8.1.5-.5.6-1.3.1-1.8L13.1 3.3c-.3-.3-.7-.5-1.1-.5zM9.5 21.5h5v-4.5c0-1.4-1.1-2.5-2.5-2.5s-2.5 1.1-2.5 2.5v4.5z" fill="#0284C7"/>
             </svg>
         `,
-        // Кружки: синий контурный пазл
+        // Кружки: пазл точно как в верхней плашке «Кружки»
         clubs: `
-            <svg class="w-6 h-6 transition-transform duration-200 group-hover:scale-110" viewBox="0 0 24 24" fill="none" stroke="#2563EB" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                <path d="M7 5.5 L9.5 5.5 C9.5 3.5, 10.3 2, 12 2 C13.7 2, 14.5 3.5, 14.5 5.5 L17 5.5 C17.8 5.5, 18.5 6.2, 18.5 7 L18.5 9.5 C20.5 9.5, 22 10.3, 22 12 C22 13.7, 20.5 14.5, 18.5 14.5 L18.5 17 C18.5 17.8, 17.8 18.5, 17 18.5 L14.5 18.5 C14.5 16.5, 13.7 15, 12 15 C10.3 15, 9.5 16.5, 9.5 18.5 L7 18.5 C6.2 18.5, 5.5 17.8, 5.5 17 L5.5 14.5 C7.5 14.5, 9 13.7, 9 12 C9 10.3, 7.5 9.5, 5.5 9.5 L5.5 7 C5.5 6.2, 6.2 5.5, 7 5.5 Z"/>
+            <svg class="w-6 h-6 drop-shadow-sm transition-transform duration-200 group-hover:scale-110" viewBox="0 0 24 24" fill="none">
+                <path fill="#F97316" d="M7 5.5 L9.5 5.5 C9.5 3.5, 10.3 2, 12 2 C13.7 2, 14.5 3.5, 14.5 5.5 L17 5.5 C17.8 5.5, 18.5 6.2, 18.5 7 L18.5 9.5 C20.5 9.5, 22 10.3, 22 12 C22 13.7, 20.5 14.5, 18.5 14.5 L18.5 17 C18.5 17.8, 17.8 18.5, 17 18.5 L14.5 18.5 C14.5 16.5, 13.7 15, 12 15 C10.3 15, 9.5 16.5, 9.5 18.5 L7 18.5 C6.2 18.5, 5.5 17.8, 5.5 17 L5.5 14.5 C7.5 14.5, 9 13.7, 9 12 C9 10.3, 7.5 9.5, 5.5 9.5 L5.5 7 C5.5 6.2, 6.2 5.5, 7 5.5 Z"/>
             </svg>
         `,
-        // Календарь: зелёный контурный календарь
+        // Календарь: календарь точно как в верхней плашке «Календарь»
         calendar: `
-            <svg class="w-6 h-6 transition-transform duration-200 group-hover:scale-110" viewBox="0 0 24 24" fill="none" stroke="#10B981" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                <rect x="3" y="4.5" width="18" height="16.5" rx="3"/>
-                <line x1="16" y1="2" x2="16" y2="5.5"/>
-                <line x1="8" y1="2" x2="8" y2="5.5"/>
-                <line x1="3" y1="10" x2="21" y2="10"/>
+            <svg class="w-6 h-6 drop-shadow-sm transition-transform duration-200 group-hover:scale-110" viewBox="0 0 24 24" fill="none">
+                <rect x="7" y="1.5" width="2" height="4" rx="1" fill="#06B6D4"/>
+                <rect x="15" y="1.5" width="2" height="4" rx="1" fill="#06B6D4"/>
+                <rect x="2.5" y="3.5" width="19" height="18" rx="3.5" fill="#06B6D4"/>
+                <rect x="2.5" y="8.5" width="19" height="1.8" fill="#FFFFFF"/>
+                <circle cx="6.5" cy="12.5" r="1.1" fill="#FFFFFF"/>
+                <circle cx="12" cy="12.5" r="1.1" fill="#FFFFFF"/>
+                <circle cx="17.5" cy="12.5" r="1.1" fill="#FFFFFF"/>
+                <circle cx="6.5" cy="16.5" r="1.1" fill="#FFFFFF"/>
+                <circle cx="12" cy="16.5" r="1.1" fill="#FFFFFF"/>
+                <circle cx="17.5" cy="16.5" r="1.1" fill="#FFFFFF"/>
             </svg>
         `,
-        // Профиль: розовый контурный пользователь
+        // Профиль: сплошной гармоничный силуэт в том же стиле
         profile: `
-            <svg class="w-6 h-6 transition-transform duration-200 group-hover:scale-110" viewBox="0 0 24 24" fill="none" stroke="#F472B6" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                <circle cx="12" cy="7" r="4"/>
-                <path d="M19 21v-1.5a4.5 4.5 0 0 0-4.5-4.5h-5A4.5 4.5 0 0 0 5 19.5V21"/>
+            <svg class="w-6 h-6 drop-shadow-sm transition-transform duration-200 group-hover:scale-110" viewBox="0 0 24 24" fill="none">
+                <circle cx="12" cy="7" r="4.2" fill="#FB7185"/>
+                <path d="M4 20.5c0-4 3.6-7 8-7s8 3 8 7v.5H4v-.5z" fill="#FB7185"/>
             </svg>
         `
     };

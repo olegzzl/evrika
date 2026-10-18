@@ -6,7 +6,7 @@ tailwind.config = {
         extend: {
             fontFamily: {
                 sans: ['Nunito', 'sans-serif'],
-                logo: ['Montserrat Alternates', 'sans-serif'],
+                logo: ['Nunito', 'sans-serif'],
             },
             colors: {
                 milk: '#FAF9F5',

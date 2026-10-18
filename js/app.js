@@ -13,17 +13,21 @@
 function renderNavigationElements() {
     const mobileList = document.getElementById('mobile-menu-list');
     if (mobileList) {
-        mobileList.innerHTML = SITE_DATA.navigation.map(item => {
+        mobileList.innerHTML = (SITE_DATA.topMenuItems || []).map(item => {
             const isActive = currentState.currentPage === item.id;
+            const clickHandler = item.id === 'reviews'
+                ? `toggleMenuDrawer(false); openReviewsModal();`
+                : `navigateTo('${item.id}')`;
+
             return `
-            <button onclick="navigateTo('${item.id}')" class="w-full flex items-center justify-between py-2.5 px-3 rounded-2xl transition ${isActive ? 'bg-white shadow-card' : 'hover:bg-white/60'}">
-                <div class="flex items-center gap-3.5">
-                    <div class="w-8 h-8 rounded-lg flex items-center justify-center" style="background-color: ${item.bg}; color: ${item.color}">
-                        ${getMenuIcon(item.icon, item.color)}
+            <button onclick="${clickHandler}" class="w-full flex items-center justify-between py-1.5 px-3 rounded-2xl transition group ${isActive ? 'bg-slate-100 shadow-sm' : 'hover:bg-slate-50 active:scale-98'}">
+                <div class="flex items-center gap-3">
+                    <div class="w-8 h-8 flex items-center justify-center shrink-0">
+                        ${getTopMenuIcon(item.icon)}
                     </div>
-                    <span class="text-sm font-bold text-navy">${item.title}</span>
+                    <span class="text-xs sm:text-sm font-bold text-navy group-hover:text-brand-blue transition">${item.title}</span>
                 </div>
-                <svg class="w-4 h-4 text-navy/40" fill="none" stroke="currentColor" stroke-width="2.2" viewBox="0 0 24 24">
+                <svg class="w-3.5 h-3.5 text-navy/40 group-hover:text-navy/70 group-hover:translate-x-0.5 transition" fill="none" stroke="currentColor" stroke-width="2.2" viewBox="0 0 24 24">
                     <path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7"/>
                 </svg>
             </button>
@@ -54,7 +58,7 @@ function renderNavigationElements() {
         }
     });
 
-    // Подсветка активной кнопки в приклеенном нижнем меню (Нижнее меню.jpg)
+    // Подсветка активной кнопки в приклеенном нижнем меню (100% насыщенность, без полупрозрачности)
     const bottomNavMapping = {
         home: document.getElementById('bnav-home'),
         clubs: document.getElementById('bnav-clubs'),
@@ -64,16 +68,15 @@ function renderNavigationElements() {
     ['home', 'clubs', 'calendar'].forEach(key => {
         const btn = bottomNavMapping[key];
         if (btn) {
+            btn.classList.remove('opacity-70');
+            btn.classList.add('opacity-100');
+            const label = btn.querySelector('.bnav-label');
             if (currentState.currentPage === key) {
-                btn.classList.add('scale-105', 'opacity-100');
-                btn.classList.remove('opacity-70');
-                const label = btn.querySelector('.bnav-label');
+                btn.classList.add('scale-105');
                 if (label) label.className = 'bnav-label text-[11px] font-extrabold text-navy mt-1';
             } else {
-                btn.classList.remove('scale-105', 'opacity-100');
-                btn.classList.add('opacity-70');
-                const label = btn.querySelector('.bnav-label');
-                if (label) label.className = 'bnav-label text-[11px] font-bold text-navy/70 mt-1';
+                btn.classList.remove('scale-105');
+                if (label) label.className = 'bnav-label text-[11px] font-bold text-navy mt-1';
             }
         }
     });
@@ -97,7 +100,7 @@ function navigateTo(pageId) {
     // Старый подвал со списком разделов полностью скрываем на главной и в мобильном режиме
     const footer = document.getElementById('site-footer');
     if (footer) {
-        if (pageId === 'home' || document.body.classList.contains('mobile-frame-mode') || window.innerWidth < 768) {
+        if (pageId === 'home' || window.innerWidth < 768) {
             footer.classList.add('hidden');
         } else {
             footer.classList.remove('hidden');
@@ -166,36 +169,6 @@ function toggleMenuDrawer(forceState) {
     }
 }
 
-/**
- * Переключение между адаптивным режимом (ПК + телефон) и рамкой смартфона (как на макете)
- */
-function setViewportMode(mode) {
-    const body = document.body;
-    const btnResp = document.getElementById('btn-mode-responsive');
-    const btnMob = document.getElementById('btn-mode-mobile');
-    const desktopNav = document.getElementById('desktop-nav');
-    const desktopCta = document.getElementById('desktop-cta');
-
-    if (!btnResp || !btnMob) return;
-
-    const footer = document.getElementById('site-footer');
-
-    if (mode === 'mobile') {
-        body.classList.add('mobile-frame-mode');
-        if (desktopNav) desktopNav.classList.remove('lg:flex');
-        if (desktopCta) desktopCta.classList.remove('sm:inline-flex');
-        if (footer) footer.classList.add('hidden');
-        btnMob.className = 'px-2.5 py-1 rounded-md bg-brand-blue text-white font-semibold transition';
-        btnResp.className = 'px-2.5 py-1 rounded-md bg-white/10 hover:bg-white/20 text-white transition';
-    } else {
-        body.classList.remove('mobile-frame-mode');
-        if (desktopNav) desktopNav.classList.add('lg:flex');
-        if (desktopCta) desktopCta.classList.add('sm:inline-flex');
-        if (footer && currentState.currentPage !== 'home') footer.classList.remove('hidden');
-        btnResp.className = 'px-2.5 py-1 rounded-md bg-brand-blue text-white font-semibold transition';
-        btnMob.className = 'px-2.5 py-1 rounded-md bg-white/10 hover:bg-white/20 text-white transition';
-    }
-}
 
 // Закрытие модальных окон при клике на оверлей
 window.addEventListener('click', (e) => {
