@@ -20,14 +20,14 @@ function renderNavigationElements() {
                 : `navigateTo('${item.id}')`;
 
             return `
-            <button onclick="${clickHandler}" class="w-full flex items-center justify-between py-2 sm:py-2.5 px-3.5 sm:px-4 rounded-2xl transition group ${isActive ? 'bg-amber-50/90 border border-amber-200/60 shadow-xs' : 'hover:bg-slate-50 active:scale-98'}">
+            <button onclick="${clickHandler}" class="w-full flex items-center justify-between py-1.5 sm:py-2 px-3.5 sm:px-4 rounded-2xl transition group ${isActive ? 'bg-amber-50/90 border border-amber-200/60 shadow-xs' : 'hover:bg-slate-50 active:scale-98 border border-transparent hover:border-slate-100'}">
                 <div class="flex items-center gap-3 sm:gap-3.5">
                     <div class="w-9 h-9 sm:w-10 sm:h-10 flex items-center justify-center shrink-0 group-hover:scale-110 transition duration-200">
                         ${getTopMenuIcon(item.icon)}
                     </div>
-                    <span class="text-sm sm:text-base font-bold text-navy group-hover:text-brand-blue transition">${item.title}</span>
+                    <span class="text-[15px] sm:text-base font-bold text-navy group-hover:text-brand-blue transition">${item.title}</span>
                 </div>
-                <div class="w-7 h-7 rounded-full flex items-center justify-center text-navy/40 group-hover:text-navy group-hover:bg-navy/5 group-hover:translate-x-0.5 transition">
+                <div class="w-7 h-7 sm:w-8 sm:h-8 rounded-full flex items-center justify-center text-navy/40 group-hover:text-navy group-hover:bg-navy/5 group-hover:translate-x-0.5 transition">
                     <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2.3" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7"/>
                     </svg>

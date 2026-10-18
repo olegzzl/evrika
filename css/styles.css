@@ -91,13 +91,65 @@ header {
     width: calc(100% - 1.5rem) !important;
     max-width: 28rem !important; /* компактный аккуратный остров */
     border-radius: 30px !important;
-    z-index: 50 !important;
+    z-index: 60 !important;
     background-color: #ffffff !important;
     opacity: 1 !important;
     box-shadow: 0 10px 30px rgba(30, 58, 95, 0.16), 0 2px 8px rgba(0, 0, 0, 0.04) !important;
     border: 1px solid rgba(226, 232, 240, 0.8) !important;
     padding-top: 0.45rem !important;
     padding-bottom: 0.45rem !important;
+}
+
+/* Всплывающее мобильное меню: в одной плоскости по ширине с нижним таб-баром, зажато на 20% по высоте (сверху и снизу) */
+#mobile-menu-drawer {
+    position: fixed !important;
+    inset: 0 !important;
+    z-index: 50 !important;
+    background-color: rgba(30, 58, 95, 0.45) !important;
+    backdrop-filter: blur(12px) !important;
+    -webkit-backdrop-filter: blur(12px) !important;
+    display: none;
+    flex-direction: column !important;
+    align-items: center !important;
+    justify-content: center !important;
+    padding-top: max(0.75rem, env(safe-area-inset-top)) !important;
+    padding-left: 0 !important;
+    padding-right: 0 !important;
+    padding-bottom: calc(max(0.85rem, env(safe-area-inset-bottom)) + 82px) !important;
+}
+
+#mobile-menu-drawer.flex {
+    display: flex !important;
+}
+
+#mobile-menu-card {
+    background-color: #ffffff !important;
+    width: calc(100% - 1.5rem) !important;
+    max-width: 28rem !important; /* В точности совпадает по ширине с нижним таб-баром */
+    height: 80% !important; /* На 20% компактнее по высоте сверху и снизу */
+    max-height: 620px !important;
+    min-height: 440px !important;
+    border-radius: 30px !important; /* В точности то же скругление, что и у таб-бара */
+    box-shadow: 0 20px 40px -15px rgba(30, 58, 95, 0.25) !important;
+    border: 1px solid rgba(241, 245, 249, 1) !important;
+    display: flex !important;
+    flex-direction: column !important;
+    justify-content: space-between !important;
+    padding: 0.75rem 1.15rem 0.95rem !important;
+    position: relative !important;
+    overflow: hidden !important;
+    margin-left: auto !important;
+    margin-right: auto !important;
+}
+
+@media (min-width: 640px) {
+    #mobile-menu-drawer {
+        padding-top: max(1rem, env(safe-area-inset-top)) !important;
+        padding-bottom: calc(max(1rem, env(safe-area-inset-bottom)) + 86px) !important;
+    }
+    #mobile-menu-card {
+        padding: 0.95rem 1.35rem 1.15rem !important;
+    }
 }
 
 /* Векторный фон в чистом коде (точная копия Fon.jpg), примененный ко всему сайту */

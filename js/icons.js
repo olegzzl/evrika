@@ -15,7 +15,7 @@ function getTopMenuIcon(name) {
     const icons = {
         // 1. О клубе (Яркий небесно-голубой домик с дымоходом и арочным порталом)
         about: `
-            <svg class="w-7 h-7 sm:w-8 sm:h-8 drop-shadow-sm transition-transform duration-200 group-hover:scale-105" viewBox="0 0 24 24" fill="none">
+            <svg class="w-8 h-8 sm:w-9 sm:h-9 drop-shadow-sm transition-transform duration-200 group-hover:scale-105" viewBox="0 0 24 24" fill="none">
                 <!-- Дымоход справа -->
                 <rect x="16.5" y="4" width="2.5" height="5" rx="0.6" fill="#0284C7"/>
                 <!-- Контур дома: крыша + стены + арочный вырез дверцы -->
@@ -24,7 +24,7 @@ function getTopMenuIcon(name) {
         `,
         // 2. Программа (Фиолетовая открытая детская книга со строчками на страницах)
         program: `
-            <svg class="w-7 h-7 sm:w-8 sm:h-8 drop-shadow-sm transition-transform duration-200 group-hover:scale-105" viewBox="0 0 24 24" fill="none">
+            <svg class="w-8 h-8 sm:w-9 sm:h-9 drop-shadow-sm transition-transform duration-200 group-hover:scale-105" viewBox="0 0 24 24" fill="none">
                 <!-- Левая страница -->
                 <path d="M11 5.5C8 4.6 4.6 5.1 2.8 6.2c-.5.3-.8.8-.8 1.4v10.8c0 1 .8 1.8 1.8 1.6 2.4-.4 5.2-.6 7.2.5V5.5z" fill="#A855F7"/>
                 <!-- Правая страница -->
@@ -38,13 +38,13 @@ function getTopMenuIcon(name) {
         `,
         // 3. Кружки (Яркий оранжевый пазл с круглыми замками)
         clubs: `
-            <svg class="w-7 h-7 sm:w-8 sm:h-8 drop-shadow-sm transition-transform duration-200 group-hover:scale-105" viewBox="0 0 24 24" fill="none">
+            <svg class="w-8 h-8 sm:w-9 sm:h-9 drop-shadow-sm transition-transform duration-200 group-hover:scale-105" viewBox="0 0 24 24" fill="none">
                 <path fill="#F97316" d="M7 5.5 L9.5 5.5 C9.5 3.5, 10.3 2, 12 2 C13.7 2, 14.5 3.5, 14.5 5.5 L17 5.5 C17.8 5.5, 18.5 6.2, 18.5 7 L18.5 9.5 C20.5 9.5, 22 10.3, 22 12 C22 13.7, 20.5 14.5, 18.5 14.5 L18.5 17 C18.5 17.8, 17.8 18.5, 17 18.5 L14.5 18.5 C14.5 16.5, 13.7 15, 12 15 C10.3 15, 9.5 16.5, 9.5 18.5 L7 18.5 C6.2 18.5, 5.5 17.8, 5.5 17 L5.5 14.5 C7.5 14.5, 9 13.7, 9 12 C9 10.3, 7.5 9.5, 5.5 9.5 L5.5 7 C5.5 6.2, 6.2 5.5, 7 5.5 Z"/>
             </svg>
         `,
         // 4. Календарь (Бирюзовый настенный календарь с кольцами и точками дат 3х2)
         calendar: `
-            <svg class="w-7 h-7 sm:w-8 sm:h-8 drop-shadow-sm transition-transform duration-200 group-hover:scale-105" viewBox="0 0 24 24" fill="none">
+            <svg class="w-8 h-8 sm:w-9 sm:h-9 drop-shadow-sm transition-transform duration-200 group-hover:scale-105" viewBox="0 0 24 24" fill="none">
                 <!-- Кольца крепления -->
                 <rect x="7" y="1.5" width="2" height="4" rx="1" fill="#06B6D4"/>
                 <rect x="15" y="1.5" width="2" height="4" rx="1" fill="#06B6D4"/>
@@ -63,7 +63,7 @@ function getTopMenuIcon(name) {
         `,
         // 5. Галерея (Розовый фотоаппарат с белым объективом и вспышкой)
         gallery: `
-            <svg class="w-7 h-7 sm:w-8 sm:h-8 drop-shadow-sm transition-transform duration-200 group-hover:scale-105" viewBox="0 0 24 24" fill="none">
+            <svg class="w-8 h-8 sm:w-9 sm:h-9 drop-shadow-sm transition-transform duration-200 group-hover:scale-105" viewBox="0 0 24 24" fill="none">
                 <!-- Верхний выступ видоискателя -->
                 <rect x="8" y="2.5" width="8" height="3" rx="1.2" fill="#FB7185"/>
                 <!-- Корпус камеры -->
@@ -77,7 +77,7 @@ function getTopMenuIcon(name) {
         `,
         // 6. Воспитатели (Зелёная академическая шапочка выпускника с кисточкой)
         teachers: `
-            <svg class="w-7 h-7 sm:w-8 sm:h-8 drop-shadow-sm transition-transform duration-200 group-hover:scale-105" viewBox="0 0 24 24" fill="none">
+            <svg class="w-8 h-8 sm:w-9 sm:h-9 drop-shadow-sm transition-transform duration-200 group-hover:scale-105" viewBox="0 0 24 24" fill="none">
                 <!-- Ромбовидный верх шапочки -->
                 <path d="M12 4.2L2 9.2l10 5 10-5L12 4.2z" fill="#10B981"/>
                 <!-- Купол под шапочкой -->
@@ -90,13 +90,13 @@ function getTopMenuIcon(name) {
         `,
         // 7. Контакты (Кораллово-красная классическая телефонная трубка)
         contacts: `
-            <svg class="w-7 h-7 sm:w-8 sm:h-8 drop-shadow-sm transition-transform duration-200 group-hover:scale-105" viewBox="0 0 24 24" fill="none">
+            <svg class="w-8 h-8 sm:w-9 sm:h-9 drop-shadow-sm transition-transform duration-200 group-hover:scale-105" viewBox="0 0 24 24" fill="none">
                 <path fill-rule="evenodd" clip-rule="evenodd" d="M1.5 4.5a3 3 0 0 1 3-3h1.372c.86 0 1.61.586 1.819 1.42l1.105 4.423a1.875 1.875 0 0 1-.694 1.955l-1.293.97c-.135.101-.164.249-.126.352a11.285 11.285 0 0 0 6.697 6.697c.103.038.25.009.352-.126l.97-1.293a1.875 1.875 0 0 1 1.955-.694l4.423 1.105c.834.209 1.42.959 1.42 1.82V19.5a3 3 0 0 1-3 3h-2.25C8.552 22.5 1.5 15.448 1.5 6.75V4.5Z" fill="#FB7185"/>
             </svg>
         `,
         // 8. Отзывы (Золотистая пятиконечная звёздочка с идеальной геометрией)
         reviews: `
-            <svg class="w-7 h-7 sm:w-8 sm:h-8 drop-shadow-sm transition-transform duration-200 group-hover:scale-105" viewBox="0 0 24 24" fill="none">
+            <svg class="w-8 h-8 sm:w-9 sm:h-9 drop-shadow-sm transition-transform duration-200 group-hover:scale-105" viewBox="0 0 24 24" fill="none">
                 <path fill-rule="evenodd" clip-rule="evenodd" d="M10.788 3.21c.448-1.077 1.976-1.077 2.424 0l2.082 5.006 5.404.434c1.164.093 1.636 1.545.749 2.305l-4.117 3.527 1.257 5.273c.271 1.136-.964 2.033-1.96 1.425L12 18.354 7.373 21.18c-.996.608-2.231-.29-1.96-1.425l1.257-5.273-4.117-3.527c-.887-.76-.415-2.212.749-2.305l5.404-.434 2.082-5.005Z" fill="#FBBF24"/>
             </svg>
         `
