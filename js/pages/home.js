@@ -116,8 +116,8 @@ function renderHomePage() {
 
         </div>
 
-        <!-- Интерактивная карусель фотографий: НА ВСЮ ШИРИНУ ОТ САМОГО КРАЯ САЙТА БЕЗ БОРДЮРОВ -->
-        <div class="relative w-full mt-auto mb-1 z-20 py-1 overflow-hidden">
+        <!-- Интерактивная карусель фотографий: НА ВСЮ ШИРИНУ ОТ САМОГО КРАЯ САЙТА (горизонт поднят на 20px) -->
+        <div class="relative w-full mt-auto mb-5 sm:mb-6 -translate-y-[20px] z-20 py-1 overflow-hidden">
             <!-- Стрелка влево -->
             <button onclick="scrollHeroCarousel(-1)" aria-label="Предыдущее фото" class="absolute left-2 sm:left-4 top-1/2 -translate-y-1/2 z-30 w-8 h-8 rounded-full bg-white/95 shadow-card border border-slate-200/60 flex items-center justify-center text-navy hover:bg-white active:scale-90 transition">
                 <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M15 19l-7-7 7-7"/></svg>
