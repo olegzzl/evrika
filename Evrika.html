@@ -1,9 +1,9 @@
 <!DOCTYPE html>
-<html lang="ru">
+<html lang="uk">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Детский клуб «Эврика» — Харьков</title>
+    <title id="site-head-title">Дитячий клуб «Еврика» — Харків</title>
     
     <!-- Скрипт Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
@@ -25,40 +25,67 @@
     <!-- Главный контейнер приложения -->
     <div id="app-wrapper" class="w-full max-w-6xl mx-auto min-h-screen flex flex-col justify-between relative overflow-hidden z-10">
         
-        <!-- Декоративные фоновые пятна в углах (как на референсе) -->
+        <!-- Декоративные фоновые пятна в углах -->
         <div class="pointer-events-none absolute -bottom-16 -left-16 w-64 h-64 rounded-full bg-[#E3F1FE] opacity-75 blur-xl z-0"></div>
         <div class="pointer-events-none absolute -bottom-16 -right-12 w-56 h-56 rounded-full bg-[#FEF0C7] opacity-80 blur-xl z-0"></div>
         <div class="pointer-events-none absolute top-32 -right-20 w-48 h-48 rounded-full bg-[#DCFCE7] opacity-50 blur-2xl z-0"></div>
 
         <!-- ШАПКА САЙТА (с аккуратно закруглёнными нижними краями) -->
-        <header class="sticky top-0 z-30 bg-white/80 backdrop-blur-md px-5 py-3.5 md:px-8 md:py-4 border-b border-x border-slate-200/50 rounded-b-[24px] sm:rounded-b-[28px] shadow-xs">
-            <div class="flex items-center justify-between">
-                <!-- Логотип (увеличен на 30%) -->
-                <a href="#home" onclick="navigateTo('home'); return false;" class="group flex flex-col items-start focus:outline-none">
-                    <div class="font-logo text-[31px] md:text-[39px] font-extrabold tracking-tight leading-none logo-text">
-                        <span>Э</span><span>в</span><span>р</span><span>и</span><span>к</span><span>а</span>
+        <header class="sticky top-0 z-30 bg-white/80 backdrop-blur-md px-3 sm:px-5 py-3 md:px-8 md:py-4 border-b border-x border-slate-200/50 rounded-b-[24px] sm:rounded-b-[28px] shadow-xs">
+            <div class="flex items-center justify-between gap-2">
+                <!-- Логотип «Еврика» -->
+                <a href="#home" onclick="navigateTo('home'); return false;" class="group flex flex-col items-start focus:outline-none shrink-0">
+                    <div id="logo-letters" class="font-logo text-[28px] sm:text-[33px] md:text-[39px] font-extrabold tracking-tight leading-none logo-text">
+                        <span>Е</span><span>в</span><span>р</span><span>и</span><span>к</span><span>а</span>
                     </div>
-                    <span class="text-[14px] md:text-[16px] font-extrabold text-navy tracking-wide mt-0.5 pl-0.5 transition">
-                        детский клуб
+                    <span id="logo-subtitle" class="text-[12px] sm:text-[14px] md:text-[16px] font-extrabold text-navy tracking-wide mt-0.5 pl-0.5 transition">
+                        дитячий клуб
                     </span>
                 </a>
 
-                <!-- Десктопная навигация (скрыта на мобильных и в режиме мобильного фрейма) -->
+                <!-- Десктопная навигация -->
                 <nav id="desktop-nav" class="hidden lg:flex items-center gap-1 xl:gap-2">
-                    <button onclick="navigateTo('home')" data-nav="home" class="nav-pill px-3 py-1.5 rounded-full text-sm font-bold transition">Главная</button>
-                    <button onclick="navigateTo('about')" data-nav="about" class="nav-pill px-3 py-1.5 rounded-full text-sm font-bold transition">О клубе</button>
-                    <button onclick="navigateTo('program')" data-nav="program" class="nav-pill px-3 py-1.5 rounded-full text-sm font-bold transition">Программа</button>
-                    <button onclick="navigateTo('clubs')" data-nav="clubs" class="nav-pill px-3 py-1.5 rounded-full text-sm font-bold transition">Кружки</button>
-                    <button onclick="navigateTo('calendar')" data-nav="calendar" class="nav-pill px-3 py-1.5 rounded-full text-sm font-bold transition">Календарь</button>
-                    <button onclick="navigateTo('gallery')" data-nav="gallery" class="nav-pill px-3 py-1.5 rounded-full text-sm font-bold transition">Галерея</button>
-                    <button onclick="navigateTo('teachers')" data-nav="teachers" class="nav-pill px-3 py-1.5 rounded-full text-sm font-bold transition">Воспитатели</button>
-                    <button onclick="navigateTo('contacts')" data-nav="contacts" class="nav-pill px-3 py-1.5 rounded-full text-sm font-bold transition">Контакты</button>
+                    <!-- Заполняется динамически скриптом js/app.js -->
                 </nav>
 
-                <!-- Правый блок: Инстаграм + Прямой звонок + Записаться + Кнопка мобильного меню -->
+                <!-- Правый блок: Языковое выпадающее меню + Инстаграм + Прямой звонок + Записаться + Кнопка мобильного меню -->
                 <div class="flex items-center gap-1.5 sm:gap-2.5">
+                    
+                    <!-- Выпадающее меню переключения языка (УКР / ENG / РУС) -->
+                    <div class="relative" id="lang-dropdown-wrapper">
+                        <button type="button" 
+                                id="lang-dropdown-btn" 
+                                onclick="toggleLangDropdown(event)" 
+                                aria-label="Змінити мову / Change language" 
+                                aria-haspopup="true" 
+                                aria-expanded="false" 
+                                class="h-9 px-2 sm:px-3 rounded-full bg-slate-100 hover:bg-slate-200/80 active:scale-95 text-navy font-black text-xs flex items-center gap-1 sm:gap-1.5 border border-slate-200/70 transition cursor-pointer shadow-xs select-none">
+                            <span id="header-lang-code" class="tracking-wide">Укр</span>
+                            <svg id="header-lang-caret" class="w-3.5 h-3.5 text-navy/70 transition-transform duration-200" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7"/>
+                            </svg>
+                        </button>
+
+                        <!-- Всплывающее выпадающее окно (маленькое, компактное) -->
+                        <div id="lang-dropdown-menu" 
+                             class="hidden absolute right-0 mt-2 w-24 bg-white/95 backdrop-blur-md rounded-2xl shadow-floating border border-slate-200/80 p-1 z-50 animate-[fadeIn_0.15s_ease-out]">
+                            <button type="button" onclick="changeLanguage('uk', event)" class="lang-opt-btn w-full flex items-center justify-between px-2.5 py-1.5 rounded-xl text-xs font-black text-navy hover:bg-amber-50 hover:text-amber-900 transition cursor-pointer" data-lang="uk">
+                                <span>Укр</span>
+                                <span class="lang-check text-brand-blue font-black" id="check-uk">✓</span>
+                            </button>
+                            <button type="button" onclick="changeLanguage('en', event)" class="lang-opt-btn w-full flex items-center justify-between px-2.5 py-1.5 rounded-xl text-xs font-black text-navy hover:bg-amber-50 hover:text-amber-900 transition cursor-pointer" data-lang="en">
+                                <span>Eng</span>
+                                <span class="lang-check text-brand-blue font-black hidden" id="check-en">✓</span>
+                            </button>
+                            <button type="button" onclick="changeLanguage('ru', event)" class="lang-opt-btn w-full flex items-center justify-between px-2.5 py-1.5 rounded-xl text-xs font-black text-navy hover:bg-amber-50 hover:text-amber-900 transition cursor-pointer" data-lang="ru">
+                                <span>Рус</span>
+                                <span class="lang-check text-brand-blue font-black hidden" id="check-ru">✓</span>
+                            </button>
+                        </div>
+                    </div>
+
                     <!-- Иконка Instagram -->
-                    <a href="https://instagram.com" target="_blank" rel="noopener noreferrer" aria-label="Instagram клуба" class="w-9 h-9 rounded-full bg-slate-100 hover:bg-pink-50 hover:text-[#E1306C] text-[#E1306C] flex items-center justify-center transition active:scale-90 shadow-sm shrink-0">
+                    <a href="https://instagram.com" target="_blank" rel="noopener noreferrer" id="header-instagram-link" aria-label="Instagram клубу" class="w-9 h-9 rounded-full bg-slate-100 hover:bg-pink-50 hover:text-[#E1306C] text-[#E1306C] flex items-center justify-center transition active:scale-90 shadow-sm shrink-0">
                         <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
                             <rect width="20" height="20" x="2" y="2" rx="5" ry="5"/>
                             <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/>
@@ -66,20 +93,20 @@
                         </svg>
                     </a>
 
-                    <!-- Прямой звонок по телефону (сразу звонит, не переходит на контакты) -->
-                    <a href="tel:+38090000000" aria-label="Позвонить в детский клуб" class="w-9 h-9 rounded-full bg-emerald-50 hover:bg-emerald-100 text-emerald-600 flex items-center justify-center transition active:scale-90 shadow-sm shrink-0">
+                    <!-- Прямой звонок по телефону -->
+                    <a href="tel:+38090000000" id="header-phone-link" aria-label="Зателефонувати в дитячий клуб" class="w-9 h-9 rounded-full bg-emerald-50 hover:bg-emerald-100 text-emerald-600 flex items-center justify-center transition active:scale-90 shadow-sm shrink-0">
                         <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24">
                             <path fill-rule="evenodd" clip-rule="evenodd" d="M1.5 4.5a3 3 0 0 1 3-3h1.372c.86 0 1.61.586 1.819 1.42l1.105 4.423a1.875 1.875 0 0 1-.694 1.955l-1.293.97c-.135.101-.164.249-.126.352a11.285 11.285 0 0 0 6.697 6.697c.103.038.25.009.352-.126l.97-1.293a1.875 1.875 0 0 1 1.955-.694l4.423 1.105c.834.209 1.42.959 1.42 1.82V19.5a3 3 0 0 1-3 3h-2.25C8.552 22.5 1.5 15.448 1.5 6.75V4.5Z"/>
                         </svg>
                     </a>
 
                     <!-- Кнопка записи на ПК -->
-                    <button onclick="openBookingModal('Запись в детский клуб')" id="desktop-cta" class="hidden sm:inline-flex items-center gap-1.5 bg-brand-yellow hover:bg-brand-yellowHover text-navy font-bold text-xs md:text-sm px-4 py-2 rounded-full shadow-sm transition transform active:scale-95">
-                        <span>Записаться</span>
+                    <button onclick="openBookingModal('Запис у дитячий клуб')" id="desktop-cta" class="hidden sm:inline-flex items-center gap-1.5 bg-brand-yellow hover:bg-brand-yellowHover text-navy font-bold text-xs md:text-sm px-4 py-2 rounded-full shadow-sm transition transform active:scale-95">
+                        <span id="desktop-cta-text">Записатися</span>
                     </button>
 
                     <!-- Кнопка открытия мобильного меню (гамбургер) -->
-                    <button onclick="toggleMenuDrawer()" id="menu-toggle-btn" aria-label="Открыть меню" class="w-9 h-9 sm:w-10 sm:h-10 rounded-xl flex items-center justify-center text-navy hover:bg-navy/5 active:bg-navy/10 transition shrink-0">
+                    <button onclick="toggleMenuDrawer()" id="menu-toggle-btn" aria-label="Відкрити меню" class="w-9 h-9 sm:w-10 sm:h-10 rounded-xl flex items-center justify-center text-navy hover:bg-navy/5 active:bg-navy/10 transition shrink-0">
                         <!-- Иконка гамбургера -->
                         <svg id="icon-hamburger" class="w-6 h-6" fill="none" stroke="currentColor" stroke-width="2.2" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" d="M4 6h16M4 12h16M4 18h16"/>
@@ -93,12 +120,24 @@
             </div>
         </header>
 
-        <!-- ВЫЕЗЖАЮЩЕЕ МЕНЮ: РАСТЯНУТО ПРАКТИЧЕСКИ НА ВЕСЬ ЭКРАН, В ОДНОЙ ПЛОСКОСТИ С ТАБ-БАРОМ, ЧУТЬ ВЫШЕ НЕГО -->
+        <!-- ВЫЕЗЖАЮЩЕЕ МЕНЮ -->
         <div id="mobile-menu-drawer" class="hidden fixed inset-0 z-50 bg-navy/45 backdrop-blur-md items-start justify-center" onclick="if(event.target === this) toggleMenuDrawer(false)">
             <div id="mobile-menu-card" class="bg-white rounded-[30px] shadow-floating border border-slate-100 flex flex-col justify-between relative animate-[fadeIn_0.2s_ease-out]">
-                <!-- Верхняя строка: только аккуратная кнопка закрытия справа -->
-                <div class="flex items-center justify-end pb-1 shrink-0">
-                    <button onclick="toggleMenuDrawer(false)" aria-label="Закрыть меню" class="w-9 h-9 sm:w-10 sm:h-10 rounded-full bg-slate-100 hover:bg-slate-200 flex items-center justify-center text-navy transition active:scale-90">
+                <!-- Верхняя строка: языковые переключатели слева + кнопка закрытия справа -->
+                <div class="flex items-center justify-between pb-1 shrink-0 px-1 pt-1">
+                    <div class="flex items-center gap-1.5 bg-slate-100/80 p-1 rounded-2xl">
+                        <button onclick="changeLanguage('uk', event)" id="drawer-lang-uk" class="px-2.5 py-1 rounded-xl text-xs font-black transition bg-white text-navy shadow-xs">
+                            Укр
+                        </button>
+                        <button onclick="changeLanguage('en', event)" id="drawer-lang-en" class="px-2.5 py-1 rounded-xl text-xs font-bold text-navy hover:bg-white/60 transition">
+                            Eng
+                        </button>
+                        <button onclick="changeLanguage('ru', event)" id="drawer-lang-ru" class="px-2.5 py-1 rounded-xl text-xs font-bold text-navy hover:bg-white/60 transition">
+                            Рус
+                        </button>
+                    </div>
+
+                    <button onclick="toggleMenuDrawer(false)" aria-label="Закрити меню" class="w-9 h-9 sm:w-10 sm:h-10 rounded-full bg-slate-100 hover:bg-slate-200 flex items-center justify-center text-navy transition active:scale-90">
                         <svg class="w-4 h-4 sm:w-5 sm:h-5" fill="none" stroke="currentColor" stroke-width="2.3" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12"/>
                         </svg>
@@ -125,8 +164,8 @@
                         <!-- Генерируется скриптом -->
                     </div>
                 </div>
-                <div class="text-[11px] text-navy font-bold text-center md:text-right">
-                    © Детский клуб «Эврика», г. Харьков, ул. Любови Малой, 22
+                <div id="footer-copyright" class="text-[11px] text-navy font-bold text-center md:text-right">
+                    © Дитячий клуб «Еврика», м. Харків, вул. Любові Малої, 22
                 </div>
             </div>
         </footer>
@@ -134,7 +173,7 @@
         <!-- ПРИКЛЕЕННОЕ НИЖНЕЕ МЕНЮ (Плавающий айфоновский таббар с полным скруглением) -->
         <nav id="bottom-nav-bar" class="fixed z-40 bg-white rounded-[30px] sm:rounded-[36px] shadow-[0_10px_30px_rgba(30,58,95,0.16)] border border-slate-200/80 px-4 py-2">
             <div class="max-w-md mx-auto grid grid-cols-4 items-center text-center">
-                <!-- 1. Главная (Домик точно как в верхней плашке «О клубе») -->
+                <!-- 1. Главная -->
                 <button onclick="navigateTo('home')" id="bnav-home" class="flex flex-col items-center justify-center py-1 group transition cursor-pointer">
                     <div class="w-7 h-7 flex items-center justify-center group-hover:scale-110 transition">
                         <svg class="w-6 h-6 drop-shadow-sm" viewBox="0 0 24 24" fill="none">
@@ -142,20 +181,20 @@
                             <path fill-rule="evenodd" clip-rule="evenodd" d="M12 2.8c-.4 0-.8.2-1.1.5L2.4 10.8c-.5.5-.4 1.3.1 1.8.5.4 1.3.4 1.8-.1L5 11.8V19c0 1.4 1.1 2.5 2.5 2.5h9c1.4 0 2.5-1.1 2.5-2.5v-7.2l.7.7c.5.5 1.3.5 1.8.1.5-.5.6-1.3.1-1.8L13.1 3.3c-.3-.3-.7-.5-1.1-.5zM9.5 21.5h5v-4.5c0-1.4-1.1-2.5-2.5-2.5s-2.5 1.1-2.5 2.5v4.5z" fill="#0284C7"/>
                         </svg>
                     </div>
-                    <span class="bnav-label text-[11px] font-bold text-navy mt-1">Главная</span>
+                    <span id="bnav-label-home" class="bnav-label text-[11px] font-bold text-navy mt-1">Головна</span>
                 </button>
 
-                <!-- 2. Кружки (Пазл точно как в верхней плашке «Кружки») -->
+                <!-- 2. Кружки -->
                 <button onclick="navigateTo('clubs')" id="bnav-clubs" class="flex flex-col items-center justify-center py-1 group transition cursor-pointer">
                     <div class="w-7 h-7 flex items-center justify-center group-hover:scale-110 transition">
                         <svg class="w-6 h-6 drop-shadow-sm" viewBox="0 0 24 24" fill="none">
                             <path fill="#F97316" d="M7 5.5 L9.5 5.5 C9.5 3.5, 10.3 2, 12 2 C13.7 2, 14.5 3.5, 14.5 5.5 L17 5.5 C17.8 5.5, 18.5 6.2, 18.5 7 L18.5 9.5 C20.5 9.5, 22 10.3, 22 12 C22 13.7, 20.5 14.5, 18.5 14.5 L18.5 17 C18.5 17.8, 17.8 18.5, 17 18.5 L14.5 18.5 C14.5 16.5, 13.7 15, 12 15 C10.3 15, 9.5 16.5, 9.5 18.5 L7 18.5 C6.2 18.5, 5.5 17.8, 5.5 17 L5.5 14.5 C7.5 14.5, 9 13.7, 9 12 C9 10.3, 7.5 9.5, 5.5 9.5 L5.5 7 C5.5 6.2, 6.2 5.5, 7 5.5 Z"/>
                         </svg>
                     </div>
-                    <span class="bnav-label text-[11px] font-bold text-navy mt-1">Кружки</span>
+                    <span id="bnav-label-clubs" class="bnav-label text-[11px] font-bold text-navy mt-1">Гуртки</span>
                 </button>
 
-                <!-- 3. Календарь (Календарь точно как в верхней плашке «Календарь») -->
+                <!-- 3. Календарь -->
                 <button onclick="navigateTo('calendar')" id="bnav-calendar" class="flex flex-col items-center justify-center py-1 group transition cursor-pointer">
                     <div class="w-7 h-7 flex items-center justify-center group-hover:scale-110 transition">
                         <svg class="w-6 h-6 drop-shadow-sm" viewBox="0 0 24 24" fill="none">
@@ -171,10 +210,10 @@
                             <circle cx="17.5" cy="16.5" r="1.1" fill="#FFFFFF"/>
                         </svg>
                     </div>
-                    <span class="bnav-label text-[11px] font-bold text-navy mt-1">Календарь</span>
+                    <span id="bnav-label-calendar" class="bnav-label text-[11px] font-bold text-navy mt-1">Календар</span>
                 </button>
 
-                <!-- 4. Профиль (Гармоничный силуэт в едином насыщенном стиле) -->
+                <!-- 4. Профиль -->
                 <button onclick="openProfileModal()" id="bnav-profile" class="flex flex-col items-center justify-center py-1 group transition cursor-pointer">
                     <div class="w-7 h-7 flex items-center justify-center group-hover:scale-110 transition">
                         <svg class="w-6 h-6 drop-shadow-sm" viewBox="0 0 24 24" fill="none">
@@ -182,18 +221,17 @@
                             <path d="M4 20.5c0-4 3.6-7 8-7s8 3 8 7v.5H4v-.5z" fill="#FB7185"/>
                         </svg>
                     </div>
-                    <span class="bnav-label text-[11px] font-bold text-navy mt-1">Профиль</span>
+                    <span id="bnav-label-profile" class="bnav-label text-[11px] font-bold text-navy mt-1">Профіль</span>
                 </button>
             </div>
         </nav>
-
 
     </div>
 
     <!-- МОДАЛЬНОЕ ОКНО ЗАПИСИ / ОБРАТНОЙ СВЯЗИ -->
     <div id="booking-modal" class="hidden fixed inset-0 z-[70] bg-navy/40 backdrop-blur-sm flex items-center justify-center p-4">
         <div class="bg-milk w-full max-w-md rounded-3xl shadow-floating border border-white p-6 relative animate-[fadeIn_0.2s_ease-out]">
-            <button onclick="closeBookingModal()" aria-label="Закрыть" class="absolute top-4 right-4 w-9 h-9 rounded-full bg-white shadow-sm flex items-center justify-center text-navy hover:bg-slate-100">
+            <button onclick="closeBookingModal()" aria-label="Закрити" class="absolute top-4 right-4 w-9 h-9 rounded-full bg-white shadow-sm flex items-center justify-center text-navy hover:bg-slate-100">
                 <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2.2" viewBox="0 0 24 24">
                     <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12"/>
                 </svg>
@@ -206,49 +244,49 @@
                     </svg>
                 </div>
                 <div>
-                    <h3 id="modal-title" class="text-lg font-extrabold text-navy">Записаться на занятие</h3>
-                    <p id="modal-subtitle" class="text-xs text-navy font-medium">Оставьте контакты, и мы перезвоним вам в течение 15 минут</p>
+                    <h3 id="modal-title" class="text-lg font-extrabold text-navy">Записатися на заняття</h3>
+                    <p id="modal-subtitle" class="text-xs text-navy font-medium">Залиште контакти, і ми зателефонуємо вам протягом 15 хвилин</p>
                 </div>
             </div>
 
             <form id="booking-form" onsubmit="submitBookingForm(event)" class="space-y-3.5">
-                <input type="hidden" id="booking-subject" value="Общая запись">
+                <input type="hidden" id="booking-subject" value="Общий запис">
                 
                 <div>
-                    <label class="block text-xs font-bold text-navy mb-1">Ваше имя (Родитель) *</label>
-                    <input type="text" id="parent-name" required placeholder="Например, Елена" class="w-full px-4 py-2.5 rounded-2xl bg-white border border-slate-200 text-sm text-navy focus:outline-none focus:border-brand-blue">
+                    <label id="lbl-parent-name" class="block text-xs font-bold text-navy mb-1">Ваше ім'я (Один із батьків) *</label>
+                    <input type="text" id="parent-name" required placeholder="Наприклад, Олена" class="w-full px-4 py-2.5 rounded-2xl bg-white border border-slate-200 text-sm text-navy focus:outline-none focus:border-brand-blue">
                 </div>
 
                 <div class="grid grid-cols-2 gap-3">
                     <div>
-                        <label class="block text-xs font-bold text-navy mb-1">Имя ребёнка</label>
-                        <input type="text" id="child-name" placeholder="Миша" class="w-full px-4 py-2.5 rounded-2xl bg-white border border-slate-200 text-sm text-navy focus:outline-none focus:border-brand-blue">
+                        <label id="lbl-child-name" class="block text-xs font-bold text-navy mb-1">Ім'я дитини</label>
+                        <input type="text" id="child-name" placeholder="Михайлик" class="w-full px-4 py-2.5 rounded-2xl bg-white border border-slate-200 text-sm text-navy focus:outline-none focus:border-brand-blue">
                     </div>
                     <div>
-                        <label class="block text-xs font-bold text-navy mb-1">Возраст ребёнка</label>
+                        <label id="lbl-child-age" class="block text-xs font-bold text-navy mb-1">Вік дитини</label>
                         <select id="child-age" class="w-full px-3 py-2.5 rounded-2xl bg-white border border-slate-200 text-sm text-navy focus:outline-none focus:border-brand-blue">
-                            <option value="3 года">3 года</option>
-                            <option value="4 года">4 года</option>
-                            <option value="5 лет" selected>5 лет</option>
-                            <option value="6 лет">6 лет</option>
-                            <option value="7-8 лет">7–8 лет</option>
-                            <option value="9-10 лет">9–10 лет</option>
+                            <option value="3 роки">3 роки</option>
+                            <option value="4 роки">4 роки</option>
+                            <option value="5 років" selected>5 років</option>
+                            <option value="6 років">6 років</option>
+                            <option value="7-8 років">7–8 років</option>
+                            <option value="9-10 років">9–10 років</option>
                         </select>
                     </div>
                 </div>
 
                 <div>
-                    <label class="block text-xs font-bold text-navy mb-1">Телефон для связи *</label>
+                    <label id="lbl-parent-phone" class="block text-xs font-bold text-navy mb-1">Телефон для зв'язку *</label>
                     <input type="tel" id="parent-phone" required placeholder="+380 (__) ___-__-__" class="w-full px-4 py-2.5 rounded-2xl bg-white border border-slate-200 text-sm text-navy focus:outline-none focus:border-brand-blue">
                 </div>
 
                 <div>
-                    <label class="block text-xs font-bold text-navy mb-1">Направление или вопрос</label>
-                    <input type="text" id="booking-direction" placeholder="Пробное занятие / Консультация" class="w-full px-4 py-2.5 rounded-2xl bg-white border border-slate-200 text-sm text-navy focus:outline-none focus:border-brand-blue">
+                    <label id="lbl-booking-direction" class="block text-xs font-bold text-navy mb-1">Напрямок або запитання</label>
+                    <input type="text" id="booking-direction" placeholder="Пробне заняття / Консультація" class="w-full px-4 py-2.5 rounded-2xl bg-white border border-slate-200 text-sm text-navy focus:outline-none focus:border-brand-blue">
                 </div>
 
-                <button type="submit" class="w-full py-3 rounded-full bg-brand-yellow hover:bg-brand-yellowHover text-navy font-extrabold text-sm shadow-sm transition transform active:scale-98">
-                    Отправить заявку
+                <button type="submit" id="booking-submit-btn" class="w-full py-3 rounded-full bg-brand-yellow hover:bg-brand-yellowHover text-navy font-extrabold text-sm shadow-sm transition transform active:scale-98">
+                    Надіслати заявку
                 </button>
             </form>
         </div>
@@ -270,13 +308,14 @@
                 </svg>
             </div>
             <div class="text-xs font-semibold leading-snug" id="toast-message">
-                Заявка успешно отправлена!
+                Заявку успішно надіслано!
             </div>
         </div>
     </div>
 
     <!-- ПОДКЛЮЧЕНИЕ МОДУЛЕЙ СКРИПТОВ -->
-    <!-- 1. Данные и состояние -->
+    <!-- 1. Данные, переводы и состояние -->
+    <script src="js/translations.js"></script>
     <script src="js/data.js"></script>
     <script src="js/state.js"></script>
     <script src="js/icons.js"></script>

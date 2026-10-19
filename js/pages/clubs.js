@@ -1,12 +1,14 @@
 /**
  * ==========================================================================
  * 4. СТРАНИЦА «КРУЖКИ»
- * Точное соответствие Экрану 5 референса
+ * Точное соответствие Экрану 5 референса (мультиязычная версия)
  * ==========================================================================
  */
 
 function renderClubsPage() {
-    const clubsListHtml = SITE_DATA.clubs.map(club => `
+    const cp = SITE_DATA.clubsPage || {};
+
+    const clubsListHtml = (SITE_DATA.clubs || []).map(club => `
         <div onclick="openClubDetail('${club.id}')" class="bg-white rounded-2xl p-2.5 sm:p-3 shadow-card hover:shadow-soft transition flex items-center justify-between gap-3.5 cursor-pointer group border border-slate-100/80">
             <div class="flex items-center gap-3.5">
                 <img src="${club.image}" 
@@ -29,9 +31,9 @@ function renderClubsPage() {
 
     return `
     <section class="page-transition max-w-3xl mx-auto">
-        <h1 class="text-2xl sm:text-3xl font-extrabold text-navy mb-2">Кружки</h1>
+        <h1 class="text-2xl sm:text-3xl font-extrabold text-navy mb-2">${cp.title || 'Гуртки'}</h1>
         <p class="text-sm sm:text-base text-navy font-medium mb-5">
-            Выбирайте то, что нравится вашему ребёнку!
+            ${cp.description || 'Обирайте те, що подобається вашій дитині!'}
         </p>
 
         <!-- Список карточек кружков как на Экране 5 -->
@@ -41,11 +43,11 @@ function renderClubsPage() {
 
         <div class="bg-pastel-yellow/70 rounded-2xl p-4 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3">
             <div>
-                <div class="text-xs font-extrabold text-navy">Не знаете, какой кружок выбрать?</div>
-                <div class="text-xs text-navy font-medium">Приходите на пробное занятие — ребёнок сам выберет любимое дело!</div>
+                <div class="text-xs font-extrabold text-navy">${cp.ctaBoxTitle || 'Не знаєте, який гурток обрати?'}</div>
+                <div class="text-xs text-navy font-medium">${cp.ctaBoxDesc || 'Приходьте на пробне заняття — дитина сама обере улюблену справу!'}</div>
             </div>
-            <button onclick="openBookingModal('Запись на пробное занятие в кружок')" class="px-5 py-2.5 rounded-full bg-navy text-white text-xs font-bold shrink-0 hover:bg-navy-light transition">
-                Записаться на пробное
+            <button onclick="openBookingModal('${cp.bookingSubject || 'Запис на пробне заняття в гурток'}')" class="px-5 py-2.5 rounded-full bg-navy text-white text-xs font-bold shrink-0 hover:bg-navy-light transition">
+                ${cp.ctaBoxBtn || 'Записатися на пробне'}
             </button>
         </div>
     </section>

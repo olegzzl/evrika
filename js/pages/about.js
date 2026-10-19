@@ -1,24 +1,41 @@
 /**
  * ==========================================================================
  * 2. СТРАНИЦА «О НАШЕМ КЛУБЕ»
- * Точное соответствие Экрану 3 референса
+ * Точное соответствие Экрану 3 референса (мультиязычная версия)
  * ==========================================================================
  */
 
 function renderAboutPage() {
+    const ap = SITE_DATA.aboutPage || {};
+    const ui = SITE_DATA.ui || {};
+    const adv = ap.advantages || [
+        {
+            title: 'Затишна та безпечна атмосфера',
+            desc: 'Світлі ігрові класи, екологічні меблі та турбота про комфорт кожного малюка.'
+        },
+        {
+            title: 'Індивідуальний підхід до кожної дитини',
+            desc: 'Невеликі групи до 8–10 дітей дозволяють приділити максимум уваги кожному.'
+        },
+        {
+            title: 'Розвиток, творчість, дружба',
+            desc: 'Гармонійне поєднання інтелектуальних, творчих та рухливих занять.'
+        }
+    ];
+
     return `
     <section class="page-transition max-w-3xl mx-auto">
-        <h1 class="text-2xl sm:text-3xl font-extrabold text-navy mb-3">О нашем клубе</h1>
+        <h1 class="text-2xl sm:text-3xl font-extrabold text-navy mb-3">${ap.title || 'Про наш клуб'}</h1>
         
         <p class="text-sm sm:text-base text-navy font-medium leading-relaxed mb-5">
-            Эврика — это современный детский клуб, где каждый ребёнок может раскрыть свой потенциал, найти друзей и с удовольствием проводить время.
+            ${ap.description || '«Еврика» — це сучасний дитячий клуб, де кожна дитина може розкрити свій потенціал, знайти друзів та із задоволенням проводити час.'}
         </p>
 
         <!-- Фото уютной игровой комнаты в скруглённой карточке -->
         <div class="rounded-3xl overflow-hidden shadow-soft border-4 border-white mb-6 bg-white">
             <img src="https://images.unsplash.com/photo-1587654780291-39c9404d746b?auto=format&fit=crop&w=900&q=80" 
-                 alt="Уютная игровая комната детского клуба Эврика"
-                 onerror="this.src='https://placehold.co/800x500/FEF3C7/1E3A5F?text=Интерьер+клуба+Эврика'"
+                 alt="${ap.altImage || 'Затишна ігрова кімната дитячого клубу Еврика'}"
+                 onerror="this.src='https://placehold.co/800x500/FEF3C7/1E3A5F?text=Evrika+Club'"
                  class="w-full h-52 sm:h-72 object-cover">
         </div>
 
@@ -32,8 +49,8 @@ function renderAboutPage() {
                     </svg>
                 </div>
                 <div>
-                    <h3 class="text-sm sm:text-base font-extrabold text-navy leading-snug">Уютная и безопасная атмосфера</h3>
-                    <p class="text-xs sm:text-sm text-navy font-medium mt-0.5">Светлые игровые классы, экологичная мебель и забота о комфорте каждого малыша.</p>
+                    <h3 class="text-sm sm:text-base font-extrabold text-navy leading-snug">${adv[0].title}</h3>
+                    <p class="text-xs sm:text-sm text-navy font-medium mt-0.5">${adv[0].desc}</p>
                 </div>
             </div>
 
@@ -45,8 +62,8 @@ function renderAboutPage() {
                     </svg>
                 </div>
                 <div>
-                    <h3 class="text-sm sm:text-base font-extrabold text-navy leading-snug">Индивидуальный подход к каждому ребёнку</h3>
-                    <p class="text-xs sm:text-sm text-navy font-medium mt-0.5">Небольшие группы до 8–10 детей позволяют уделить максимум внимания каждому.</p>
+                    <h3 class="text-sm sm:text-base font-extrabold text-navy leading-snug">${adv[1].title}</h3>
+                    <p class="text-xs sm:text-sm text-navy font-medium mt-0.5">${adv[1].desc}</p>
                 </div>
             </div>
 
@@ -58,8 +75,8 @@ function renderAboutPage() {
                     </svg>
                 </div>
                 <div>
-                    <h3 class="text-sm sm:text-base font-extrabold text-navy leading-snug">Развитие, творчество, дружба</h3>
-                    <p class="text-xs sm:text-sm text-navy font-medium mt-0.5">Гармоничное сочетание интеллектуальных, творческих и подвижных занятий.</p>
+                    <h3 class="text-sm sm:text-base font-extrabold text-navy leading-snug">${adv[2].title}</h3>
+                    <p class="text-xs sm:text-sm text-navy font-medium mt-0.5">${adv[2].desc}</p>
                 </div>
             </div>
         </div>
@@ -67,10 +84,10 @@ function renderAboutPage() {
         <!-- Кнопки перехода к программе и записи -->
         <div class="flex flex-wrap items-center gap-3">
             <button onclick="navigateTo('program')" class="px-6 py-3 rounded-full bg-brand-yellow hover:bg-brand-yellowHover text-navy font-extrabold text-sm shadow-sm transition">
-                Смотреть нашу программу →
+                ${ui.viewProgram || 'Дивитися нашу програму →'}
             </button>
-            <button onclick="openBookingModal('Экскурсия по клубу')" class="px-6 py-3 rounded-full bg-white text-navy border border-slate-200 font-bold text-sm hover:bg-slate-50 transition">
-                Записаться на знакомство
+            <button onclick="openBookingModal('${ap.tourModalSubject || 'Екскурсія клубом'}')" class="px-6 py-3 rounded-full bg-white text-navy border border-slate-200 font-bold text-sm hover:bg-slate-50 transition">
+                ${ui.bookIntro || 'Записатися на знайомство'}
             </button>
         </div>
     </section>

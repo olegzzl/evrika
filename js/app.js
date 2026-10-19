@@ -1,6 +1,6 @@
 /**
  * ==========================================================================
- * ГЛАВНЫЙ МОДУЛЬ ПРИЛОЖЕНИЯ «ЭВРИКА» (ОДНОСТРАНИЧНЫЙ САЙТ И НАВИГАЦИЯ)
+ * ГЛАВНЫЙ МОДУЛЬ ПРИЛОЖЕНИЯ «ЭВРИКА» (ОДНОСТРАНИЧНЫЙ САЙТ, i18n И НАВИГАЦИЯ)
  * ==========================================================================
  */
 
@@ -20,15 +20,7 @@ const SECTION_MAP = {
 };
 
 /**
- * Рендер всех секций одностраничного сайта в заданном порядке:
- * 1. Главная страница
- * 2. Галерея
- * 3. О клубе (с разделом Программа)
- * 4. Кружки
- * 5. Календарь
- * 6. Воспитатели
- * 7. Отзывы
- * 8. Контакты
+ * Рендер всех секций одностраничного сайта
  */
 function renderAllSections() {
     const container = document.getElementById('main-content');
@@ -87,11 +79,22 @@ function renderAllSections() {
 
 /**
  * Рендер элементов навигации:
- * 1. Мобильное выпадающее меню
- * 2. Десктопное меню в шапке
+ * 1. Десктопное меню в шапке
+ * 2. Мобильное выпадающее меню
  * 3. Нижний переключатель
  */
 function renderNavigationElements() {
+    // 1. Десктопное меню в шапке
+    const desktopNav = document.getElementById('desktop-nav');
+    if (desktopNav && SITE_DATA.navigation) {
+        desktopNav.innerHTML = SITE_DATA.navigation.map(item => `
+            <button onclick="navigateTo('${item.id}')" data-nav="${item.id}" class="nav-pill px-3 py-1.5 rounded-full text-sm font-bold transition">
+                ${item.title}
+            </button>
+        `).join('');
+    }
+
+    // 2. Мобильное выпадающее меню
     const mobileList = document.getElementById('mobile-menu-list');
     if (mobileList) {
         mobileList.innerHTML = (SITE_DATA.topMenuItems || []).map(item => {
@@ -114,9 +117,9 @@ function renderNavigationElements() {
         }).join('');
     }
 
-    // Нижний переключатель (если отображается на ПК)
+    // 3. Нижний переключатель
     const switcherBar = document.getElementById('screen-switcher-bar');
-    if (switcherBar) {
+    if (switcherBar && SITE_DATA.navigation) {
         switcherBar.innerHTML = SITE_DATA.navigation.map(item => {
             const isActive = currentState.currentPage === item.id;
             return `
@@ -199,7 +202,6 @@ function navigateTo(pageId) {
     const sectionId = SECTION_MAP[pageId] || `section-${pageId}`;
     const sectionEl = document.getElementById(sectionId);
     if (sectionEl) {
-        // Учитываем высоту приклеенной шапки
         const headerOffset = 68;
         const bodyRect = document.body.getBoundingClientRect().top;
         const elementRect = sectionEl.getBoundingClientRect().top;
@@ -277,15 +279,216 @@ function toggleMenuDrawer(forceState) {
     }
 }
 
-// Закрытие модальных окон при клике на оверлей
+/**
+ * ==========================================================================
+ * УПРАВЛЕНИЕ ЯЗЫКОМ (i18n): ВЫПАДАЮЩЕЕ МЕНЮ И ПЕРЕКЛЮЧЕНИЕ
+ * ==========================================================================
+ */
+
+/**
+ * Открытие / закрытие выпадающего меню языков в шапке
+ */
+function toggleLangDropdown(eventOrState) {
+    const menu = document.getElementById('lang-dropdown-menu');
+    const btn = document.getElementById('lang-dropdown-btn');
+    const caret = document.getElementById('header-lang-caret');
+    if (!menu) return;
+
+    let shouldOpen;
+    if (typeof eventOrState === 'boolean') {
+        shouldOpen = eventOrState;
+    } else {
+        if (eventOrState && typeof eventOrState.stopPropagation === 'function') {
+            eventOrState.stopPropagation();
+        }
+        shouldOpen = menu.classList.contains('hidden');
+    }
+
+    if (shouldOpen) {
+        menu.classList.remove('hidden');
+        if (btn) btn.setAttribute('aria-expanded', 'true');
+        if (caret) caret.classList.add('rotate-180');
+    } else {
+        menu.classList.add('hidden');
+        if (btn) btn.setAttribute('aria-expanded', 'false');
+        if (caret) caret.classList.remove('rotate-180');
+    }
+}
+
+/**
+ * Переключение языка на сайте
+ */
+function changeLanguage(lang, event) {
+    if (event && typeof event.stopPropagation === 'function') {
+        event.stopPropagation();
+    }
+    if (!['uk', 'en', 'ru'].includes(lang)) {
+        lang = 'uk';
+    }
+
+    currentState.currentLang = lang;
+    localStorage.setItem('evrika_lang', lang);
+
+    // Закрываем меню
+    toggleLangDropdown(false);
+
+    // Применяем новые данные
+    applyLanguageData(lang);
+
+    // Обновляем весь UI
+    updateUILanguage(lang);
+}
+
+/**
+ * Полное обновление всех элементов интерфейса под выбранный язык
+ */
+function updateUILanguage(lang) {
+    if (!['uk', 'en', 'ru'].includes(lang)) {
+        lang = 'uk';
+    }
+
+    // 1. Тег <html> и <title>
+    document.documentElement.lang = lang;
+    if (SITE_DATA.pageTitle) {
+        document.title = SITE_DATA.pageTitle;
+        const titleEl = document.getElementById('site-head-title');
+        if (titleEl) titleEl.textContent = SITE_DATA.pageTitle;
+    }
+
+    // 2. Логотип: буквы и подпись
+    const logoLetters = document.getElementById('logo-letters');
+    if (logoLetters && SITE_DATA.logo && Array.isArray(SITE_DATA.logo.letters)) {
+        logoLetters.innerHTML = SITE_DATA.logo.letters.map(char => `<span>${char}</span>`).join('');
+    }
+    const logoSub = document.getElementById('logo-subtitle');
+    if (logoSub && SITE_DATA.logo) {
+        logoSub.textContent = SITE_DATA.logo.subtitle || 'дитячий клуб';
+    }
+
+    // 3. Выпадающее меню переключения языка в шапке
+    const headerCode = document.getElementById('header-lang-code');
+    if (headerCode) headerCode.textContent = SITE_DATA.langLabel || 'Укр';
+
+    // Галочки в выпадающем окне
+    ['uk', 'en', 'ru'].forEach(l => {
+        const check = document.getElementById(`check-${l}`);
+        if (check) {
+            if (l === lang) {
+                check.classList.remove('hidden');
+            } else {
+                check.classList.add('hidden');
+            }
+        }
+    });
+
+    // 4. Кнопки языка в выезжающем мобильном меню
+    ['uk', 'en', 'ru'].forEach(l => {
+        const drawerBtn = document.getElementById(`drawer-lang-${l}`);
+        if (drawerBtn) {
+            if (l === lang) {
+                drawerBtn.className = 'px-2.5 py-1 rounded-xl text-xs font-black transition flex items-center gap-1 bg-white text-navy shadow-xs';
+            } else {
+                drawerBtn.className = 'px-2.5 py-1 rounded-xl text-xs font-bold text-navy hover:bg-white/60 transition flex items-center gap-1';
+            }
+        }
+    });
+
+    // 5. Кнопка записи на ПК в шапке
+    const desktopCtaText = document.getElementById('desktop-cta-text');
+    if (desktopCtaText) {
+        desktopCtaText.textContent = (SITE_DATA.ui && SITE_DATA.ui.bookSpot) || 'Записатися';
+    }
+
+    // 6. Подписи нижнего меню (айфоновского таббара)
+    const bnav = SITE_DATA.bottomNav || {};
+    const lblHome = document.getElementById('bnav-label-home');
+    const lblClubs = document.getElementById('bnav-label-clubs');
+    const lblCal = document.getElementById('bnav-label-calendar');
+    const lblProf = document.getElementById('bnav-label-profile');
+
+    if (lblHome) lblHome.textContent = bnav.home || 'Головна';
+    if (lblClubs) lblClubs.textContent = bnav.clubs || 'Гуртки';
+    if (lblCal) lblCal.textContent = bnav.calendar || 'Календар';
+    if (lblProf) lblProf.textContent = bnav.profile || 'Профіль';
+
+    // 7. Текст копирайта в футере
+    const copyEl = document.getElementById('footer-copyright');
+    if (copyEl && SITE_DATA.ui) {
+        copyEl.textContent = SITE_DATA.ui.copyright || '© Дитячий клуб «Еврика», м. Харків, вул. Любові Малої, 22';
+    }
+
+    // 8. Модальное окно записи
+    updateBookingModalTexts();
+
+    // 9. Перерисовываем страницы
+    renderAllSections();
+}
+
+/**
+ * Локализация полей модального окна записи
+ */
+function updateBookingModalTexts() {
+    const bk = (SITE_DATA.modals && SITE_DATA.modals.booking) || {};
+    
+    const titleEl = document.getElementById('modal-title');
+    const subEl = document.getElementById('modal-subtitle');
+    const lblParent = document.getElementById('lbl-parent-name');
+    const inParent = document.getElementById('parent-name');
+    const lblChild = document.getElementById('lbl-child-name');
+    const inChild = document.getElementById('child-name');
+    const lblAge = document.getElementById('lbl-child-age');
+    const selAge = document.getElementById('child-age');
+    const lblPhone = document.getElementById('lbl-parent-phone');
+    const lblDir = document.getElementById('lbl-booking-direction');
+    const inDir = document.getElementById('booking-direction');
+    const btnSubmit = document.getElementById('booking-submit-btn');
+
+    if (titleEl) titleEl.textContent = bk.title || 'Записатися на заняття';
+    if (subEl) subEl.textContent = bk.subtitle || 'Залиште контакти, і ми зателефонуємо вам протягом 15 хвилин';
+    if (lblParent) lblParent.textContent = bk.parentNameLabel || 'Ваше ім\'я (Один із батьків) *';
+    if (inParent && bk.parentNamePlaceholder) inParent.placeholder = bk.parentNamePlaceholder;
+    if (lblChild) lblChild.textContent = bk.childNameLabel || 'Ім\'я дитини';
+    if (inChild && bk.childNamePlaceholder) inChild.placeholder = bk.childNamePlaceholder;
+    if (lblAge) lblAge.textContent = bk.childAgeLabel || 'Вік дитини';
+    if (lblPhone) lblPhone.textContent = bk.phoneLabel || 'Телефон для зв\'язку *';
+    if (lblDir) lblDir.textContent = bk.directionLabel || 'Напрямок або запитання';
+    if (inDir && bk.directionPlaceholder) inDir.placeholder = bk.directionPlaceholder;
+    if (btnSubmit) btnSubmit.textContent = bk.submitButton || 'Надіслати заявку';
+
+    if (selAge && bk.ageOptions && Array.isArray(bk.ageOptions)) {
+        const curVal = selAge.value;
+        selAge.innerHTML = bk.ageOptions.map(opt => `
+            <option value="${opt.value}" ${opt.selected || opt.value === curVal ? 'selected' : ''}>${opt.label}</option>
+        `).join('');
+    }
+}
+
+// Закрытие выпадающих и модальных окон при клике вне их границ
 window.addEventListener('click', (e) => {
+    const langWrapper = document.getElementById('lang-dropdown-wrapper');
+    if (langWrapper && !langWrapper.contains(e.target)) {
+        toggleLangDropdown(false);
+    }
+
     const bookingModal = document.getElementById('booking-modal');
     const detailModal = document.getElementById('detail-modal');
     if (e.target === bookingModal) closeBookingModal();
     if (e.target === detailModal) closeDetailModal();
 });
 
+// Закрытие по клавише Escape
+window.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape') {
+        toggleLangDropdown(false);
+        toggleMenuDrawer(false);
+        closeBookingModal();
+        closeDetailModal();
+    }
+});
+
 // Инициализация одностраничного сайта после загрузки DOM
 window.addEventListener('DOMContentLoaded', () => {
-    renderAllSections();
+    const initialLang = currentState.currentLang || 'uk';
+    applyLanguageData(initialLang);
+    updateUILanguage(initialLang);
 });

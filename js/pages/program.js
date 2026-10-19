@@ -1,12 +1,16 @@
 /**
  * ==========================================================================
  * 3. СТРАНИЦА «НАША ПРОГРАММА»
- * Точное соответствие Экрану 4 референса
+ * Точное соответствие Экрану 4 референса (мультиязычная версия)
  * ==========================================================================
  */
 
 function renderProgramPage() {
-    const cardsHtml = SITE_DATA.programs.map(prog => `
+    const pp = SITE_DATA.programPage || {};
+    const ui = SITE_DATA.ui || {};
+    const ageGrps = SITE_DATA.ageGroups || { title: 'Вікові групи клубу «Еврика»', items: [] };
+
+    const cardsHtml = (SITE_DATA.programs || []).map(prog => `
         <div onclick="openProgramDetail('${prog.id}')" class="${prog.bgClass} rounded-2xl p-3.5 sm:p-4 flex items-center justify-between gap-3.5 cursor-pointer hover:brightness-98 transition shadow-sm">
             <div class="flex items-center gap-3.5">
                 <div class="w-11 h-11 rounded-full ${prog.circleClass} flex items-center justify-center shrink-0 shadow-sm">
@@ -14,7 +18,7 @@ function renderProgramPage() {
                 </div>
                 <div>
                     <h3 class="text-sm sm:text-base font-extrabold text-navy leading-snug">${prog.title}</h3>
-                    <span class="inline-block text-[11px] font-bold text-navy mt-0.5">Возраст: ${prog.age} • Нажмите для подробностей</span>
+                    <span class="inline-block text-[11px] font-bold text-navy mt-0.5">${pp.cardAgePrefix || 'Вік:'} ${prog.age} • ${pp.cardClickHint || 'Натисніть для деталей'}</span>
                 </div>
             </div>
             <svg class="w-4 h-4 text-navy/80 shrink-0" fill="none" stroke="currentColor" stroke-width="2.2" viewBox="0 0 24 24">
@@ -23,12 +27,19 @@ function renderProgramPage() {
         </div>
     `).join('');
 
+    const ageGroupsHtml = (ageGrps.items || []).map(g => `
+        <div class="p-3 rounded-2xl bg-milk">
+            <div class="font-extrabold ${g.colorClass}">${g.title}</div>
+            <div class="text-navy font-medium mt-1">${g.desc}</div>
+        </div>
+    `).join('');
+
     return `
     <section class="page-transition max-w-3xl mx-auto">
-        <h1 class="text-2xl sm:text-3xl font-extrabold text-navy mb-2.5">Наша программа</h1>
+        <h1 class="text-2xl sm:text-3xl font-extrabold text-navy mb-2.5">${pp.title || 'Наша програма'}</h1>
         
         <p class="text-sm sm:text-base text-navy font-medium leading-relaxed mb-5">
-            Мы предлагаем комплексную программу развития для детей от 3 до 10 лет.
+            ${pp.description || 'Ми пропонуємо комплексну програму розвитку для дітей від 3 до 10 років.'}
         </p>
 
         <!-- 4 цветные пастельные плашки точно как на Экране 4 -->
@@ -37,34 +48,23 @@ function renderProgramPage() {
         </div>
 
         <p class="text-xs sm:text-sm text-navy font-medium leading-relaxed mb-6">
-            Занятия проходят в игровой форме, с учётом возраста и индивидуальных особенностей каждого ребёнка.
+            ${pp.note || 'Заняття проходять в ігровій формі, з урахуванням віку та індивідуальних особливостей кожної дитини.'}
         </p>
 
         <!-- Возрастные ступени -->
         <div class="bg-white rounded-3xl p-5 shadow-card border border-white mb-6">
-            <h3 class="text-sm font-extrabold text-navy mb-3">Возрастные группы клуба «Эврика»</h3>
+            <h3 class="text-sm font-extrabold text-navy mb-3">${ageGrps.title}</h3>
             <div class="grid grid-cols-1 sm:grid-cols-3 gap-2.5 text-xs">
-                <div class="p-3 rounded-2xl bg-milk">
-                    <div class="font-extrabold text-brand-blue">Малыши 3–4 года</div>
-                    <div class="text-navy font-medium mt-1">Сенсорика, речь, музыкально-ритмические игры и творчество.</div>
-                </div>
-                <div class="p-3 rounded-2xl bg-milk">
-                    <div class="font-extrabold text-amber-600">Почемучки 5–6 лет</div>
-                    <div class="text-navy font-medium mt-1">Подготовка к школе, английский, творчество и шахматы.</div>
-                </div>
-                <div class="p-3 rounded-2xl bg-milk">
-                    <div class="font-extrabold text-emerald-600">Школьники 7–10 лет</div>
-                    <div class="text-navy font-medium mt-1">Инженерные проекты, разговорный английский, арт и турниры.</div>
-                </div>
+                ${ageGroupsHtml}
             </div>
         </div>
 
         <div class="flex flex-wrap gap-3">
             <button onclick="navigateTo('clubs')" class="px-6 py-3 rounded-full bg-brand-yellow hover:bg-brand-yellowHover text-navy font-extrabold text-sm shadow-sm transition">
-                Выбрать кружок →
+                ${ui.chooseClub || 'Обрати гурток →'}
             </button>
-            <button onclick="openBookingModal('Подбор программы по возрасту')" class="px-6 py-3 rounded-full bg-white border border-slate-200 text-navy font-bold text-sm hover:bg-slate-50 transition">
-                Подобрать группу
+            <button onclick="openBookingModal('${pp.programSelectSubject || 'Підбір програми за віком'}')" class="px-6 py-3 rounded-full bg-white border border-slate-200 text-navy font-bold text-sm hover:bg-slate-50 transition">
+                ${ui.findGroup || 'Підібрати групу'}
             </button>
         </div>
     </section>

@@ -1,17 +1,20 @@
 /**
  * ==========================================================================
  * 8. СТРАНИЦА «КОНТАКТЫ»
- * Точное соответствие Экрану 9 референса:
+ * Точное соответствие Экрану 9 референса (мультиязычная версия):
  * г. Харьков, ул. Любови Малой, 22 • +38090000000 • Карта и форма
  * ==========================================================================
  */
 
 function renderContactsPage() {
+    const cp = SITE_DATA.contactsPage || {};
+    const ui = SITE_DATA.ui || {};
+
     return `
     <section class="page-transition max-w-3xl mx-auto">
-        <h1 class="text-2xl sm:text-3xl font-extrabold text-navy mb-2">Контакты</h1>
+        <h1 class="text-2xl sm:text-3xl font-extrabold text-navy mb-2">${cp.title || 'Контакти'}</h1>
         <p class="text-sm sm:text-base text-navy font-medium leading-relaxed mb-5">
-            Мы всегда на связи!<br>Звоните, пишите, приходите в гости.
+            ${cp.subtitle || 'Ми завжди на зв\'язку!<br>Телефонуйте, пишіть, приходьте в гості.'}
         </p>
 
         <!-- 3 контактных блока с синими круглыми иконками (Экран 9) -->
@@ -44,7 +47,7 @@ function renderContactsPage() {
                         ${SITE_DATA.clubInfo.address}
                     </div>
                     <a href="#map-card" onclick="scrollToMap(event)" class="text-xs text-[#3B82F6] underline font-semibold">
-                        Посмотреть на карте
+                        ${ui.viewOnMap || 'Подивитися на карті'}
                     </a>
                 </div>
             </div>
@@ -64,40 +67,36 @@ function renderContactsPage() {
             </div>
         </div>
 
-        <!-- Синяя овальная кнопка «Написать нам» во всю ширину (Экран 9) -->
-        <button onclick="openBookingModal('Сообщение со страницы Контакты')" class="w-full py-3.5 rounded-full bg-[#2563EB] hover:bg-[#1D4ED8] text-white font-extrabold text-sm shadow-sm transition mb-5">
-            Написать нам
+        <!-- Синяя овальная кнопка «Написать нам» -->
+        <button onclick="openBookingModal('${cp.modalSubject || 'Повідомлення зі сторінки Контакти'}')" class="w-full py-3.5 rounded-full bg-[#2563EB] hover:bg-[#1D4ED8] text-white font-extrabold text-sm shadow-sm transition mb-5">
+            ${ui.writeUs || 'Написати нам'}
         </button>
 
-        <!-- Визуальная карта с пином «Эврика» точно как на Экране 9 + ссылка на Google Maps Харькова -->
+        <!-- Карта с пином -->
         <div id="map-card" class="rounded-2xl overflow-hidden shadow-card border-2 border-white relative h-44 sm:h-56 bg-[#EEF2E6] mb-6">
-            <!-- Стилизованная векторная схема кварталов и улиц (как на макете) -->
             <svg class="w-full h-full object-cover" viewBox="0 0 400 220" preserveAspectRatio="none">
                 <rect width="400" height="220" fill="#F2EFE9"/>
-                <!-- Парковые зоны -->
                 <path d="M0 0 L120 0 L95 80 L0 60 Z" fill="#DCFCE7"/>
                 <path d="M290 130 L400 110 L400 220 L260 220 Z" fill="#DCFCE7"/>
-                <!-- Кварталы -->
                 <rect x="130" y="15" width="90" height="55" rx="6" fill="#E7E5E4"/>
                 <rect x="240" y="10" width="140" height="65" rx="6" fill="#E7E5E4"/>
                 <rect x="20" y="95" width="110" height="95" rx="6" fill="#E7E5E4"/>
                 <rect x="155" y="95" width="115" height="90" rx="6" fill="#E7E5E4"/>
-                <!-- Дорожная сетка -->
                 <path d="M0 80 L400 88" stroke="#FFFFFF" stroke-width="10"/>
                 <path d="M140 0 L145 220" stroke="#FFFFFF" stroke-width="10"/>
                 <path d="M280 0 L270 220" stroke="#FFFFFF" stroke-width="8"/>
                 <path d="M0 195 L400 175" stroke="#FEF08A" stroke-width="7"/>
             </svg>
 
-            <!-- Центральный бейдж с гео-пином «Эврика» как на макете -->
+            <!-- Центральный бейдж с гео-пином -->
             <div class="absolute inset-0 flex flex-col items-center justify-center pointer-events-none">
                 <div class="bg-white px-4 py-2 rounded-2xl shadow-soft flex items-center gap-2 border border-slate-100">
                     <svg class="w-5 h-5 text-[#2563EB]" fill="currentColor" viewBox="0 0 24 24">
                         <path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5a2.5 2.5 0 010-5 2.5 2.5 0 010 5z"/>
                     </svg>
                     <div>
-                        <div class="text-xs font-extrabold text-navy leading-none">Эврика</div>
-                        <div class="text-[10px] text-navy font-bold mt-0.5">ул. Любови Малой, 22</div>
+                        <div class="text-xs font-extrabold text-navy leading-none">${SITE_DATA.clubInfo.name}</div>
+                        <div class="text-[10px] text-navy font-bold mt-0.5">${SITE_DATA.clubInfo.addressShort || 'вул. Любові Малої, 22'}</div>
                     </div>
                 </div>
             </div>
@@ -105,22 +104,22 @@ function renderContactsPage() {
             <a href="https://www.google.com/maps/search/?api=1&query=%D0%A5%D0%B0%D1%80%D1%8C%D0%BA%D0%BE%D0%B2+%D1%83%D0%BB+%D0%9B%D1%8E%D0%B1%D0%BE%D0%B2%D0%B8+%D0%9C%D0%B0%D0%BB%D0%BE%D0%B9+22" 
                target="_blank" rel="noopener noreferrer"
                class="absolute bottom-2.5 right-2.5 bg-white/95 hover:bg-white text-navy text-[11px] font-bold px-3 py-1.5 rounded-full shadow-sm">
-                Открыть Google Карты ↗
+                ${ui.openGoogleMaps || 'Відкрити Google Карти ↗'}
             </a>
         </div>
 
         <!-- Встроенная форма обратной связи -->
         <div class="bg-white rounded-3xl p-5 shadow-card border border-slate-100">
-            <h3 class="text-base font-extrabold text-navy mb-1">Форма обратной связи</h3>
-            <p class="text-xs text-navy font-medium mb-4">Задайте вопрос или запишитесь на экскурсию по клубу</p>
+            <h3 class="text-base font-extrabold text-navy mb-1">${cp.formTitle || 'Форма зворотного зв\'язку'}</h3>
+            <p class="text-xs text-navy font-medium mb-4">${cp.formSubtitle || 'Поставте запитання або запишіться на екскурсію по клубу'}</p>
             <form onsubmit="submitInlineContactForm(event)" class="space-y-3">
                 <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
-                    <input type="text" id="inline-name" required placeholder="Ваше имя *" class="w-full px-4 py-2.5 rounded-2xl bg-milk border border-slate-200 text-xs sm:text-sm text-navy focus:outline-none focus:border-brand-blue">
-                    <input type="tel" id="inline-phone" required placeholder="Ваш телефон *" class="w-full px-4 py-2.5 rounded-2xl bg-milk border border-slate-200 text-xs sm:text-sm text-navy focus:outline-none focus:border-brand-blue">
+                    <input type="text" id="inline-name" required placeholder="${cp.namePlaceholder || 'Ваше ім\'я *'}" class="w-full px-4 py-2.5 rounded-2xl bg-milk border border-slate-200 text-xs sm:text-sm text-navy focus:outline-none focus:border-brand-blue">
+                    <input type="tel" id="inline-phone" required placeholder="${cp.phonePlaceholder || 'Ваш телефон *'}" class="w-full px-4 py-2.5 rounded-2xl bg-milk border border-slate-200 text-xs sm:text-sm text-navy focus:outline-none focus:border-brand-blue">
                 </div>
-                <textarea id="inline-msg" rows="2" placeholder="Ваше сообщение или возраст ребёнка..." class="w-full px-4 py-2.5 rounded-2xl bg-milk border border-slate-200 text-xs sm:text-sm text-navy focus:outline-none focus:border-brand-blue"></textarea>
+                <textarea id="inline-msg" rows="2" placeholder="${cp.msgPlaceholder || 'Ваше повідомлення або вік дитини...'}" class="w-full px-4 py-2.5 rounded-2xl bg-milk border border-slate-200 text-xs sm:text-sm text-navy focus:outline-none focus:border-brand-blue"></textarea>
                 <button type="submit" class="px-6 py-2.5 rounded-full bg-brand-yellow hover:bg-brand-yellowHover text-navy font-extrabold text-xs sm:text-sm transition">
-                    Отправить сообщение
+                    ${ui.sendMessage || 'Надіслати повідомлення'}
                 </button>
             </form>
         </div>
@@ -146,5 +145,9 @@ function submitInlineContactForm(e) {
     e.preventDefault();
     const name = document.getElementById('inline-name').value;
     e.target.reset();
-    showToast(`Спасибо, ${name}! Сообщение отправлено администратору клуба «Эврика».`);
+    const cp = SITE_DATA.contactsPage || {};
+    const successMsg = (typeof cp.formSuccessToast === 'function') 
+        ? cp.formSuccessToast(name) 
+        : `Дякуємо, ${name}! Повідомлення надіслано адміністратору клубу «Еврика».`;
+    showToast(successMsg);
 }

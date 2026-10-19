@@ -1,18 +1,23 @@
 /**
  * ==========================================================================
  * 5. СТРАНИЦА «НАШИ ВОСПИТАТЕЛИ»
- * Точное соответствие Экрану 6 референса
+ * Точное соответствие Экрану 6 референса (мультиязычная версия)
  * ==========================================================================
  */
 
 function renderTeachersPage() {
+    const tp = SITE_DATA.teachersPage || {};
+    const teachersList = SITE_DATA.teachers || [];
     const visibleTeachers = currentState.showAllTeachers 
-        ? SITE_DATA.teachers 
-        : SITE_DATA.teachers.slice(0, 4);
+        ? teachersList 
+        : teachersList.slice(0, 4);
 
     const teachersHtml = visibleTeachers.map(t => {
         const imgUrl = t.imageOverride || t.image;
-        const cleanExperience = t.experience.replace(' (Демо-профиль)', '');
+        const cleanExperience = (typeof tp.cleanExp === 'function') 
+            ? tp.cleanExp(t.experience) 
+            : t.experience.replace(' (Демо-профиль)', '').replace(' (Demo profile)', '');
+
         return `
         <div onclick="openTeacherDetail('${t.id}')" 
              class="bg-white rounded-2xl p-2.5 sm:p-3.5 shadow-card hover:shadow-soft transition-all duration-300 flex flex-col cursor-pointer border border-slate-100/90 hover:-translate-y-1 active:scale-[0.98] group">
@@ -22,7 +27,7 @@ function renderTeachersPage() {
                 <img src="${imgUrl}" 
                      alt="${t.name}"
                      loading="lazy"
-                     onerror="this.src='https://placehold.co/400x500/DCFCE7/1E3A5F?text=Педагог'"
+                     onerror="this.src='https://placehold.co/400x500/DCFCE7/1E3A5F?text=Teacher'"
                      class="w-full h-full object-cover object-top group-hover:scale-105 transition-transform duration-500">
             </div>
 
@@ -45,11 +50,15 @@ function renderTeachersPage() {
         `;
     }).join('');
 
+    const toggleBtnText = currentState.showAllTeachers
+        ? (tp.allBtnCollapse || 'Згорнути список вихователів')
+        : (typeof tp.allBtnExpand === 'function' ? tp.allBtnExpand(teachersList.length) : `Всі вихователі (${teachersList.length})`);
+
     return `
     <section class="page-transition max-w-3xl mx-auto">
-        <h1 class="text-2xl sm:text-3xl font-extrabold text-navy mb-2">Наши воспитатели</h1>
+        <h1 class="text-2xl sm:text-3xl font-extrabold text-navy mb-2">${tp.title || 'Наші вихователі'}</h1>
         <p class="text-sm sm:text-base text-navy font-medium leading-relaxed mb-5">
-            С нами работают заботливые, опытные и увлечённые своим делом педагоги.
+            ${tp.description || 'З нами працюють турботливі, досвідчені та закохані у свою справу педагоги.'}
         </p>
 
         <!-- Карточки воспитателей: сетка по 2 плитки в ряд пропорцией 4:5 -->
@@ -57,9 +66,9 @@ function renderTeachersPage() {
             ${teachersHtml}
         </div>
 
-        <!-- Овальная кнопка с синей обводкой «Все воспитатели» -->
+        <!-- Овальная кнопка «Все воспитатели» -->
         <button onclick="toggleAllTeachers()" class="w-full py-3 rounded-full border-2 border-[#60A5FA] text-[#2563EB] hover:bg-pastel-blue/40 font-bold text-sm transition active:scale-[0.99]">
-            ${currentState.showAllTeachers ? 'Свернуть список воспитателей' : 'Все воспитатели (' + SITE_DATA.teachers.length + ')'}
+            ${toggleBtnText}
         </button>
     </section>
     `;

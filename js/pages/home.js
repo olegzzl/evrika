@@ -78,6 +78,9 @@ function renderHomePage() {
     // Запуск автоскролла после рендера страницы
     setTimeout(initHeroCarousel, 50);
 
+    const hp = SITE_DATA.homePage || {};
+    const ui = SITE_DATA.ui || {};
+
     return `
     <section class="page-transition home-page-bg relative min-h-full flex-1 w-full flex flex-col">
         
@@ -88,11 +91,11 @@ function renderHomePage() {
             <div class="shrink-0 pt-1">
                 <div class="flex items-center justify-between gap-2 mb-2">
                     <h1 class="text-[28px] sm:text-3xl md:text-4xl font-black text-navy leading-[1.15] tracking-tight">
-                        Место, где<br>детство становится<br>ярче!
+                        ${hp.heroTitle || 'Місце, де<br>дитинство стає<br>яскравішим!'}
                     </h1>
-                    <!-- Солнышко в верхнем правом углу: центр по высоте совпадает со строчкой «детство становится», а по горизонтали расположен точно под иконкой телефона в шапке -->
+                    <!-- Солнышко в верхнем правом углу -->
                     <div class="hero-sun-box shrink-0 select-none pointer-events-none">
-                        <img src="Club photoes/Sun.png" alt="Солнышко" class="w-[76px] h-[76px] sm:w-[88px] sm:h-[88px] md:w-[96px] md:h-[96px] object-contain drop-shadow-sm">
+                        <img src="Club photoes/Sun.png" alt="${hp.sunAlt || 'Сонечко'}" class="w-[76px] h-[76px] sm:w-[88px] sm:h-[88px] md:w-[96px] md:h-[96px] object-contain drop-shadow-sm">
                     </div>
                 </div>
 
@@ -103,10 +106,10 @@ function renderHomePage() {
                 <!-- Крупные кнопки действия: одинаковая геометрия, без лишних обводок и эффектов -->
                 <div class="grid grid-cols-2 gap-3 sm:gap-4 w-full mt-3.5 mb-1.5">
                     <button onclick="navigateTo('about')" class="w-full py-3.5 sm:py-4 px-3 sm:px-4 rounded-[30px] sm:rounded-[36px] bg-[#FDE047] hover:bg-[#FACC15] text-navy font-black text-sm sm:text-base shadow-sm transition transform active:scale-95 flex items-center justify-center text-center">
-                        Узнать больше
+                        ${ui.learnMore || 'Дізнатися більше'}
                     </button>
-                    <button onclick="openBookingModal('Пробное занятие со скидкой')" class="w-full py-3.5 sm:py-4 px-3 sm:px-4 rounded-[30px] sm:rounded-[36px] bg-[#10B981] hover:bg-[#059669] text-white font-black text-sm sm:text-base shadow-sm transition transform active:scale-95 flex items-center justify-center text-center">
-                        Записаться
+                    <button onclick="openBookingModal('${hp.trialPromo || 'Пробне заняття зі знижкою'}')" class="w-full py-3.5 sm:py-4 px-3 sm:px-4 rounded-[30px] sm:rounded-[36px] bg-[#10B981] hover:bg-[#059669] text-white font-black text-sm sm:text-base shadow-sm transition transform active:scale-95 flex items-center justify-center text-center">
+                        ${ui.bookSpot || 'Записатися'}
                     </button>
                 </div>
             </div>
@@ -120,20 +123,20 @@ function renderHomePage() {
 
         </div>
 
-        <!-- Интерактивная карусель фотографий: СТРОГО ПО ЦЕНТРУ МЕЖДУ КАРТОЧКОЙ С ИКОНКАМИ И НИЖНИМ ТАБ-БАРОМ -->
+        <!-- Интерактивная карусель фотографий -->
         <div class="carousel-horizon-wrapper relative w-full flex-1 flex flex-col justify-center items-center z-20 my-auto py-2 sm:py-4">
-            <!-- Стрелка влево (находится строго на горизонте движения) -->
-            <button onclick="scrollHeroCarousel(-1)" aria-label="Предыдущее фото" class="absolute left-2 sm:left-4 top-1/2 -translate-y-1/2 z-30 w-8 h-8 rounded-full bg-white/95 shadow-card border border-slate-200/60 flex items-center justify-center text-navy hover:bg-white active:scale-90 transition">
+            <!-- Стрелка влево -->
+            <button onclick="scrollHeroCarousel(-1)" aria-label="${ui.prevPhoto || 'Попередня світлина'}" class="absolute left-2 sm:left-4 top-1/2 -translate-y-1/2 z-30 w-8 h-8 rounded-full bg-white/95 shadow-card border border-slate-200/60 flex items-center justify-center text-navy hover:bg-white active:scale-90 transition">
                 <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M15 19l-7-7 7-7"/></svg>
             </button>
 
-            <!-- Контейнер скролла с симметричными вертикальными отступами для идеальной центровки оси -->
+            <!-- Контейнер скролла -->
             <div id="hero-photos-carousel" class="w-full flex items-center overflow-x-auto no-scrollbar py-6 sm:py-8 px-0 cursor-grab active:cursor-grabbing select-none">
                 ${photosSlidesHtml}
             </div>
 
-            <!-- Стрелка вправо (находится строго на горизонте движения) -->
-            <button onclick="scrollHeroCarousel(1)" aria-label="Следующее фото" class="absolute right-2 sm:right-4 top-1/2 -translate-y-1/2 z-30 w-8 h-8 rounded-full bg-white/95 shadow-card border border-slate-200/60 flex items-center justify-center text-navy hover:bg-white active:scale-90 transition">
+            <!-- Стрелка вправо -->
+            <button onclick="scrollHeroCarousel(1)" aria-label="${ui.nextPhoto || 'Наступна світлина'}" class="absolute right-2 sm:right-4 top-1/2 -translate-y-1/2 z-30 w-8 h-8 rounded-full bg-white/95 shadow-card border border-slate-200/60 flex items-center justify-center text-navy hover:bg-white active:scale-90 transition">
                 <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7"/></svg>
             </button>
         </div>
