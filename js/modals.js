@@ -170,35 +170,316 @@ function openTeacherDetail(teacherId) {
 }
 
 /**
- * Просмотр полноразмерного фото из галереи
+ * Состояние галерейного лайтбокса (просмотр и перелистывание фото)
+ */
+let currentGalleryPhotos = [];
+let currentGalleryIndex = 0;
+let galleryKeydownHandler = null;
+let galleryTouchStartX = 0;
+let galleryTouchStartY = 0;
+
+/**
+ * Просмотр полноразмерного фото из галереи в едином одинаковом контейнере с перелистыванием
  */
 function openGalleryLightbox(photoId) {
-    const photo = SITE_DATA.gallery.find(p => p.id === photoId);
-    if (!photo) return;
+    let photos = (SITE_DATA && SITE_DATA.gallery) ? SITE_DATA.gallery : [];
+    
+    if (typeof currentState !== 'undefined' && currentState.galleryFilter && currentState.galleryFilter !== 'Все') {
+        const filtered = photos.filter(p => p.category === currentState.galleryFilter);
+        if (filtered.some(p => p.id === photoId)) {
+            photos = filtered;
+        }
+    }
+
+    if (!photos || photos.length === 0) return;
+
+    currentGalleryPhotos = photos;
+    const foundIdx = currentGalleryPhotos.findIndex(p => p.id === photoId);
+    currentGalleryIndex = foundIdx >= 0 ? foundIdx : 0;
 
     const modal = document.getElementById('detail-modal');
     const body = document.getElementById('detail-modal-body');
+    if (!modal || !body) return;
+
+    renderGalleryLightboxModal(body);
+    modal.classList.remove('hidden');
+
+    // Подключаем стрелки клавиатуры (← → Esc) и свайпы для мобильных
+    setupGalleryLightboxListeners();
+}
+
+/**
+ * Отрисовка лайтбокса галереи с фиксированным одинаковым контейнером
+ */
+function renderGalleryLightboxModal(body) {
+    const photo = currentGalleryPhotos[currentGalleryIndex];
+    if (!photo) return;
+    const total = currentGalleryPhotos.length;
+    const isFiltered = typeof currentState !== 'undefined' && currentState.galleryFilter && currentState.galleryFilter !== 'Все' && total < (SITE_DATA.gallery ? SITE_DATA.gallery.length : 0);
+
+    // Точки индикаторы
+    const dotsHtml = currentGalleryPhotos.map((p, idx) => {
+        const isActive = idx === currentGalleryIndex;
+        return `
+            <button onclick="goToGalleryLightboxIndex(${idx}, event)" 
+                    aria-label="Перейти к фото ${idx + 1}"
+                    class="transition-all duration-300 rounded-full cursor-pointer ${isActive ? 'w-5 h-2 bg-brand-yellow' : 'w-2 h-2 bg-white/50 hover:bg-white'}">
+            </button>
+        `;
+    }).join('');
 
     body.innerHTML = `
-        <div class="relative bg-navy">
-            <img src="${photo.image}" alt="${photo.title}" class="w-full max-h-[70vh] object-contain">
-            <button onclick="closeDetailModal()" class="absolute top-3 right-3 w-9 h-9 rounded-full bg-white/90 text-navy flex items-center justify-center shadow-md">
+        <!-- ЕДИНЫЙ ФИКСИРОВАННЫЙ КОНТЕЙНЕР ДЛЯ ВСЕХ ФОТО (одинаковая высота и пропорции) -->
+        <div id="gallery-lightbox-container" class="relative w-full h-[320px] sm:h-[400px] max-h-[60vh] bg-slate-950 overflow-hidden flex items-center justify-center select-none">
+            
+            <!-- Мягкий эмбиент-размытый фон текущего фото (заполняет поля без пустых полос) -->
+            <div id="lightbox-bg-blur" 
+                 class="absolute inset-0 bg-cover bg-center filter blur-2xl opacity-35 scale-125 transition-all duration-300 pointer-events-none" 
+                 style="background-image: url('${photo.image}')">
+            </div>
+            <div class="absolute inset-0 bg-navy/60 pointer-events-none"></div>
+
+            <!-- Сама фотография (object-contain в одинаковом контейнере) -->
+            <img id="lightbox-main-img" 
+                 src="${photo.image}" 
+                 alt="${photo.title}" 
+                 onerror="this.src='https://placehold.co/600x450/FEF3C7/1E3A5F?text=Эврика'"
+                 class="relative z-10 max-h-full max-w-full object-contain transition-opacity duration-200 drop-shadow-lg select-none pointer-events-none">
+
+            <!-- Бейдж счетчика и категории -->
+            <div class="absolute top-3 left-3 z-30 px-3 py-1.5 rounded-full bg-navy/85 backdrop-blur-md text-white text-xs font-bold flex items-center gap-1.5 shadow-md border border-white/10">
+                <span class="w-2 h-2 rounded-full bg-brand-yellow"></span>
+                <span id="lightbox-counter-badge">${currentGalleryIndex + 1} из ${total}</span>
+                ${isFiltered ? `
+                    <button onclick="switchGalleryLightboxToAll(event)" class="text-[10px] text-brand-yellow font-bold underline hover:text-white transition ml-1 cursor-pointer">
+                        Все (8)
+                    </button>
+                ` : ''}
+            </div>
+
+            <!-- Кнопка закрытия -->
+            <button onclick="closeDetailModal()" 
+                    aria-label="Закрыть" 
+                    class="absolute top-3 right-3 z-30 w-10 h-10 rounded-full bg-navy/85 hover:bg-navy text-white backdrop-blur-md flex items-center justify-center shadow-md border border-white/10 transition transform hover:scale-105 active:scale-95 cursor-pointer">
                 <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2.2" viewBox="0 0 24 24">
                     <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12"/>
                 </svg>
             </button>
-        </div>
-        <div class="p-4 flex items-center justify-between">
-            <div>
-                <span class="text-[11px] font-bold text-brand-blue">${photo.category}</span>
-                <h4 class="text-sm font-extrabold text-navy">${photo.title}</h4>
+
+            <!-- Кнопка перелистывания НАЗАД (←) -->
+            <button onclick="navigateGalleryLightbox(-1, event)" 
+                    aria-label="Предыдущее фото" 
+                    class="absolute left-3 top-1/2 -translate-y-1/2 z-30 w-11 h-11 sm:w-12 sm:h-12 rounded-full bg-white/95 hover:bg-white text-navy shadow-floating flex items-center justify-center transition-all duration-200 transform hover:scale-110 active:scale-95 focus:outline-none cursor-pointer border border-slate-200/40">
+                <svg class="w-6 h-6 -ml-0.5 text-navy" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M15 19l-7-7 7-7"/>
+                </svg>
+            </button>
+
+            <!-- Кнопка перелистывания ВПЕРЕД (→) -->
+            <button onclick="navigateGalleryLightbox(1, event)" 
+                    aria-label="Следующее фото" 
+                    class="absolute right-3 top-1/2 -translate-y-1/2 z-30 w-11 h-11 sm:w-12 sm:h-12 rounded-full bg-white/95 hover:bg-white text-navy shadow-floating flex items-center justify-center transition-all duration-200 transform hover:scale-110 active:scale-95 focus:outline-none cursor-pointer border border-slate-200/40">
+                <svg class="w-6 h-6 -mr-0.5 text-navy" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7"/>
+                </svg>
+            </button>
+
+            <!-- Точки индикаторы внизу контейнера -->
+            <div id="lightbox-dots-container" class="absolute bottom-3 left-1/2 -translate-x-1/2 z-30 flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-navy/70 backdrop-blur-md border border-white/10">
+                ${dotsHtml}
             </div>
-            <button onclick="closeDetailModal(); openBookingModal('Хочу на занятие')" class="px-4 py-2 rounded-full bg-brand-yellow text-navy text-xs font-extrabold">
+        </div>
+
+        <!-- СТАБИЛЬНЫЙ ПОДВАЛ С ОПИСАНИЕМ ФОТО И КНОПКОЙ ЗАПИСИ -->
+        <div class="p-4 sm:p-5 bg-milk flex items-center justify-between gap-3 border-t border-slate-200/60 min-h-[76px]">
+            <div class="min-w-0 pr-2">
+                <div class="flex items-center gap-2 mb-1">
+                    <span id="lightbox-category-badge" class="inline-block text-[11px] font-extrabold text-brand-blue uppercase tracking-wider bg-blue-50 px-2.5 py-0.5 rounded-full border border-blue-100">
+                        ${photo.category}
+                    </span>
+                </div>
+                <h4 id="lightbox-photo-title" class="text-sm sm:text-base font-extrabold text-navy truncate" title="${photo.title}">
+                    ${photo.title}
+                </h4>
+            </div>
+            <button id="lightbox-booking-btn" onclick="openLightboxBooking()" class="shrink-0 px-4 py-2.5 rounded-full bg-brand-yellow hover:bg-brand-yellowHover text-navy text-xs sm:text-sm font-extrabold shadow-sm transition transform active:scale-95 cursor-pointer">
                 Записаться
             </button>
         </div>
     `;
-    modal.classList.remove('hidden');
+}
+
+/**
+ * Перелистывание фото вперед (+1) или назад (-1)
+ */
+function navigateGalleryLightbox(delta, event) {
+    if (event) {
+        event.stopPropagation();
+    }
+    if (!currentGalleryPhotos || currentGalleryPhotos.length <= 1) return;
+
+    const total = currentGalleryPhotos.length;
+    currentGalleryIndex = (currentGalleryIndex + delta + total) % total;
+    updateGalleryLightboxView();
+}
+
+/**
+ * Переход к конкретному фото по клику на точку
+ */
+function goToGalleryLightboxIndex(index, event) {
+    if (event) {
+        event.stopPropagation();
+    }
+    if (!currentGalleryPhotos || index < 0 || index >= currentGalleryPhotos.length) return;
+    currentGalleryIndex = index;
+    updateGalleryLightboxView();
+}
+
+/**
+ * Переключение фильтрованного лайтбокса на полный каталог фото (8 фото)
+ */
+function switchGalleryLightboxToAll(event) {
+    if (event) {
+        event.stopPropagation();
+    }
+    const currentPhoto = currentGalleryPhotos[currentGalleryIndex];
+    currentGalleryPhotos = (SITE_DATA && SITE_DATA.gallery) ? SITE_DATA.gallery : [];
+    if (currentPhoto) {
+        const newIdx = currentGalleryPhotos.findIndex(p => p.id === currentPhoto.id);
+        currentGalleryIndex = newIdx >= 0 ? newIdx : 0;
+    }
+    const body = document.getElementById('detail-modal-body');
+    if (body) {
+        renderGalleryLightboxModal(body);
+    }
+}
+
+/**
+ * Плавное обновление содержимого лайтбокса без дергания и изменения контейнера
+ */
+function updateGalleryLightboxView() {
+    const photo = currentGalleryPhotos[currentGalleryIndex];
+    if (!photo) return;
+    const total = currentGalleryPhotos.length;
+
+    const imgEl = document.getElementById('lightbox-main-img');
+    const blurEl = document.getElementById('lightbox-bg-blur');
+    const counterEl = document.getElementById('lightbox-counter-badge');
+    const catEl = document.getElementById('lightbox-category-badge');
+    const titleEl = document.getElementById('lightbox-photo-title');
+    const dotsContainer = document.getElementById('lightbox-dots-container');
+
+    // Плавный эффект смены фото
+    if (imgEl) {
+        imgEl.style.opacity = '0.35';
+        imgEl.src = photo.image;
+        imgEl.alt = photo.title;
+        imgEl.onload = () => {
+            imgEl.style.opacity = '1';
+        };
+        setTimeout(() => {
+            imgEl.style.opacity = '1';
+        }, 120);
+    }
+
+    if (blurEl) {
+        blurEl.style.backgroundImage = `url('${photo.image}')`;
+    }
+
+    if (counterEl) {
+        counterEl.textContent = `${currentGalleryIndex + 1} из ${total}`;
+    }
+
+    if (catEl) {
+        catEl.textContent = photo.category;
+    }
+
+    if (titleEl) {
+        titleEl.textContent = photo.title;
+        titleEl.title = photo.title;
+    }
+
+    if (dotsContainer) {
+        dotsContainer.innerHTML = currentGalleryPhotos.map((p, idx) => {
+            const isActive = idx === currentGalleryIndex;
+            return `
+                <button onclick="goToGalleryLightboxIndex(${idx}, event)" 
+                        aria-label="Перейти к фото ${idx + 1}"
+                        class="transition-all duration-300 rounded-full cursor-pointer ${isActive ? 'w-5 h-2 bg-brand-yellow' : 'w-2 h-2 bg-white/50 hover:bg-white'}">
+                </button>
+            `;
+        }).join('');
+    }
+}
+
+/**
+ * Запись на пробное занятие из открытого фото
+ */
+function openLightboxBooking() {
+    const currentPhoto = currentGalleryPhotos[currentGalleryIndex];
+    const title = currentPhoto ? currentPhoto.title : 'Занятия в клубе';
+    closeDetailModal();
+    openBookingModal(`Запись после просмотра галереи: ${title}`);
+}
+
+/**
+ * Подключение событий клавиатуры и свайпов
+ */
+function setupGalleryLightboxListeners() {
+    destroyGalleryLightboxListeners();
+
+    galleryKeydownHandler = function(e) {
+        if (e.key === 'ArrowLeft') {
+            navigateGalleryLightbox(-1);
+        } else if (e.key === 'ArrowRight') {
+            navigateGalleryLightbox(1);
+        } else if (e.key === 'Escape') {
+            closeDetailModal();
+        }
+    };
+    window.addEventListener('keydown', galleryKeydownHandler);
+
+    const container = document.getElementById('gallery-lightbox-container');
+    if (container) {
+        container.addEventListener('touchstart', onGalleryTouchStart, { passive: true });
+        container.addEventListener('touchend', onGalleryTouchEnd, { passive: true });
+    }
+}
+
+function onGalleryTouchStart(e) {
+    if (e.changedTouches && e.changedTouches.length > 0) {
+        galleryTouchStartX = e.changedTouches[0].clientX;
+        galleryTouchStartY = e.changedTouches[0].clientY;
+    }
+}
+
+function onGalleryTouchEnd(e) {
+    if (e.changedTouches && e.changedTouches.length > 0) {
+        const diffX = e.changedTouches[0].clientX - galleryTouchStartX;
+        const diffY = e.changedTouches[0].clientY - galleryTouchStartY;
+        if (Math.abs(diffX) > 40 && Math.abs(diffX) > Math.abs(diffY)) {
+            if (diffX < 0) {
+                navigateGalleryLightbox(1);
+            } else {
+                navigateGalleryLightbox(-1);
+            }
+        }
+    }
+}
+
+/**
+ * Очистка слушателей лайтбокса при закрытии модального окна
+ */
+function destroyGalleryLightboxListeners() {
+    if (galleryKeydownHandler) {
+        window.removeEventListener('keydown', galleryKeydownHandler);
+        galleryKeydownHandler = null;
+    }
+    const container = document.getElementById('gallery-lightbox-container');
+    if (container) {
+        container.removeEventListener('touchstart', onGalleryTouchStart);
+        container.removeEventListener('touchend', onGalleryTouchEnd);
+    }
 }
 
 /**
@@ -209,6 +490,7 @@ function closeDetailModal() {
     if (modal) {
         modal.classList.add('hidden');
     }
+    destroyGalleryLightboxListeners();
 }
 
 /**
