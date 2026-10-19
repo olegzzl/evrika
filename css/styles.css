@@ -3,7 +3,7 @@
    ========================================================================== */
 
 body {
-    background-color: #FAF9F5;
+    background-color: #E3F6FD;
     color: #1E3A5F;
     overflow-x: hidden;
     -webkit-tap-highlight-color: transparent;
@@ -152,15 +152,34 @@ header {
     }
 }
 
-/* Векторный фон в чистом коде (точная копия Fon.jpg), примененный ко всему сайту */
-body,
+/* Фиксированный фон сайта — привязан к низу экрана и аппаратно ускорен.
+   Использование отдельного фиксированного слоя с 100lvh/100vh исключает
+   скачки и дергания фона на смартфонах при скрытии/появлении адресной строки браузера */
+.site-bg {
+    position: fixed;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    width: 100%;
+    height: 100vh;
+    height: 100lvh;
+    min-height: 100%;
+    pointer-events: none;
+    z-index: 0;
+    background-color: #E3F6FD;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 572 1017' preserveAspectRatio='xMidYMid slice'%3E%3Cdefs%3E%3ClinearGradient id='cyanGrad' x1='0.5' y1='0' x2='0.5' y2='1'%3E%3Cstop offset='0%25' stop-color='%23EEFEFE'/%3E%3Cstop offset='100%25' stop-color='%23B5F6F8'/%3E%3C/linearGradient%3E%3C/defs%3E%3C!-- 1. Верхнее светлое небо --%3E%3Crect width='572' height='1017' fill='%23E3F6FD'/%3E%3C!-- 2. Верхняя волна пастельно-голубая --%3E%3Cpath d='M-10 140 Q 140 120, 290 160 T 582 165 L 582 1025 L -10 1025 Z' fill='%23CAE9FD'/%3E%3C!-- 3. Средняя белая широкая волна --%3E%3Cpath d='M-10 495 Q 110 435, 230 450 T 450 340 Q 520 345, 582 365 L 582 1025 L -10 1025 Z' fill='%23F8FEFE'/%3E%3C!-- 4. Нижняя бирюзовая область с градиентом --%3E%3Cpath d='M-10 500 Q 180 570, 390 600 T 582 460 L 582 1025 L -10 1025 Z' fill='url(%23cyanGrad)'/%3E%3C!-- 5. Нижнее основание нежно-голубое --%3E%3Cpath d='M180 1025 Q 360 840, 582 920 L 582 1025 Z' fill='%23B1E3FC'/%3E%3C!-- 6. Мягкий синий овал слева --%3E%3Cpath d='M-30 490 C 80 500, 220 540, 210 640 C 200 710, 80 710, -30 650 Z' fill='%23BBE0FD'/%3E%3C!-- 7. Оранжевый теплый полукруг/капля слева --%3E%3Ccircle cx='-10' cy='760' r='60' fill='%23FFB26C'/%3E%3C!-- 8. Бирюзовая органическая клякса внизу справа --%3E%3Cpath d='M580 735 C 530 740, 460 800, 465 870 C 470 940, 540 930, 582 905 Z' fill='%2300CECE'/%3E%3C!-- 9. Изумрудно-бирюзовая волнистая капля внизу слева --%3E%3Cpath d='M-20 850 C 40 850, 80 870, 70 920 C 60 960, 110 980, 160 970 C 180 1010, 140 1030, 80 1025 L -20 1025 Z' fill='%2303D1C7'/%3E%3C/svg%3E");
+    background-size: cover;
+    background-position: center bottom;
+    background-repeat: no-repeat;
+    -webkit-transform: translate3d(0, 0, 0);
+    transform: translate3d(0, 0, 0);
+    will-change: transform;
+}
+
 #app-wrapper {
-    background-color: #E3F6FD !important;
-    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 572 1017' preserveAspectRatio='xMidYMid slice'%3E%3Cdefs%3E%3ClinearGradient id='cyanGrad' x1='0.5' y1='0' x2='0.5' y2='1'%3E%3Cstop offset='0%25' stop-color='%23EEFEFE'/%3E%3Cstop offset='100%25' stop-color='%23B5F6F8'/%3E%3C/linearGradient%3E%3C/defs%3E%3C!-- 1. Верхнее светлое небо --%3E%3Crect width='572' height='1017' fill='%23E3F6FD'/%3E%3C!-- 2. Верхняя волна пастельно-голубая --%3E%3Cpath d='M-10 140 Q 140 120, 290 160 T 582 165 L 582 1025 L -10 1025 Z' fill='%23CAE9FD'/%3E%3C!-- 3. Средняя белая широкая волна --%3E%3Cpath d='M-10 495 Q 110 435, 230 450 T 450 340 Q 520 345, 582 365 L 582 1025 L -10 1025 Z' fill='%23F8FEFE'/%3E%3C!-- 4. Нижняя бирюзовая область с градиентом --%3E%3Cpath d='M-10 500 Q 180 570, 390 600 T 582 460 L 582 1025 L -10 1025 Z' fill='url(%23cyanGrad)'/%3E%3C!-- 5. Нижнее основание нежно-голубое --%3E%3Cpath d='M180 1025 Q 360 840, 582 920 L 582 1025 Z' fill='%23B1E3FC'/%3E%3C!-- 6. Мягкий синий овал слева --%3E%3Cpath d='M-30 490 C 80 500, 220 540, 210 640 C 200 710, 80 710, -30 650 Z' fill='%23BBE0FD'/%3E%3C!-- 7. Оранжевый теплый полукруг/капля слева --%3E%3Ccircle cx='-10' cy='760' r='60' fill='%23FFB26C'/%3E%3C!-- 8. Бирюзовая органическая клякса внизу справа --%3E%3Cpath d='M580 735 C 530 740, 460 800, 465 870 C 470 940, 540 930, 582 905 Z' fill='%2300CECE'/%3E%3C!-- 9. Изумрудно-бирюзовая волнистая капля внизу слева --%3E%3Cpath d='M-20 850 C 40 850, 80 870, 70 920 C 60 960, 110 980, 160 970 C 180 1010, 140 1030, 80 1025 L -20 1025 Z' fill='%2303D1C7'/%3E%3C/svg%3E") !important;
-    background-size: cover !important;
-    background-position: center top !important;
-    background-repeat: no-repeat !important;
-    background-attachment: fixed !important;
+    position: relative;
+    z-index: 1;
+    background: transparent !important;
 }
 
 /* Отступ снизу для страниц, чтобы контент не перекрывался приклеенным таббаром */

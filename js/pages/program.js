@@ -50,7 +50,7 @@ function renderProgramPage() {
                 </div>
                 <div class="p-3 rounded-2xl bg-milk">
                     <div class="font-extrabold text-amber-600">Почемучки 5–6 лет</div>
-                    <div class="text-navy/70 mt-1">Подготовка к школе, английский, робототехника и шахматы.</div>
+                    <div class="text-navy/70 mt-1">Подготовка к школе, английский, творчество и шахматы.</div>
                 </div>
                 <div class="p-3 rounded-2xl bg-milk">
                     <div class="font-extrabold text-emerald-600">Школьники 7–10 лет</div>

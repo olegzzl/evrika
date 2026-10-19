@@ -19,9 +19,11 @@
 </head>
 <body class="min-h-screen flex flex-col justify-between selection:bg-brand-yellow selection:text-navy page-home-active">
 
+    <!-- Фиксированный фон сайта — привязан к низу экрана, не скачет на мобильных устройствах при скрытии адресной строки -->
+    <div id="site-bg" class="site-bg" aria-hidden="true"></div>
 
     <!-- Главный контейнер приложения -->
-    <div id="app-wrapper" class="w-full max-w-6xl mx-auto min-h-screen flex flex-col justify-between relative transition-all duration-300 overflow-hidden">
+    <div id="app-wrapper" class="w-full max-w-6xl mx-auto min-h-screen flex flex-col justify-between relative overflow-hidden z-10">
         
         <!-- Декоративные фоновые пятна в углах (как на референсе) -->
         <div class="pointer-events-none absolute -bottom-16 -left-16 w-64 h-64 rounded-full bg-[#E3F1FE] opacity-75 blur-xl z-0"></div>

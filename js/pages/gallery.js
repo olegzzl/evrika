@@ -6,7 +6,7 @@
  */
 
 function renderGalleryPage() {
-    const categories = ['Все', 'Творчество', 'Робототехника', 'Игры', 'Атмосфера'];
+    const categories = ['Все', 'Творчество', 'Игры', 'Атмосфера'];
     const filteredPhotos = currentState.galleryFilter === 'Все'
         ? SITE_DATA.gallery
         : SITE_DATA.gallery.filter(item => item.category === currentState.galleryFilter);
