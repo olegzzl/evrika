@@ -18,9 +18,9 @@ tailwind.config = {
                 brand: {
                     yellow: '#FCD34D',
                     yellowHover: '#FBBF24',
-                    blue: '#3B82F6',
+                    blue: '#2563EB',
                     pink: '#F472B6',
-                    green: '#4ADE80',
+                    green: '#16A34A',
                     purple: '#A855F7',
                     orange: '#FB923C'
                 },

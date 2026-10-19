@@ -7,6 +7,9 @@ body {
     color: #1E3A5F;
     overflow-x: hidden;
     -webkit-tap-highlight-color: transparent;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    text-rendering: optimizeLegibility;
 }
 
 /* Разноцветный логотип тем же шрифтом Nunito, что и главный заголовок */

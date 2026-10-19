@@ -32,13 +32,13 @@ function renderTeachersPage() {
                     <h3 class="text-xs sm:text-sm md:text-base font-extrabold text-navy leading-tight group-hover:text-brand-blue transition-colors">
                         ${t.name}
                     </h3>
-                    <p class="text-[11px] sm:text-xs text-navy/70 mt-1 leading-snug line-clamp-2">
+                    <p class="text-[11px] sm:text-xs text-navy font-medium mt-1 leading-snug line-clamp-2">
                         ${t.role}
                     </p>
                 </div>
-                <div class="mt-2.5 pt-2 border-t border-slate-100/90 flex items-center justify-between text-[10px] sm:text-[11px] font-semibold text-brand-blue">
+                <div class="mt-2.5 pt-2 border-t border-slate-100/90 flex items-center justify-between text-[10px] sm:text-[11px] font-bold text-brand-blue">
                     <span class="truncate">${cleanExperience}</span>
-                    <span class="text-navy/35 group-hover:text-brand-blue group-hover:translate-x-0.5 transition-all text-xs">→</span>
+                    <span class="text-navy/70 group-hover:text-brand-blue group-hover:translate-x-0.5 transition-all text-xs font-bold">→</span>
                 </div>
             </div>
         </div>
@@ -48,7 +48,7 @@ function renderTeachersPage() {
     return `
     <section class="page-transition max-w-3xl mx-auto">
         <h1 class="text-2xl sm:text-3xl font-extrabold text-navy mb-2">Наши воспитатели</h1>
-        <p class="text-sm sm:text-base text-navy/80 leading-relaxed mb-5">
+        <p class="text-sm sm:text-base text-navy font-medium leading-relaxed mb-5">
             С нами работают заботливые, опытные и увлечённые своим делом педагоги.
         </p>
 

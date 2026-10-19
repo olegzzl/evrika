@@ -15,14 +15,14 @@ function renderReviewsPage() {
                     </div>
                     <div>
                         <h4 class="text-sm sm:text-base font-extrabold text-navy leading-snug">${r.name}</h4>
-                        <span class="text-xs text-navy/60 font-medium">${r.child}</span>
+                        <span class="text-xs text-navy font-bold">${r.child}</span>
                     </div>
                 </div>
                 <div class="flex items-center text-amber-400 text-sm gap-0.5" aria-label="Оценка 5 из 5">
                     ★ ★ ★ ★ ★
                 </div>
             </div>
-            <p class="text-xs sm:text-sm text-navy/85 leading-relaxed font-medium">${r.text}</p>
+            <p class="text-xs sm:text-sm text-navy leading-relaxed font-medium">${r.text}</p>
         </div>
     `).join('');
 
@@ -34,7 +34,7 @@ function renderReviewsPage() {
                 <span class="text-amber-500">★</span> 5.0 • Харьков
             </div>
         </div>
-        <p class="text-sm sm:text-base text-navy/80 mb-5">
+        <p class="text-sm sm:text-base text-navy font-medium mb-5">
             Что говорят мамы и папы о детском клубе «Эврика»:
         </p>
 

@@ -14,7 +14,7 @@ function renderGalleryPage() {
     const filterButtonsHtml = categories.map(cat => {
         const active = currentState.galleryFilter === cat;
         return `
-            <button onclick="setGalleryFilter('${cat}')" class="px-3.5 py-1.5 rounded-full text-xs font-bold transition ${active ? 'bg-navy text-white' : 'bg-white text-navy/75 hover:bg-slate-100'}">
+            <button onclick="setGalleryFilter('${cat}')" class="px-3.5 py-1.5 rounded-full text-xs font-bold transition ${active ? 'bg-navy text-white shadow-sm' : 'bg-white text-navy font-bold hover:bg-slate-100 border border-slate-200/60'}">
                 ${cat}
             </button>
         `;
@@ -35,7 +35,7 @@ function renderGalleryPage() {
     return `
     <section class="page-transition max-w-3xl mx-auto">
         <h1 class="text-2xl sm:text-3xl font-extrabold text-navy mb-2">Галерея</h1>
-        <p class="text-sm sm:text-base text-navy/80 mb-4">
+        <p class="text-sm sm:text-base text-navy font-medium mb-4">
             Как проходит жизнь в нашем клубе — смотрите в фотографиях!
         </p>
 

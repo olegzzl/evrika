@@ -15,11 +15,11 @@ function renderClubsPage() {
                      class="w-16 h-16 sm:w-20 sm:h-20 rounded-xl object-cover shrink-0">
                 <div>
                     <h3 class="text-sm sm:text-base font-extrabold text-navy group-hover:text-brand-blue transition">${club.title}</h3>
-                    <p class="text-xs text-navy/65 mt-0.5">${club.age}</p>
-                    <p class="text-[11px] text-brand-blue font-semibold mt-1 hidden sm:block">${club.schedule}</p>
+                    <p class="text-xs text-navy font-bold mt-0.5">${club.age}</p>
+                    <p class="text-[11px] text-brand-blue font-bold mt-1 hidden sm:block">${club.schedule}</p>
                 </div>
             </div>
-            <div class="pr-2 text-navy/40 group-hover:text-navy group-hover:translate-x-0.5 transition">
+            <div class="pr-2 text-navy/70 group-hover:text-navy group-hover:translate-x-0.5 transition">
                 <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2.4" viewBox="0 0 24 24">
                     <path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7"/>
                 </svg>
@@ -30,7 +30,7 @@ function renderClubsPage() {
     return `
     <section class="page-transition max-w-3xl mx-auto">
         <h1 class="text-2xl sm:text-3xl font-extrabold text-navy mb-2">Кружки</h1>
-        <p class="text-sm sm:text-base text-navy/80 mb-5">
+        <p class="text-sm sm:text-base text-navy font-medium mb-5">
             Выбирайте то, что нравится вашему ребёнку!
         </p>
 
@@ -42,7 +42,7 @@ function renderClubsPage() {
         <div class="bg-pastel-yellow/70 rounded-2xl p-4 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3">
             <div>
                 <div class="text-xs font-extrabold text-navy">Не знаете, какой кружок выбрать?</div>
-                <div class="text-xs text-navy/75">Приходите на пробное занятие — ребёнок сам выберет любимое дело!</div>
+                <div class="text-xs text-navy font-medium">Приходите на пробное занятие — ребёнок сам выберет любимое дело!</div>
             </div>
             <button onclick="openBookingModal('Запись на пробное занятие в кружок')" class="px-5 py-2.5 rounded-full bg-navy text-white text-xs font-bold shrink-0 hover:bg-navy-light transition">
                 Записаться на пробное

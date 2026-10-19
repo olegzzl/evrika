@@ -104,7 +104,7 @@ function renderNavigationElements() {
                     </div>
                     <span class="text-[15px] sm:text-base font-bold text-navy group-hover:text-brand-blue transition">${item.title}</span>
                 </div>
-                <div class="w-7 h-7 sm:w-8 sm:h-8 rounded-full flex items-center justify-center text-navy/40 group-hover:text-navy group-hover:bg-navy/5 group-hover:translate-x-0.5 transition">
+                <div class="w-7 h-7 sm:w-8 sm:h-8 rounded-full flex items-center justify-center text-navy/70 group-hover:text-navy group-hover:bg-navy/5 group-hover:translate-x-0.5 transition">
                     <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2.3" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7"/>
                     </svg>
@@ -120,7 +120,7 @@ function renderNavigationElements() {
         switcherBar.innerHTML = SITE_DATA.navigation.map(item => {
             const isActive = currentState.currentPage === item.id;
             return `
-            <button onclick="navigateTo('${item.id}')" class="px-2.5 py-1 rounded-full text-[11px] font-bold transition whitespace-nowrap ${isActive ? 'bg-navy text-white shadow-sm' : 'text-navy/70 hover:bg-navy/5'}">
+            <button onclick="navigateTo('${item.id}')" class="px-2.5 py-1 rounded-full text-[11px] font-bold transition whitespace-nowrap ${isActive ? 'bg-navy text-white shadow-sm' : 'text-navy hover:bg-navy/10 font-bold'}">
                 ${item.title}
             </button>
             `;
@@ -142,7 +142,7 @@ function updateActiveNavState(activeKey) {
         if (page === activeKey) {
             btn.className = 'nav-pill px-3 py-1.5 rounded-full text-sm font-extrabold bg-brand-yellow text-navy transition';
         } else {
-            btn.className = 'nav-pill px-3 py-1.5 rounded-full text-sm font-bold text-navy/75 hover:text-navy hover:bg-navy/5 transition';
+            btn.className = 'nav-pill px-3 py-1.5 rounded-full text-sm font-bold text-navy hover:bg-navy/10 transition';
         }
     });
 

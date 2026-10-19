@@ -83,11 +83,11 @@ function openClubDetail(clubId) {
         </div>
         <div class="p-6">
             <h3 class="text-xl font-extrabold text-navy mb-2">${club.title}</h3>
-            <p class="text-xs sm:text-sm text-navy/80 leading-relaxed mb-4">${club.description}</p>
+            <p class="text-xs sm:text-sm text-navy font-medium leading-relaxed mb-4">${club.description}</p>
             <div class="bg-white rounded-2xl p-3.5 space-y-1.5 text-xs mb-5 border border-slate-100">
-                <div class="flex justify-between"><span class="text-navy/60">Расписание:</span><span class="font-bold text-navy">${club.schedule}</span></div>
-                <div class="flex justify-between"><span class="text-navy/60">Размер группы:</span><span class="font-bold text-navy">${club.groupSize}</span></div>
-                <div class="flex justify-between"><span class="text-navy/60">Стоимость:</span><span class="font-bold text-brand-blue">${club.demoPrice}</span></div>
+                <div class="flex justify-between"><span class="text-navy font-bold">Расписание:</span><span class="font-extrabold text-navy">${club.schedule}</span></div>
+                <div class="flex justify-between"><span class="text-navy font-bold">Размер группы:</span><span class="font-extrabold text-navy">${club.groupSize}</span></div>
+                <div class="flex justify-between"><span class="text-navy font-bold">Стоимость:</span><span class="font-extrabold text-brand-blue">${club.demoPrice}</span></div>
             </div>
             <button onclick="closeDetailModal(); openBookingModal('Кружок: ${club.title}')" class="w-full py-3 rounded-full bg-brand-yellow hover:bg-brand-yellowHover text-navy font-extrabold text-sm shadow-sm transition">
                 Записаться в кружок «${club.title}»
@@ -119,11 +119,11 @@ function openProgramDetail(progId) {
                     </svg>
                 </button>
             </div>
-            <span class="inline-block text-xs font-bold text-brand-blue bg-pastel-blue px-3 py-1 rounded-full mb-2">
+            <span class="inline-block text-xs font-extrabold text-brand-blue bg-pastel-blue px-3 py-1 rounded-full mb-2">
                 Возрастная группа: ${prog.age}
             </span>
             <h3 class="text-xl font-extrabold text-navy mb-2">${prog.title}</h3>
-            <p class="text-sm text-navy/80 leading-relaxed mb-5">${prog.details}</p>
+            <p class="text-sm text-navy font-medium leading-relaxed mb-5">${prog.details}</p>
             <button onclick="closeDetailModal(); openBookingModal('Программа: ${prog.title}')" class="w-full py-3 rounded-full bg-brand-yellow hover:bg-brand-yellowHover text-navy font-extrabold text-sm transition">
                 Записаться на направление
             </button>
@@ -151,7 +151,7 @@ function openTeacherDetail(teacherId) {
                     <div>
                         <h3 class="text-lg font-extrabold text-navy">${t.name}</h3>
                         <p class="text-xs font-bold text-brand-blue mt-0.5">${t.role}</p>
-                        <p class="text-[11px] text-navy/60 mt-1">${t.experience}</p>
+                        <p class="text-[11px] text-navy font-bold mt-1">${t.experience}</p>
                     </div>
                 </div>
                 <button onclick="closeDetailModal()" class="w-9 h-9 rounded-full bg-white text-navy flex items-center justify-center shadow-sm shrink-0">
@@ -160,7 +160,7 @@ function openTeacherDetail(teacherId) {
                     </svg>
                 </button>
             </div>
-            <p class="text-xs sm:text-sm text-navy/80 leading-relaxed mb-5">${t.bio}</p>
+            <p class="text-xs sm:text-sm text-navy font-medium leading-relaxed mb-5">${t.bio}</p>
             <button onclick="closeDetailModal(); openBookingModal('Запись к педагогу: ${t.name}')" class="w-full py-3 rounded-full bg-brand-yellow hover:bg-brand-yellowHover text-navy font-extrabold text-sm transition">
                 Записаться в группу педагога
             </button>
@@ -224,13 +224,13 @@ function openReviewsModal() {
             <div class="flex items-center justify-between mb-2">
                 <div>
                     <h4 class="text-sm font-extrabold text-navy">${r.name}</h4>
-                    <span class="text-[11px] text-navy/60">${r.child}</span>
+                    <span class="text-[11px] text-navy font-bold">${r.child}</span>
                 </div>
                 <div class="flex items-center text-amber-400 text-xs">
                     ★ ★ ★ ★ ★
                 </div>
             </div>
-            <p class="text-xs text-navy/80 leading-relaxed">${r.text}</p>
+            <p class="text-xs text-navy font-medium leading-relaxed">${r.text}</p>
         </div>
     `).join('');
 
@@ -245,7 +245,7 @@ function openReviewsModal() {
                     </div>
                     <div>
                         <h3 class="text-lg font-extrabold text-navy">Отзывы родителей</h3>
-                        <p class="text-xs text-navy/65">Детский клуб «Эврика» • Средняя оценка: 5.0</p>
+                        <p class="text-xs text-navy font-bold">Детский клуб «Эврика» • Средняя оценка: 5.0</p>
                     </div>
                 </div>
                 <button onclick="closeDetailModal()" aria-label="Закрыть" class="w-9 h-9 rounded-full bg-white text-navy flex items-center justify-center shadow-sm">
@@ -292,7 +292,7 @@ function openProfileModal() {
                     </div>
                     <div>
                         <h3 class="text-lg font-extrabold text-navy">Личный кабинет родителя</h3>
-                        <p class="text-xs text-navy/65">Детский клуб «Эврика»</p>
+                        <p class="text-xs text-navy font-bold">Детский клуб «Эврика»</p>
                     </div>
                 </div>
                 <button onclick="closeDetailModal()" aria-label="Закрыть" class="w-9 h-9 rounded-full bg-white text-navy flex items-center justify-center shadow-sm">
@@ -304,15 +304,15 @@ function openProfileModal() {
 
             <div class="bg-white rounded-2xl p-4 border border-slate-100 mb-4 space-y-2">
                 <div class="flex items-center justify-between text-xs">
-                    <span class="text-navy/60">Статус абонемента:</span>
+                    <span class="text-navy font-bold">Статус абонемента:</span>
                     <span class="font-bold text-brand-green bg-green-50 px-2.5 py-0.5 rounded-full">Демо-доступ активен</span>
                 </div>
                 <div class="flex items-center justify-between text-xs">
-                    <span class="text-navy/60">Ваш филиал:</span>
+                    <span class="text-navy font-bold">Ваш филиал:</span>
                     <span class="font-bold text-navy">Харьков, ул. Любови Малой, 22</span>
                 </div>
                 <div class="flex items-center justify-between text-xs">
-                    <span class="text-navy/60">Связь с администратором:</span>
+                    <span class="text-navy font-bold">Связь с администратором:</span>
                     <a href="tel:${SITE_DATA.clubInfo.phone}" class="font-bold text-brand-blue">${SITE_DATA.clubInfo.phone}</a>
                 </div>
             </div>

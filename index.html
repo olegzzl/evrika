@@ -38,7 +38,7 @@
                     <div class="font-logo text-[31px] md:text-[39px] font-extrabold tracking-tight leading-none logo-text">
                         <span>Э</span><span>в</span><span>р</span><span>и</span><span>к</span><span>а</span>
                     </div>
-                    <span class="text-[14px] md:text-[16px] font-bold text-navy/70 tracking-wide mt-0.5 pl-0.5 group-hover:text-navy transition">
+                    <span class="text-[14px] md:text-[16px] font-extrabold text-navy tracking-wide mt-0.5 pl-0.5 transition">
                         детский клуб
                     </span>
                 </a>
@@ -125,7 +125,7 @@
                         <!-- Генерируется скриптом -->
                     </div>
                 </div>
-                <div class="text-[11px] text-navy/60 font-medium text-center md:text-right">
+                <div class="text-[11px] text-navy font-bold text-center md:text-right">
                     © Детский клуб «Эврика», г. Харьков, ул. Любови Малой, 22
                 </div>
             </div>
@@ -193,7 +193,7 @@
     <!-- МОДАЛЬНОЕ ОКНО ЗАПИСИ / ОБРАТНОЙ СВЯЗИ -->
     <div id="booking-modal" class="hidden fixed inset-0 z-[70] bg-navy/40 backdrop-blur-sm flex items-center justify-center p-4">
         <div class="bg-milk w-full max-w-md rounded-3xl shadow-floating border border-white p-6 relative animate-[fadeIn_0.2s_ease-out]">
-            <button onclick="closeBookingModal()" aria-label="Закрыть" class="absolute top-4 right-4 w-9 h-9 rounded-full bg-white shadow-sm flex items-center justify-center text-navy/70 hover:text-navy">
+            <button onclick="closeBookingModal()" aria-label="Закрыть" class="absolute top-4 right-4 w-9 h-9 rounded-full bg-white shadow-sm flex items-center justify-center text-navy hover:bg-slate-100">
                 <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2.2" viewBox="0 0 24 24">
                     <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12"/>
                 </svg>
@@ -207,7 +207,7 @@
                 </div>
                 <div>
                     <h3 id="modal-title" class="text-lg font-extrabold text-navy">Записаться на занятие</h3>
-                    <p id="modal-subtitle" class="text-xs text-navy/70">Оставьте контакты, и мы перезвоним вам в течение 15 минут</p>
+                    <p id="modal-subtitle" class="text-xs text-navy font-medium">Оставьте контакты, и мы перезвоним вам в течение 15 минут</p>
                 </div>
             </div>
 
@@ -215,17 +215,17 @@
                 <input type="hidden" id="booking-subject" value="Общая запись">
                 
                 <div>
-                    <label class="block text-xs font-bold text-navy/80 mb-1">Ваше имя (Родитель) *</label>
+                    <label class="block text-xs font-bold text-navy mb-1">Ваше имя (Родитель) *</label>
                     <input type="text" id="parent-name" required placeholder="Например, Елена" class="w-full px-4 py-2.5 rounded-2xl bg-white border border-slate-200 text-sm text-navy focus:outline-none focus:border-brand-blue">
                 </div>
 
                 <div class="grid grid-cols-2 gap-3">
                     <div>
-                        <label class="block text-xs font-bold text-navy/80 mb-1">Имя ребёнка</label>
+                        <label class="block text-xs font-bold text-navy mb-1">Имя ребёнка</label>
                         <input type="text" id="child-name" placeholder="Миша" class="w-full px-4 py-2.5 rounded-2xl bg-white border border-slate-200 text-sm text-navy focus:outline-none focus:border-brand-blue">
                     </div>
                     <div>
-                        <label class="block text-xs font-bold text-navy/80 mb-1">Возраст ребёнка</label>
+                        <label class="block text-xs font-bold text-navy mb-1">Возраст ребёнка</label>
                         <select id="child-age" class="w-full px-3 py-2.5 rounded-2xl bg-white border border-slate-200 text-sm text-navy focus:outline-none focus:border-brand-blue">
                             <option value="3 года">3 года</option>
                             <option value="4 года">4 года</option>
@@ -238,12 +238,12 @@
                 </div>
 
                 <div>
-                    <label class="block text-xs font-bold text-navy/80 mb-1">Телефон для связи *</label>
+                    <label class="block text-xs font-bold text-navy mb-1">Телефон для связи *</label>
                     <input type="tel" id="parent-phone" required placeholder="+380 (__) ___-__-__" class="w-full px-4 py-2.5 rounded-2xl bg-white border border-slate-200 text-sm text-navy focus:outline-none focus:border-brand-blue">
                 </div>
 
                 <div>
-                    <label class="block text-xs font-bold text-navy/80 mb-1">Направление или вопрос</label>
+                    <label class="block text-xs font-bold text-navy mb-1">Направление или вопрос</label>
                     <input type="text" id="booking-direction" placeholder="Пробное занятие / Консультация" class="w-full px-4 py-2.5 rounded-2xl bg-white border border-slate-200 text-sm text-navy focus:outline-none focus:border-brand-blue">
                 </div>
 

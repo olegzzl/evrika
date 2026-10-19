@@ -10,7 +10,7 @@ function renderAboutPage() {
     <section class="page-transition max-w-3xl mx-auto">
         <h1 class="text-2xl sm:text-3xl font-extrabold text-navy mb-3">О нашем клубе</h1>
         
-        <p class="text-sm sm:text-base text-navy/85 leading-relaxed mb-5">
+        <p class="text-sm sm:text-base text-navy font-medium leading-relaxed mb-5">
             Эврика — это современный детский клуб, где каждый ребёнок может раскрыть свой потенциал, найти друзей и с удовольствием проводить время.
         </p>
 
@@ -32,8 +32,8 @@ function renderAboutPage() {
                     </svg>
                 </div>
                 <div>
-                    <h3 class="text-sm sm:text-base font-bold text-navy leading-snug">Уютная и безопасная атмосфера</h3>
-                    <p class="text-xs text-navy/65 mt-0.5">Светлые игровые классы, экологичная мебель и забота о комфорте каждого малыша.</p>
+                    <h3 class="text-sm sm:text-base font-extrabold text-navy leading-snug">Уютная и безопасная атмосфера</h3>
+                    <p class="text-xs sm:text-sm text-navy font-medium mt-0.5">Светлые игровые классы, экологичная мебель и забота о комфорте каждого малыша.</p>
                 </div>
             </div>
 
@@ -45,8 +45,8 @@ function renderAboutPage() {
                     </svg>
                 </div>
                 <div>
-                    <h3 class="text-sm sm:text-base font-bold text-navy leading-snug">Индивидуальный подход к каждому ребёнку</h3>
-                    <p class="text-xs text-navy/65 mt-0.5">Небольшие группы до 8–10 детей позволяют уделить максимум внимания каждому.</p>
+                    <h3 class="text-sm sm:text-base font-extrabold text-navy leading-snug">Индивидуальный подход к каждому ребёнку</h3>
+                    <p class="text-xs sm:text-sm text-navy font-medium mt-0.5">Небольшие группы до 8–10 детей позволяют уделить максимум внимания каждому.</p>
                 </div>
             </div>
 
@@ -58,8 +58,8 @@ function renderAboutPage() {
                     </svg>
                 </div>
                 <div>
-                    <h3 class="text-sm sm:text-base font-bold text-navy leading-snug">Развитие, творчество, дружба</h3>
-                    <p class="text-xs text-navy/65 mt-0.5">Гармоничное сочетание интеллектуальных, творческих и подвижных занятий.</p>
+                    <h3 class="text-sm sm:text-base font-extrabold text-navy leading-snug">Развитие, творчество, дружба</h3>
+                    <p class="text-xs sm:text-sm text-navy font-medium mt-0.5">Гармоничное сочетание интеллектуальных, творческих и подвижных занятий.</p>
                 </div>
             </div>
         </div>

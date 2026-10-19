@@ -96,7 +96,7 @@ function renderHomePage() {
                     </div>
                 </div>
 
-                <p class="text-sm sm:text-base text-navy/90 font-bold leading-relaxed mb-3 max-w-lg">
+                <p class="text-sm sm:text-base text-navy font-extrabold leading-relaxed mb-3 max-w-lg">
                     ${SITE_DATA.clubInfo.subTagline}
                 </p>
 

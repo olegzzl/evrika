@@ -13,11 +13,11 @@ function renderProgramPage() {
                     ${getProgramIcon(prog.icon)}
                 </div>
                 <div>
-                    <h3 class="text-sm sm:text-base font-bold text-navy leading-snug">${prog.title}</h3>
-                    <span class="inline-block text-[11px] font-semibold text-navy/65 mt-0.5">Возраст: ${prog.age} • Нажмите для подробностей</span>
+                    <h3 class="text-sm sm:text-base font-extrabold text-navy leading-snug">${prog.title}</h3>
+                    <span class="inline-block text-[11px] font-bold text-navy mt-0.5">Возраст: ${prog.age} • Нажмите для подробностей</span>
                 </div>
             </div>
-            <svg class="w-4 h-4 text-navy/50 shrink-0" fill="none" stroke="currentColor" stroke-width="2.2" viewBox="0 0 24 24">
+            <svg class="w-4 h-4 text-navy/80 shrink-0" fill="none" stroke="currentColor" stroke-width="2.2" viewBox="0 0 24 24">
                 <path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7"/>
             </svg>
         </div>
@@ -27,7 +27,7 @@ function renderProgramPage() {
     <section class="page-transition max-w-3xl mx-auto">
         <h1 class="text-2xl sm:text-3xl font-extrabold text-navy mb-2.5">Наша программа</h1>
         
-        <p class="text-sm sm:text-base text-navy/85 leading-relaxed mb-5">
+        <p class="text-sm sm:text-base text-navy font-medium leading-relaxed mb-5">
             Мы предлагаем комплексную программу развития для детей от 3 до 10 лет.
         </p>
 
@@ -36,7 +36,7 @@ function renderProgramPage() {
             ${cardsHtml}
         </div>
 
-        <p class="text-xs sm:text-sm text-navy/80 leading-relaxed mb-6">
+        <p class="text-xs sm:text-sm text-navy font-medium leading-relaxed mb-6">
             Занятия проходят в игровой форме, с учётом возраста и индивидуальных особенностей каждого ребёнка.
         </p>
 
@@ -46,15 +46,15 @@ function renderProgramPage() {
             <div class="grid grid-cols-1 sm:grid-cols-3 gap-2.5 text-xs">
                 <div class="p-3 rounded-2xl bg-milk">
                     <div class="font-extrabold text-brand-blue">Малыши 3–4 года</div>
-                    <div class="text-navy/70 mt-1">Сенсорика, речь, музыкально-ритмические игры и творчество.</div>
+                    <div class="text-navy font-medium mt-1">Сенсорика, речь, музыкально-ритмические игры и творчество.</div>
                 </div>
                 <div class="p-3 rounded-2xl bg-milk">
                     <div class="font-extrabold text-amber-600">Почемучки 5–6 лет</div>
-                    <div class="text-navy/70 mt-1">Подготовка к школе, английский, творчество и шахматы.</div>
+                    <div class="text-navy font-medium mt-1">Подготовка к школе, английский, творчество и шахматы.</div>
                 </div>
                 <div class="p-3 rounded-2xl bg-milk">
                     <div class="font-extrabold text-emerald-600">Школьники 7–10 лет</div>
-                    <div class="text-navy/70 mt-1">Инженерные проекты, разговорный английский, арт и турниры.</div>
+                    <div class="text-navy font-medium mt-1">Инженерные проекты, разговорный английский, арт и турниры.</div>
                 </div>
             </div>
         </div>

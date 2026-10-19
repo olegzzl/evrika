@@ -10,7 +10,7 @@ function renderContactsPage() {
     return `
     <section class="page-transition max-w-3xl mx-auto">
         <h1 class="text-2xl sm:text-3xl font-extrabold text-navy mb-2">Контакты</h1>
-        <p class="text-sm sm:text-base text-navy/80 leading-relaxed mb-5">
+        <p class="text-sm sm:text-base text-navy font-medium leading-relaxed mb-5">
             Мы всегда на связи!<br>Звоните, пишите, приходите в гости.
         </p>
 
@@ -27,7 +27,7 @@ function renderContactsPage() {
                     <a href="tel:${SITE_DATA.clubInfo.phone}" class="text-sm sm:text-base font-extrabold text-navy hover:text-brand-blue transition">
                         ${SITE_DATA.clubInfo.phone}
                     </a>
-                    <p class="text-xs text-navy/65">${SITE_DATA.clubInfo.workHours}</p>
+                    <p class="text-xs text-navy font-bold">${SITE_DATA.clubInfo.workHours}</p>
                 </div>
             </div>
 
@@ -97,7 +97,7 @@ function renderContactsPage() {
                     </svg>
                     <div>
                         <div class="text-xs font-extrabold text-navy leading-none">Эврика</div>
-                        <div class="text-[10px] text-navy/65 mt-0.5">ул. Любови Малой, 22</div>
+                        <div class="text-[10px] text-navy font-bold mt-0.5">ул. Любови Малой, 22</div>
                     </div>
                 </div>
             </div>
@@ -112,7 +112,7 @@ function renderContactsPage() {
         <!-- Встроенная форма обратной связи -->
         <div class="bg-white rounded-3xl p-5 shadow-card border border-slate-100">
             <h3 class="text-base font-extrabold text-navy mb-1">Форма обратной связи</h3>
-            <p class="text-xs text-navy/70 mb-4">Задайте вопрос или запишитесь на экскурсию по клубу</p>
+            <p class="text-xs text-navy font-medium mb-4">Задайте вопрос или запишитесь на экскурсию по клубу</p>
             <form onsubmit="submitInlineContactForm(event)" class="space-y-3">
                 <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
                     <input type="text" id="inline-name" required placeholder="Ваше имя *" class="w-full px-4 py-2.5 rounded-2xl bg-milk border border-slate-200 text-xs sm:text-sm text-navy focus:outline-none focus:border-brand-blue">

@@ -30,7 +30,7 @@ function renderCalendarPage() {
             `;
         } else {
             calendarCellsHtml += `
-                <button onclick="selectCalendarDay(${d})" class="w-8 h-8 mx-auto rounded-full text-navy/80 hover:bg-slate-100 font-semibold text-xs flex items-center justify-center transition ${isSelected ? 'bg-pastel-yellow font-extrabold' : ''}">
+                <button onclick="selectCalendarDay(${d})" class="w-8 h-8 mx-auto rounded-full text-navy hover:bg-slate-100 font-bold text-xs flex items-center justify-center transition ${isSelected ? 'bg-pastel-yellow font-extrabold' : ''}">
                     ${d}
                 </button>
             `;
@@ -50,7 +50,7 @@ function renderCalendarPage() {
                 </div>
                 <div>
                     <h3 class="text-xs sm:text-sm font-extrabold text-navy leading-snug">${ev.title}</h3>
-                    <p class="text-[11px] text-navy/65 mt-0.5">${ev.time} • ${ev.age}</p>
+                    <p class="text-[11px] text-navy font-bold mt-0.5">${ev.time} • ${ev.age}</p>
                 </div>
             </div>
             <span class="text-[11px] font-bold text-brand-blue shrink-0 px-2.5 py-1 rounded-full bg-pastel-blue/60 hover:bg-brand-blue hover:text-white transition">
@@ -82,7 +82,7 @@ function renderCalendarPage() {
             </div>
 
             <!-- Дни недели -->
-            <div class="grid grid-cols-7 text-center text-[11px] font-bold text-navy/50 mb-2">
+            <div class="grid grid-cols-7 text-center text-[11px] font-extrabold text-navy mb-2">
                 <div>Пн</div><div>Вт</div><div>Ср</div><div>Чт</div><div>Пт</div><div>Сб</div><div>Вс</div>
             </div>
 
