@@ -159,55 +159,55 @@ const SITE_DATA = {
         }
     ],
 
-    // Галерея (Экран 7 референса — 8 ярких фотографий в 2 колонки)
+    // Галерея (8 реальных фотографий клуба из папки Club photoes/Gallery)
     gallery: [
         {
             id: 'g1',
-            title: 'Урок рисования и раскраски',
-            category: 'Творчество',
-            image: 'https://images.unsplash.com/photo-1503454537195-1dcabb73ffb9?auto=format&fit=crop&w=600&q=80'
+            title: 'Пикник и активные игры на свежем воздухе',
+            category: 'Игры',
+            image: 'Club photoes/Gallery/photo_1_2026-10-19_17-25-14.jpg'
         },
         {
             id: 'g2',
-            title: 'Занятия в дружной группе',
+            title: 'Праздничный выезд и вкусные угощения',
             category: 'Атмосфера',
-            image: 'https://images.unsplash.com/photo-1587654780291-39c9404d746b?auto=format&fit=crop&w=600&q=80'
+            image: 'Club photoes/Gallery/photo_2_2026-10-19_17-25-14.jpg'
         },
         {
             id: 'g3',
-            title: 'Весёлые переменки с друзьями',
-            category: 'Игры',
-            image: 'https://images.unsplash.com/photo-1516627145497-ae6968895b74?auto=format&fit=crop&w=600&q=80'
+            title: 'Дружная команда клуба на экскурсии',
+            category: 'Атмосфера',
+            image: 'Club photoes/Gallery/photo_3_2026-10-19_17-25-14.jpg'
         },
         {
             id: 'g4',
-            title: 'Пальчиковые краски и фантазия',
-            category: 'Творчество',
-            image: 'https://images.unsplash.com/photo-1560421683-6856ea585c78?auto=format&fit=crop&w=600&q=80'
+            title: 'Торжественные встречи и клубные события',
+            category: 'Атмосфера',
+            image: 'Club photoes/Gallery/photo_4_2026-10-19_17-25-14.jpg'
         },
         {
             id: 'g5',
-            title: 'Конструирование и моделирование',
+            title: 'Костюмированный праздник и квесты',
             category: 'Игры',
-            image: 'https://images.unsplash.com/photo-1581092335397-9583fe92d232?auto=format&fit=crop&w=600&q=80'
+            image: 'Club photoes/Gallery/photo_5_2026-10-19_17-25-14.jpg'
         },
         {
             id: 'g6',
-            title: 'Совместные настольные игры',
-            category: 'Игры',
-            image: 'https://images.unsplash.com/photo-1545558014-8692077e9b5c?auto=format&fit=crop&w=600&q=80'
+            title: 'Совместные клубные праздники и чаепития',
+            category: 'Атмосфера',
+            image: 'Club photoes/Gallery/photo_6_2026-10-19_17-25-14.jpg'
         },
         {
             id: 'g7',
-            title: 'Творческие развивающие занятия',
+            title: 'Арт-грим и творческие образы',
             category: 'Творчество',
-            image: 'https://images.unsplash.com/photo-1485546246426-74dc88dec4d9?auto=format&fit=crop&w=600&q=80'
+            image: 'Club photoes/Gallery/photo_7_2026-10-19_17-25-14.jpg'
         },
         {
             id: 'g8',
-            title: 'Развитие мелкой моторики',
-            category: 'Атмосфера',
-            image: 'https://images.unsplash.com/photo-1596464716127-f2a82984de30?auto=format&fit=crop&w=600&q=80'
+            title: 'Совместное рисование и арт-мастерская',
+            category: 'Творчество',
+            image: 'Club photoes/Gallery/photo_8_2026-10-19_17-25-14.jpg'
         }
     ],
 
