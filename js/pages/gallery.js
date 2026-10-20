@@ -31,8 +31,10 @@ function renderGalleryPage() {
         `;
     }).join('');
 
-    const photosGridHtml = filteredPhotos.map(photo => `
-        <div onclick="openGalleryLightbox('${photo.id}')" class="group relative rounded-2xl overflow-hidden shadow-card bg-white aspect-[4/3] cursor-pointer">
+    const photosGridHtml = filteredPhotos.map((photo, idx) => `
+        <div onclick="openGalleryLightbox('${photo.id}')" 
+             style="--stagger-delay: ${(idx % 8) * 55}ms"
+             class="reveal-card card-hover-lift group relative rounded-2xl overflow-hidden shadow-card bg-white aspect-[4/3] cursor-pointer">
             <img src="${photo.image}" 
                  alt="${photo.title}"
                  onerror="this.src='https://placehold.co/400x300/FEF3C7/1E3A5F?text=Evrika'"
@@ -45,13 +47,13 @@ function renderGalleryPage() {
 
     return `
     <section class="page-transition max-w-3xl mx-auto">
-        <h1 class="text-2xl sm:text-3xl font-extrabold text-navy mb-2">${gp.title || 'Галерея'}</h1>
-        <p class="text-sm sm:text-base text-navy font-medium mb-4">
+        <h1 class="reveal-on-scroll text-2xl sm:text-3xl font-extrabold text-navy mb-2">${gp.title || 'Галерея'}</h1>
+        <p class="reveal-on-scroll text-sm sm:text-base text-navy font-medium mb-4">
             ${gp.description || 'Як проходить життя в нашому клубі — дивіться на світлинах!'}
         </p>
 
         <!-- Фильтр категорий -->
-        <div class="flex items-center gap-1.5 overflow-x-auto pb-2 mb-4">
+        <div class="reveal-on-scroll flex items-center gap-1.5 overflow-x-auto pb-2 mb-4">
             ${filterButtonsHtml}
         </div>
 
@@ -71,10 +73,16 @@ function setGalleryFilter(categoryId) {
     const section = document.getElementById('section-gallery');
     if (section) {
         section.innerHTML = renderGalleryPage();
+        if (typeof initAppearanceAnimations === 'function') {
+            initAppearanceAnimations(section);
+        }
     } else {
         const container = document.getElementById('main-content');
         if (container) {
             container.innerHTML = renderGalleryPage();
+            if (typeof initAppearanceAnimations === 'function') {
+                initAppearanceAnimations(container);
+            }
         }
     }
 }

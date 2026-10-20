@@ -11,11 +11,13 @@
 
 function renderHomePage() {
     // 8 пунктов Верхнего меню точно как на референсе Верхнее меню.jpg
-    const topMenuButtonsHtml = (SITE_DATA.topMenuItems || []).map(item => {
+    const topMenuButtonsHtml = (SITE_DATA.topMenuItems || []).map((item, idx) => {
         const clickHandler = `navigateTo('${item.id}')`;
 
         return `
-            <button onclick="${clickHandler}" class="flex flex-col items-center justify-start group cursor-pointer transition transform active:scale-95 py-1 px-1 rounded-2xl hover:bg-slate-50">
+            <button onclick="${clickHandler}" 
+                    style="--stagger-delay: ${idx * 40}ms"
+                    class="reveal-card flex flex-col items-center justify-start group cursor-pointer transition transform active:scale-95 py-1 px-1 rounded-2xl hover:bg-slate-50">
                 <div class="w-10 h-10 sm:w-12 sm:h-12 flex items-center justify-center mb-0.5 group-hover:scale-110 transition duration-200">
                     ${getTopMenuIcon(item.icon)}
                 </div>
@@ -89,7 +91,7 @@ function renderHomePage() {
             
             <!-- Приветственный блок (Hero) -->
             <div class="shrink-0 pt-1">
-                <div class="flex items-center justify-between gap-2 mb-2">
+                <div class="reveal-on-scroll flex items-center justify-between gap-2 mb-2">
                     <h1 class="text-[28px] sm:text-3xl md:text-4xl font-black text-navy leading-[1.15] tracking-tight">
                         ${hp.heroTitle || 'Місце, де<br>дитинство стає<br>яскравішим!'}
                     </h1>
@@ -99,12 +101,12 @@ function renderHomePage() {
                     </div>
                 </div>
 
-                <p class="text-sm sm:text-base text-navy font-extrabold leading-relaxed mb-3 max-w-lg">
+                <p class="reveal-on-scroll text-sm sm:text-base text-navy font-extrabold leading-relaxed mb-3 max-w-lg">
                     ${SITE_DATA.clubInfo.subTagline}
                 </p>
 
                 <!-- Крупные кнопки действия: одинаковая геометрия, без лишних обводок и эффектов -->
-                <div class="grid grid-cols-2 gap-3 sm:gap-4 w-full mt-3.5 mb-1.5">
+                <div class="reveal-card grid grid-cols-2 gap-3 sm:gap-4 w-full mt-3.5 mb-1.5">
                     <button onclick="navigateTo('about')" class="w-full py-3.5 sm:py-4 px-3 sm:px-4 rounded-[30px] sm:rounded-[36px] bg-[#FDE047] hover:bg-[#FACC15] text-navy font-black text-sm sm:text-base shadow-sm transition transform active:scale-95 flex items-center justify-center text-center">
                         ${ui.learnMore || 'Дізнатися більше'}
                     </button>
@@ -115,7 +117,7 @@ function renderHomePage() {
             </div>
 
             <!-- Карточка с 8 иконками: верхняя граница для центрирования горизонта карусели -->
-            <div id="home-top-menu-card" class="bg-white/95 backdrop-blur-md rounded-3xl px-3 py-2 sm:px-5 sm:py-3 shadow-soft border border-white z-20 mt-3.5 sm:mt-4 mb-0 shrink-0">
+            <div id="home-top-menu-card" class="reveal-card bg-white/95 backdrop-blur-md rounded-3xl px-3 py-2 sm:px-5 sm:py-3 shadow-soft border border-white z-20 mt-3.5 sm:mt-4 mb-0 shrink-0">
                 <div class="grid grid-cols-4 gap-y-1.5 sm:gap-y-2 gap-x-1 sm:gap-x-3">
                     ${topMenuButtonsHtml}
                 </div>
@@ -124,7 +126,7 @@ function renderHomePage() {
         </div>
 
         <!-- Интерактивная карусель фотографий -->
-        <div class="carousel-horizon-wrapper relative w-full flex-1 flex flex-col justify-center items-center z-20 my-auto py-2 sm:py-4">
+        <div class="carousel-horizon-wrapper reveal-on-scroll relative w-full flex-1 flex flex-col justify-center items-center z-20 my-auto py-2 sm:py-4">
             <!-- Стрелка влево -->
             <button onclick="scrollHeroCarousel(-1)" aria-label="${ui.prevPhoto || 'Попередня світлина'}" class="absolute left-2 sm:left-4 top-1/2 -translate-y-1/2 z-30 w-8 h-8 rounded-full bg-white/95 shadow-card border border-slate-200/60 flex items-center justify-center text-navy hover:bg-white active:scale-90 transition">
                 <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M15 19l-7-7 7-7"/></svg>

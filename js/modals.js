@@ -6,7 +6,7 @@
  */
 
 /**
- * Открытие модального окна записи
+ * Открытие модального окна записи с плавной анимацией
  */
 function openBookingModal(directionText = 'Пробне заняття') {
     const modal = document.getElementById('booking-modal');
@@ -16,6 +16,13 @@ function openBookingModal(directionText = 'Пробне заняття') {
     }
     if (modal) {
         modal.classList.remove('hidden');
+        modal.classList.add('flex', 'modal-backdrop-appear');
+        const card = modal.querySelector('.modal-content-appear');
+        if (card) {
+            card.style.animation = 'none';
+            card.offsetHeight; // reflow
+            card.style.animation = '';
+        }
     }
 }
 
@@ -26,6 +33,24 @@ function closeBookingModal() {
     const modal = document.getElementById('booking-modal');
     if (modal) {
         modal.classList.add('hidden');
+        modal.classList.remove('flex', 'modal-backdrop-appear');
+    }
+}
+
+/**
+ * Вспомогательная функция для плавного показа модального окна деталей
+ */
+function showDetailModal() {
+    const modal = document.getElementById('detail-modal');
+    if (modal) {
+        modal.classList.remove('hidden');
+        modal.classList.add('flex', 'modal-backdrop-appear');
+        const body = document.getElementById('detail-modal-body');
+        if (body) {
+            body.style.animation = 'none';
+            body.offsetHeight; // reflow
+            body.style.animation = '';
+        }
     }
 }
 
@@ -108,7 +133,7 @@ function openClubDetail(clubId) {
             </button>
         </div>
     `;
-    modal.classList.remove('hidden');
+    showDetailModal();
 }
 
 /**
@@ -147,7 +172,7 @@ function openProgramDetail(progId) {
             </button>
         </div>
     `;
-    modal.classList.remove('hidden');
+    showDetailModal();
 }
 
 /**
@@ -186,7 +211,7 @@ function openTeacherDetail(teacherId) {
             </button>
         </div>
     `;
-    modal.classList.remove('hidden');
+    showDetailModal();
 }
 
 /**
@@ -222,7 +247,7 @@ function openGalleryLightbox(photoId) {
     if (!modal || !body) return;
 
     renderGalleryLightboxModal(body);
-    modal.classList.remove('hidden');
+    showDetailModal();
 
     // Подключаем стрелки клавиатуры (← → Esc) и свайпы для мобильных
     setupGalleryLightboxListeners();
@@ -522,6 +547,7 @@ function closeDetailModal() {
     const modal = document.getElementById('detail-modal');
     if (modal) {
         modal.classList.add('hidden');
+        modal.classList.remove('flex', 'modal-backdrop-appear');
     }
     destroyGalleryLightboxListeners();
 }
@@ -589,7 +615,7 @@ function openReviewsModal() {
             </div>
         </div>
     `;
-    modal.classList.remove('hidden');
+    showDetailModal();
 }
 
 /**
@@ -650,5 +676,5 @@ function openProfileModal() {
             </div>
         </div>
     `;
-    modal.classList.remove('hidden');
+    showDetailModal();
 }

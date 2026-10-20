@@ -75,6 +75,7 @@ function renderAllSections() {
 
     renderNavigationElements();
     initScrollSpy();
+    initAppearanceAnimations();
 }
 
 /**
@@ -251,6 +252,46 @@ function initScrollSpy() {
             isTicking = true;
         }
     }, { passive: true });
+}
+
+/**
+ * Инициализация плавной анимации появления элементов и карточек (Scroll Reveal & Stagger)
+ */
+let appearanceObserver = null;
+
+function initAppearanceAnimations(root = document) {
+    // Режим пониженного движения в системе
+    if (window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+        root.querySelectorAll('.reveal-on-scroll, .reveal-card').forEach(el => el.classList.add('is-revealed'));
+        return;
+    }
+
+    // Если IntersectionObserver не поддерживается старыми браузерами
+    if (!('IntersectionObserver' in window)) {
+        root.querySelectorAll('.reveal-on-scroll, .reveal-card').forEach(el => el.classList.add('is-revealed'));
+        return;
+    }
+
+    if (!appearanceObserver) {
+        appearanceObserver = new IntersectionObserver((entries, observer) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('is-revealed');
+                    observer.unobserve(entry.target);
+                }
+            });
+        }, {
+            root: null,
+            rootMargin: '0px 0px -25px 0px',
+            threshold: 0.05
+        });
+    }
+
+    // Находим все нераскрытые элементы с классами reveal-on-scroll и reveal-card
+    const items = root.querySelectorAll('.reveal-on-scroll:not(.is-revealed), .reveal-card:not(.is-revealed)');
+    items.forEach(el => {
+        appearanceObserver.observe(el);
+    });
 }
 
 /**

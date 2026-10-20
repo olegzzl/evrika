@@ -12,15 +12,15 @@ function renderContactsPage() {
 
     return `
     <section class="page-transition max-w-3xl mx-auto">
-        <h1 class="text-2xl sm:text-3xl font-extrabold text-navy mb-2">${cp.title || 'Контакти'}</h1>
-        <p class="text-sm sm:text-base text-navy font-medium leading-relaxed mb-5">
+        <h1 class="reveal-on-scroll text-2xl sm:text-3xl font-extrabold text-navy mb-2">${cp.title || 'Контакти'}</h1>
+        <p class="reveal-on-scroll text-sm sm:text-base text-navy font-medium leading-relaxed mb-5">
             ${cp.subtitle || 'Ми завжди на зв\'язку!<br>Телефонуйте, пишіть, приходьте в гості.'}
         </p>
 
         <!-- 3 контактных блока с синими круглыми иконками (Экран 9) -->
         <div class="space-y-4 mb-6">
             <!-- Телефон -->
-            <div class="flex items-center gap-3.5">
+            <div style="--stagger-delay: 0ms" class="reveal-card card-hover-lift flex items-center gap-3.5 p-3 rounded-2xl bg-white/70 shadow-sm border border-white">
                 <div class="w-10 h-10 rounded-full bg-[#3B82F6] text-white flex items-center justify-center shrink-0 shadow-sm">
                     <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2.2" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"/>
@@ -35,7 +35,7 @@ function renderContactsPage() {
             </div>
 
             <!-- Адрес -->
-            <div class="flex items-center gap-3.5">
+            <div style="--stagger-delay: 80ms" class="reveal-card card-hover-lift flex items-center gap-3.5 p-3 rounded-2xl bg-white/70 shadow-sm border border-white">
                 <div class="w-10 h-10 rounded-full bg-[#3B82F6] text-white flex items-center justify-center shrink-0 shadow-sm">
                     <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2.2" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/>
@@ -53,7 +53,7 @@ function renderContactsPage() {
             </div>
 
             <!-- Почта -->
-            <div class="flex items-center gap-3.5">
+            <div style="--stagger-delay: 160ms" class="reveal-card card-hover-lift flex items-center gap-3.5 p-3 rounded-2xl bg-white/70 shadow-sm border border-white">
                 <div class="w-10 h-10 rounded-full bg-[#3B82F6] text-white flex items-center justify-center shrink-0 shadow-sm">
                     <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2.2" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/>
@@ -68,12 +68,12 @@ function renderContactsPage() {
         </div>
 
         <!-- Синяя овальная кнопка «Написать нам» -->
-        <button onclick="openBookingModal('${cp.modalSubject || 'Повідомлення зі сторінки Контакти'}')" class="w-full py-3.5 rounded-full bg-[#2563EB] hover:bg-[#1D4ED8] text-white font-extrabold text-sm shadow-sm transition mb-5">
+        <button onclick="openBookingModal('${cp.modalSubject || 'Повідомлення зі сторінки Контакти'}')" class="reveal-card w-full py-3.5 rounded-full bg-[#2563EB] hover:bg-[#1D4ED8] text-white font-extrabold text-sm shadow-sm transition mb-5 active:scale-98">
             ${ui.writeUs || 'Написати нам'}
         </button>
 
         <!-- Карта с пином -->
-        <div id="map-card" class="rounded-2xl overflow-hidden shadow-card border-2 border-white relative h-44 sm:h-56 bg-[#EEF2E6] mb-6">
+        <div id="map-card" class="reveal-card rounded-2xl overflow-hidden shadow-card border-2 border-white relative h-44 sm:h-56 bg-[#EEF2E6] mb-6">
             <svg class="w-full h-full object-cover" viewBox="0 0 400 220" preserveAspectRatio="none">
                 <rect width="400" height="220" fill="#F2EFE9"/>
                 <path d="M0 0 L120 0 L95 80 L0 60 Z" fill="#DCFCE7"/>
@@ -109,7 +109,7 @@ function renderContactsPage() {
         </div>
 
         <!-- Встроенная форма обратной связи -->
-        <div class="bg-white rounded-3xl p-5 shadow-card border border-slate-100">
+        <div class="reveal-card bg-white rounded-3xl p-5 shadow-card border border-slate-100">
             <h3 class="text-base font-extrabold text-navy mb-1">${cp.formTitle || 'Форма зворотного зв\'язку'}</h3>
             <p class="text-xs text-navy font-medium mb-4">${cp.formSubtitle || 'Поставте запитання або запишіться на екскурсію по клубу'}</p>
             <form onsubmit="submitInlineContactForm(event)" class="space-y-3">
@@ -118,7 +118,7 @@ function renderContactsPage() {
                     <input type="tel" id="inline-phone" required placeholder="${cp.phonePlaceholder || 'Ваш телефон *'}" class="w-full px-4 py-2.5 rounded-2xl bg-milk border border-slate-200 text-xs sm:text-sm text-navy focus:outline-none focus:border-brand-blue">
                 </div>
                 <textarea id="inline-msg" rows="2" placeholder="${cp.msgPlaceholder || 'Ваше повідомлення або вік дитини...'}" class="w-full px-4 py-2.5 rounded-2xl bg-milk border border-slate-200 text-xs sm:text-sm text-navy focus:outline-none focus:border-brand-blue"></textarea>
-                <button type="submit" class="px-6 py-2.5 rounded-full bg-brand-yellow hover:bg-brand-yellowHover text-navy font-extrabold text-xs sm:text-sm transition">
+                <button type="submit" class="px-6 py-2.5 rounded-full bg-brand-yellow hover:bg-brand-yellowHover text-navy font-extrabold text-xs sm:text-sm transition active:scale-95">
                     ${ui.sendMessage || 'Надіслати повідомлення'}
                 </button>
             </form>

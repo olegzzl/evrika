@@ -26,19 +26,122 @@ body {
 .logo-text span:nth-child(5) { color: #8B5CF6; } /* к */
 .logo-text span:nth-child(6) { color: #EC4899; } /* а */
 
-/* Плавная анимация переключения страниц */
+/* ==========================================================================
+   Плавная анимация появления элементов, карточек и секций (Scroll Reveal & Stagger)
+   ========================================================================== */
+
+/* Плавный переход для страниц/секций */
 .page-transition {
-    animation: fadeIn 0.28s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+    animation: fadeIn 0.35s cubic-bezier(0.16, 1, 0.3, 1) forwards;
 }
 
 @keyframes fadeIn {
     from { 
         opacity: 0; 
-        transform: translateY(8px); 
+        transform: translateY(10px); 
     }
     to { 
         opacity: 1; 
         transform: translateY(0); 
+    }
+}
+
+/* Базовый класс для плавного появления при скролле (заголовки, описания, текстовые блоки) */
+.reveal-on-scroll {
+    opacity: 0;
+    transform: translateY(22px);
+    transition: opacity 0.65s cubic-bezier(0.16, 1, 0.3, 1),
+                transform 0.65s cubic-bezier(0.16, 1, 0.3, 1);
+    will-change: opacity, transform;
+}
+
+.reveal-on-scroll.is-revealed {
+    opacity: 1;
+    transform: none;
+}
+
+/* Специальный класс для карточек: мягкий всплывающий подъем с деликатным масштабом */
+.reveal-card {
+    opacity: 0;
+    transform: translateY(26px) scale(0.975);
+    transition: opacity 0.6s cubic-bezier(0.16, 1, 0.3, 1),
+                transform 0.6s cubic-bezier(0.16, 1, 0.3, 1),
+                box-shadow 0.35s ease,
+                border-color 0.35s ease;
+    will-change: opacity, transform;
+}
+
+.reveal-card.is-revealed {
+    opacity: 1;
+    transform: none;
+}
+
+/* Поддержка переменной каскадной задержки (Stagger) */
+[style*="--stagger-delay"] {
+    transition-delay: var(--stagger-delay, 0s);
+}
+
+/* Мягкий hover-эффект для интерактивных карточек */
+.card-hover-lift {
+    transition: transform 0.28s cubic-bezier(0.16, 1, 0.3, 1),
+                box-shadow 0.28s cubic-bezier(0.16, 1, 0.3, 1),
+                border-color 0.28s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.card-hover-lift:hover {
+    transform: translateY(-3px);
+}
+
+.card-hover-lift:active {
+    transform: scale(0.985);
+}
+
+/* Плавные анимации всплывающих модальных окон */
+.modal-backdrop-appear {
+    animation: modalBackdropFadeIn 0.28s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+.modal-content-appear {
+    animation: modalCardScaleUp 0.32s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+    will-change: transform, opacity;
+}
+
+@keyframes modalBackdropFadeIn {
+    from {
+        opacity: 0;
+        backdrop-filter: blur(0px);
+        -webkit-backdrop-filter: blur(0px);
+    }
+    to {
+        opacity: 1;
+        backdrop-filter: blur(8px);
+        -webkit-backdrop-filter: blur(8px);
+    }
+}
+
+@keyframes modalCardScaleUp {
+    from {
+        opacity: 0;
+        transform: translateY(18px) scale(0.94);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+    }
+}
+
+/* Поддержка доступности: отключение анимации при prefers-reduced-motion */
+@media (prefers-reduced-motion: reduce) {
+    .reveal-on-scroll,
+    .reveal-card,
+    .card-hover-lift,
+    .modal-backdrop-appear,
+    .modal-content-appear,
+    .page-transition {
+        opacity: 1 !important;
+        transform: none !important;
+        transition: none !important;
+        animation: none !important;
     }
 }
 

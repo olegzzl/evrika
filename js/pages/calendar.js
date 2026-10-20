@@ -48,7 +48,7 @@ function renderCalendarPage() {
     }
 
     // Список карточек событий под календарём
-    const eventsListHtml = (SITE_DATA.calendarEvents || []).map(ev => {
+    const eventsListHtml = (SITE_DATA.calendarEvents || []).map((ev, idx) => {
         const isHighlighted = currentState.selectedCalendarDay === ev.day;
         const bookingPrompt = (typeof calP.bookingSubject === 'function')
             ? calP.bookingSubject(ev.title, ev.day, monthObj.short)
@@ -56,7 +56,8 @@ function renderCalendarPage() {
 
         return `
         <div onclick="openBookingModal('${bookingPrompt.replace(/'/g, "\\'")}')" 
-             class="flex items-center justify-between gap-3.5 p-3 rounded-2xl transition duration-200 cursor-pointer ${isHighlighted ? 'bg-white shadow-soft ring-2 ring-brand-blue border border-brand-blue/30' : 'bg-white shadow-sm border border-slate-100 hover:shadow-card hover:border-slate-200 active:scale-[0.99]'}">
+             style="--stagger-delay: ${idx * 60}ms"
+             class="reveal-card card-hover-lift flex items-center justify-between gap-3.5 p-3 rounded-2xl transition duration-200 cursor-pointer ${isHighlighted ? 'bg-white shadow-soft ring-2 ring-brand-blue border border-brand-blue/30' : 'bg-white shadow-sm border border-slate-100 hover:shadow-card hover:border-slate-200 active:scale-[0.99]'}">
             <div class="flex items-center gap-3.5">
                 <div class="w-11 h-11 rounded-full ${ev.badgeBg} ${ev.badgeText} flex flex-col items-center justify-center shrink-0 leading-none shadow-sm">
                     <span class="text-xs font-extrabold">${ev.day}</span>
@@ -79,19 +80,19 @@ function renderCalendarPage() {
 
     return `
     <section class="page-transition max-w-3xl mx-auto">
-        <h1 class="text-2xl sm:text-3xl font-extrabold text-navy mb-4">${calP.title || 'Календар подій'}</h1>
+        <h1 class="reveal-on-scroll text-2xl sm:text-3xl font-extrabold text-navy mb-4">${calP.title || 'Календар подій'}</h1>
 
         <!-- Карточка сетки календаря как на Экране 8 -->
-        <div class="bg-white rounded-3xl p-4 sm:p-5 shadow-card border border-slate-100 mb-5">
+        <div class="reveal-card bg-white rounded-3xl p-4 sm:p-5 shadow-card border border-slate-100 mb-5">
             <!-- Переключатель месяца -->
             <div class="flex items-center justify-between mb-4 px-2">
-                <button onclick="changeCalendarMonth(-1)" aria-label="${ui.prevMonth || 'Попередній місяць'}" class="w-8 h-8 rounded-full hover:bg-slate-100 flex items-center justify-center text-navy">
+                <button onclick="changeCalendarMonth(-1)" aria-label="${ui.prevMonth || 'Попередній місяць'}" class="w-8 h-8 rounded-full hover:bg-slate-100 flex items-center justify-center text-navy transition active:scale-90">
                     <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2.3" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" d="M15 19l-7-7 7-7"/>
                     </svg>
                 </button>
                 <div class="text-sm sm:text-base font-extrabold text-navy">${monthObj.name}</div>
-                <button onclick="changeCalendarMonth(1)" aria-label="${ui.nextMonth || 'Наступний місяць'}" class="w-8 h-8 rounded-full hover:bg-slate-100 flex items-center justify-center text-navy">
+                <button onclick="changeCalendarMonth(1)" aria-label="${ui.nextMonth || 'Наступний місяць'}" class="w-8 h-8 rounded-full hover:bg-slate-100 flex items-center justify-center text-navy transition active:scale-90">
                     <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2.3" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7"/>
                     </svg>
@@ -135,10 +136,16 @@ function changeCalendarMonth(delta) {
         const section = document.getElementById('section-calendar');
         if (section) {
             section.innerHTML = renderCalendarPage();
+            if (typeof initAppearanceAnimations === 'function') {
+                initAppearanceAnimations(section);
+            }
         } else {
             const container = document.getElementById('main-content');
             if (container) {
                 container.innerHTML = renderCalendarPage();
+                if (typeof initAppearanceAnimations === 'function') {
+                    initAppearanceAnimations(container);
+                }
             }
         }
     }
@@ -152,10 +159,16 @@ function selectCalendarDay(day) {
     const section = document.getElementById('section-calendar');
     if (section) {
         section.innerHTML = renderCalendarPage();
+        if (typeof initAppearanceAnimations === 'function') {
+            initAppearanceAnimations(section);
+        }
     } else {
         const container = document.getElementById('main-content');
         if (container) {
             container.innerHTML = renderCalendarPage();
+            if (typeof initAppearanceAnimations === 'function') {
+                initAppearanceAnimations(container);
+            }
         }
     }
 }
