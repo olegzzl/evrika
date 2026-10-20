@@ -166,19 +166,77 @@ body {
     border-radius: 9999px;
 }
 
-/* Солнышко в верхнем правом углу под хедером на главной */
-.hero-sun-box img {
-    animation: sunSlowSpin 40s linear infinite;
-    will-change: transform;
+/* Lottie анимация в верхнем правом углу под хедером на главной (вместо солнышка) */
+.hero-lottie-box {
+    position: relative;
+    z-index: 20;
+    filter: drop-shadow(0 6px 14px rgba(37, 99, 235, 0.12));
+    transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
-@keyframes sunSlowSpin {
-    from {
-        transform: rotate(0deg);
-    }
-    to {
-        transform: rotate(360deg);
-    }
+.hero-lottie-box:hover {
+    transform: scale(1.06);
+}
+
+.hero-lottie-box svg {
+    width: 100% !important;
+    height: 100% !important;
+    overflow: visible !important;
+}
+
+/* Lottie анимация зеркального диско-шара в блоке "О клубе" напротив кнопок */
+.about-lottie-mirror-ball-box {
+    position: relative;
+    z-index: 20;
+    filter: drop-shadow(0 6px 16px rgba(124, 58, 237, 0.16));
+    transition: transform 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.about-lottie-mirror-ball-box:hover {
+    transform: scale(1.08) rotate(4deg);
+}
+
+.about-lottie-mirror-ball-box svg {
+    width: 100% !important;
+    height: 100% !important;
+    overflow: visible !important;
+}
+
+/* Lottie анимация синего персонажа в блоке "О клубе" справа от заголовка */
+.about-mood-character-box {
+    position: relative;
+    z-index: 10;
+    filter: drop-shadow(0 2px 6px rgba(0, 160, 255, 0.25));
+    transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1), filter 0.3s ease;
+}
+
+.about-mood-character-box:hover {
+    transform: scale(1.15) rotate(4deg);
+    filter: drop-shadow(0 4px 10px rgba(0, 160, 255, 0.35));
+}
+
+.about-mood-character-box svg {
+    width: 100% !important;
+    height: 100% !important;
+    overflow: visible !important;
+}
+
+/* Lottie анимация одного персонажа в блоке "Гуртки" (без белого фона) */
+.clubs-lottie-moods-box {
+    position: relative;
+    z-index: 10;
+    transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1), filter 0.3s ease;
+    filter: drop-shadow(0 8px 18px rgba(0, 160, 255, 0.22));
+}
+
+.clubs-lottie-moods-box:hover {
+    transform: scale(1.08) rotate(3deg);
+}
+
+.clubs-lottie-moods-box svg {
+    width: 100% !important;
+    height: 100% !important;
+    overflow: visible !important;
 }
 
 

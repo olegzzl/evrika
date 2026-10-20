@@ -77,8 +77,9 @@ function renderHomePage() {
         </div>
     `).join('');
 
-    // Запуск автоскролла после рендера страницы
+    // Запуск автоскролла и Lottie анимации после рендера страницы
     setTimeout(initHeroCarousel, 50);
+    setTimeout(initHeroLottie, 50);
 
     const hp = SITE_DATA.homePage || {};
     const ui = SITE_DATA.ui || {};
@@ -95,9 +96,9 @@ function renderHomePage() {
                     <h1 class="text-[28px] sm:text-3xl md:text-4xl font-black text-navy leading-[1.15] tracking-tight">
                         ${hp.heroTitle || 'Місце, де<br>дитинство стає<br>яскравішим!'}
                     </h1>
-                    <!-- Солнышко в верхнем правом углу -->
-                    <div class="hero-sun-box shrink-0 select-none pointer-events-none">
-                        <img src="Club photoes/Sun.png" alt="${hp.sunAlt || 'Сонечко'}" class="w-[76px] h-[76px] sm:w-[88px] sm:h-[88px] md:w-[96px] md:h-[96px] object-contain drop-shadow-sm">
+                    <!-- Lottie анимация (парень на самокате) вместо солнышка -->
+                    <div id="hero-lottie-box" class="hero-lottie-box shrink-0 select-none cursor-pointer w-[135px] h-[135px] sm:w-[162px] sm:h-[162px] md:w-[186px] md:h-[186px] flex items-center justify-center -mr-1 -mt-1" title="Дитячий клуб «Еврика»">
+                        <div id="hero-lottie-player" class="w-full h-full flex items-center justify-center"></div>
                     </div>
                 </div>
 
@@ -256,5 +257,34 @@ function scrollHeroCarousel(direction) {
 
     const step = 250; // шаг одной фигурной формы
     el.scrollBy({ left: direction * step, behavior: 'smooth' });
+}
+
+// Экземпляр Lottie анимации на главной
+let heroLottieAnim = null;
+
+function initHeroLottie() {
+    const container = document.getElementById('hero-lottie-player');
+    if (!container || typeof lottie === 'undefined') return;
+
+    if (heroLottieAnim) {
+        try {
+            heroLottieAnim.destroy();
+        } catch (e) {}
+        heroLottieAnim = null;
+    }
+
+    try {
+        const animData = window.LOTTIE_SCOOTER_DATA;
+        heroLottieAnim = lottie.loadAnimation({
+            container: container,
+            renderer: 'svg',
+            loop: true,
+            autoplay: true,
+            animationData: animData || undefined,
+            path: animData ? undefined : 'Lottie animation/male-investor-riding-scooter.json'
+        });
+    } catch (err) {
+        console.error('Ошибка инициализации Lottie анимации:', err);
+    }
 }
 
