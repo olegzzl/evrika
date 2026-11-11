@@ -1,0 +1,15 @@
+{
+  "name": "evrika",
+  "version": "1.0.0",
+  "description": "Дитячий клуб «Еврика» — Харків",
+  "main": "index.html",
+  "scripts": {
+    "test": "echo \"No tests specified\" && exit 0"
+  },
+  "keywords": ["evrika", "kids-club", "kharkiv"],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "@vercel/analytics": "^1.4.1"
+  }
+}
